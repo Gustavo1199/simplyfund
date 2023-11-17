@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Simplyfund.Api.props" />
+</Project>

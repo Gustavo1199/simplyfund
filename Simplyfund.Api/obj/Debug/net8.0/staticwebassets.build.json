@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GTnr5ihQ5vLBZLgAUSW5sbCNhqYx7o1RqDFBMp2cB+M=",
+  "Source": "Simplyfund.Api",
+  "BasePath": "_content/Simplyfund.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
