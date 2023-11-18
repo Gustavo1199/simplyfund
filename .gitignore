@@ -19,7 +19,9 @@
 /Simplyfund.Bll/obj/Debug/net8.0
 /Simplyfund.Bll/obj/Release/net8.0
 /Simplyfund.Bll/obj
-/Simplyfund.Dal
-/SimplyFund.Domain
+/Simplyfund.Dal/bin
+/Simplyfund.Dal/obj
+/SimplyFund.Domain/bin
+/SimplyFund.Domain/obj
 /Simplyfund.GeneralConfiguration/bin/Debug/net8.0
 /Simplyfund.GeneralConfiguration/obj
