@@ -9,6 +9,9 @@
       "Simplyfund.Api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "8.0.0",
+          "SimplyFund.Domain": "1.0.0",
+          "Simplyfund.Bll": "1.0.0",
+          "Simplyfund.GeneralConfiguration": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
@@ -72,6 +75,46 @@
             "fileVersion": "6.4.0.0"
           }
         }
+      },
+      "Simplyfund.Bll/1.0.0": {
+        "dependencies": {
+          "SimplyFund.Domain": "1.0.0",
+          "Simplyfund.Dal": "1.0.0",
+          "Simplyfund.Library": "1.0.0"
+        },
+        "runtime": {
+          "Simplyfund.Bll.dll": {}
+        }
+      },
+      "Simplyfund.Dal/1.0.0": {
+        "dependencies": {
+          "SimplyFund.Domain": "1.0.0",
+          "Simplyfund.Library": "1.0.0"
+        },
+        "runtime": {
+          "Simplyfund.Dal.dll": {}
+        }
+      },
+      "SimplyFund.Domain/1.0.0": {
+        "runtime": {
+          "SimplyFund.Domain.dll": {}
+        }
+      },
+      "Simplyfund.GeneralConfiguration/1.0.0": {
+        "dependencies": {
+          "SimplyFund.Domain": "1.0.0",
+          "Simplyfund.Bll": "1.0.0",
+          "Simplyfund.Dal": "1.0.0",
+          "Simplyfund.Library": "1.0.0"
+        },
+        "runtime": {
+          "Simplyfund.GeneralConfiguration.dll": {}
+        }
+      },
+      "Simplyfund.Library/1.0.0": {
+        "runtime": {
+          "Simplyfund.Library.dll": {}
+        }
       }
     }
   },
@@ -129,6 +172,31 @@
       "sha512": "sha512-1Hh3atb3pi8c+v7n4/3N80Jj8RvLOXgWxzix6w3OZhB7zBGRwsy7FWr4e3hwgPweSBpwfElqj4V4nkjYabH9nQ==",
       "path": "swashbuckle.aspnetcore.swaggerui/6.4.0",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+    },
+    "Simplyfund.Bll/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Simplyfund.Dal/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimplyFund.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Simplyfund.GeneralConfiguration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Simplyfund.Library/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
