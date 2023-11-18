@@ -17,6 +17,6 @@ namespace Simplyfund.Dal.DataBase
         }
 
 
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Customers> Customers { get; set; }
     }
 }

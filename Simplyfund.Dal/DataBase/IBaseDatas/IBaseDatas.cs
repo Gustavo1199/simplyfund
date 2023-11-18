@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Dal.DataBase.IBaseData
 {
-    public interface IBaseData<T> where T : class
+    public interface IBaseDatas<T> where T : class
     {
         T GetById(int id);
         IEnumerable<T> GetAll();

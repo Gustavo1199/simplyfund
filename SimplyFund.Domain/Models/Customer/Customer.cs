@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Models.Client
 {
-    public class Customer : BaseEntity
+    public class Customers : BaseEntity
     {
         [Required]
         [MaxLength(50)]

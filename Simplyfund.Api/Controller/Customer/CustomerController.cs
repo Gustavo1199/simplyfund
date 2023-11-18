@@ -6,9 +6,9 @@ using SimplyFund.Domain.Models.Client;
 namespace Simplyfund.Api.Controller.Client
 {
     [Route("api/[controller]")]
-    public class ClientController : BaseController<Customer>
+    public class CustomerController : BaseController<Customers>
     {
-        public ClientController(IBaseServices<Customer> baseServices) : base(baseServices)
+        public CustomerController(IBaseServices<Customers> baseServices) : base(baseServices)
         {
         }
     }

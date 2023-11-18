@@ -1,3 +1,5 @@
+using Simplyfund.Bll.Services.BaseServices;
+using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.GeneralConfiguration.Dependecy;
 
 

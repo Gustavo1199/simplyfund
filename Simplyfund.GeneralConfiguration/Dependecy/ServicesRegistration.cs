@@ -29,14 +29,16 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #endregion
 
             //Dependecy Inyeccion
-            services.AddScoped(typeof(BaseData<>));
+   
+            services.AddScoped(typeof(IBaseServices<>), typeof(BaseService<>));
 
-            services.AddScoped(typeof(IBaseData<>), typeof(BaseData<>));
-            services.AddScoped(typeof(BaseServices<>));
-            services.AddScoped(typeof(IBaseServices<>), typeof(BaseServices<>));
+            services.AddScoped(typeof(IBaseDatas<>), typeof(BaseDatas<>));
 
-            services.AddScoped(typeof(IBaseServices<>));
-            services.AddScoped(typeof(IBaseData<>));
+
+            //services.AddScoped(typeof(IBaseServices<>));
+            //services.AddScoped(typeof(IBaseData<>));
+            //services.AddScoped(typeof(BaseData<>));
+
 
 
 

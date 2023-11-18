@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Dal.Data.BaseData
 {
-    public abstract class BaseData<T> : IBaseData<T> where T : class
+    public  class BaseDatas<T> : IBaseDatas<T> where T : class
     {
 
         private readonly SimplyfundContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public BaseData(SimplyfundContext context)
+        public BaseDatas(SimplyfundContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<T>();

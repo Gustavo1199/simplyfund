@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Bll.Services.BaseServices
 {
-    public abstract class BaseServices<T> : IBaseServices<T> where T : class
+    public class BaseService<T> : IBaseServices<T> where T : class
     {
-         IBaseData<T> baseModel;
-        public BaseServices(IBaseData<T> baseModel)
+         IBaseDatas<T> baseModel;
+        public BaseService(IBaseDatas<T> baseModel)
         {
             this.baseModel = baseModel;
         }
