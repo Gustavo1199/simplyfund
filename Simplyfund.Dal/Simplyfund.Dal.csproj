@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SimplyFund.Domain\SimplyFund.Domain.csproj" />
+      <ProjectReference Include="..\Simplyfund.Library\Simplyfund.Library.csproj" />
+    </ItemGroup>
+
 </Project>
