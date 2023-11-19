@@ -19,7 +19,6 @@ namespace Simplyfund.Dal.Data.Auth
 
         public async Task<string> GenerateTokenAsync(string userId, string userName, string role)
         {
-            // Asegúrate de que la longitud de la clave sea suficiente
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)));
 
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

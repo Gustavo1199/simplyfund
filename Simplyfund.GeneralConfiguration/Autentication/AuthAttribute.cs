@@ -33,49 +33,41 @@ namespace Simplyfund.GeneralConfiguration.Autentication
 
                         if (userIdFromToken != userIdFromRequest)
                         {
-                            context.Result = new ForbidResult(); // Devolver un código de estado 'Forbidden'
+                            context.Result = new ForbidResult(); 
                             return;
                         }
 
-                        // Puedes agregar la información del usuario al contexto si es necesario
                         context.HttpContext.Items["UserId"] = userIdFromToken;
                
 
-                        // Continuar con la ejecución normal de la acción del controlador
                         return;
                     }
                 }
 
-                // Si el token no es válido, devolver un código de estado no autorizado
                 context.Result = new UnauthorizedResult();
             }
 
             public void OnActionExecuting(ActionExecutingContext context)
             {
-                // Obtener el nombre de la acción ejecutada
                 var actionName = context.ActionDescriptor.RouteValues["action"];
 
-                // Verificar si el rol tiene permiso para la acción en una tabla o sistema de permisos
                 var userId = context.HttpContext.Items["UserId"] as string;
                 var userRole = context.HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
 
                 if (!HasPermission(userId, userRole, actionName))
                 {
-                    context.Result = new ForbidResult(); // Devolver un código de estado 'Forbidden'
+                    context.Result = new ForbidResult(); 
                 }
             }
 
             public void OnActionExecuted(ActionExecutedContext context)
             {
-                // Lógica posterior a la ejecución de la acción (opcional)
+
             }
 
             private bool HasPermission(string userId, string userRole, string actionName)
             {
-                // Implementa lógica para verificar si el rol tiene permiso para la acción
-                // Puedes consultar una tabla de permisos, base de datos, etc.
-
-                // Ejemplo: Validar si el usuario tiene el rol "Admin" para cualquier acción
+               
                 return userRole == "Admin";
             }
         }

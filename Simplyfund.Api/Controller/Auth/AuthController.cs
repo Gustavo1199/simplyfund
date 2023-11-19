@@ -37,7 +37,6 @@ namespace Simplyfund.Api.Controller.Auth
                 
             }
 
-            // Las credenciales no son válidas
             return Unauthorized();
         }
     }

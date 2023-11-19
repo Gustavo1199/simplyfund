@@ -54,23 +54,7 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
 
             #endregion
 
-            //services.AddScoped(typeof(IBaseServices<>));
-            //services.AddScoped(typeof(IBaseData<>));
-            //services.AddScoped(typeof(BaseData<>));
-
-
-
-
             #region autentication
-
-            //var serviceProvider = services.BuildServiceProvider();
-
-            //serviceProvider.GetService<SimplyfundDbContext>().Database.EnsureCreated();
-
-
-            //       services.AddIdentity<User, Role>()
-            //.AddEntityFrameworkStores<SimplyfundDbContext>()
-            //.AddDefaultTokenProviders();
 
             services.AddIdentity<User, Role >()
                     .AddEntityFrameworkStores<SimplyfundDbContext>()
@@ -79,28 +63,23 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Configuración de bloqueo de cuenta
                 options.Lockout.AllowedForNewUsers = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
 
-                // Configuración de contraseñas
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
 
-                // Configuración de usuario
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
 
-                // Configuración de token de recuperación de contraseña
                 options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
                 options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultProvider;
                 options.Tokens.ChangeEmailTokenProvider = TokenOptions.DefaultProvider;
 
-                // Otras configuraciones según tus necesidades
             });
 
 

@@ -15,12 +15,6 @@ namespace Simplyfund.GeneralConfiguration.Autentication
         private static readonly string? _issuer = "_issuerapi";
         private static readonly string? _audience = "audienceapi";
 
-        //public TokenService(string secretKey, string issuer, string audience)
-        //{
-        //    _secretKey = secretKey;
-        //    _issuer = issuer;
-        //    _audience = audience;
-        //}
 
         public static string GenerateToken(string userId, string userName, string role)
         {

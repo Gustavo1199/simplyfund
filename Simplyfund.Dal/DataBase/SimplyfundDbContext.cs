@@ -22,8 +22,7 @@ namespace Simplyfund.Dal.DataBase
 
 
         public DbSet<Customers> Customers { get; set; }
-       // public DbSet<User> Users { get; set; }
-        //public  DbSet<Role> Roles { get; set; }
+    
 
 
 
@@ -50,8 +49,7 @@ namespace Simplyfund.Dal.DataBase
             modelBuilder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
-                //in case you chagned the TKey type
-                //  entity.HasKey(key => new { key.UserId, key.RoleId });
+       
             });
 
             modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
@@ -61,9 +59,7 @@ namespace Simplyfund.Dal.DataBase
 
             modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
             {
-                entity.ToTable("UserLogins");
-                //in case you chagned the TKey type
-                //  entity.HasKey(key => new { key.ProviderKey, key.LoginProvider });       
+                entity.ToTable("UserLogins");       
             });
 
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
@@ -75,8 +71,7 @@ namespace Simplyfund.Dal.DataBase
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>
             {
                 entity.ToTable("UserTokens");
-                //in case you chagned the TKey type
-                // entity.HasKey(key => new { key.UserId, key.LoginProvider, key.Name });
+              
 
             });
 

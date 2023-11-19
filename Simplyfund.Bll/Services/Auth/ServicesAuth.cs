@@ -33,19 +33,16 @@ namespace Simplyfund.Bll.Services.Auth
             {
                 LoginResponses login = new LoginResponses();
 
-                // Verificar las credenciales del usuario
                 var user = await _userManager.FindByNameAsync(model.UserName);
 
                 if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    // Generar el token JWT
                     var token = await dataAuth.GenerateTokenAsync(user.Id,"Ernest","Admin");
 
                     login.token = token;
                     login.Expire = DateTime.Now.AddDays(1);
                     login.userId = user.UserId.ToString();
                     login.UserName = user.UserName;
-                    //return Ok(new { Token = token });
                 }
                 return login;
             }
