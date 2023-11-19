@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+
 builder.Services.AddControllers();
 
 builder.Services.AddRegister(builder.Configuration);
@@ -42,6 +43,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseStaticFiles();

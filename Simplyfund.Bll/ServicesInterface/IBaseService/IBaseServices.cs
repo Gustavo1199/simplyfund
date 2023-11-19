@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimplyFund.Domain.Base.Filter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -21,6 +22,10 @@ namespace Simplyfund.Bll.ServicesInterface.IBaseServices
         int Count(Expression<Func<T, bool>>? predicate = null);
         T AddAndReturn(T entity);
         T UpdateAndReturn(T entity);
+
+
+        PaginatedList<T> FilterAndPaginate(FilterAndPaginateRequestModel? filters);
+        Task<PaginatedList<T>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters);
 
         #region async methop
         Task<IEnumerable<T>> GetAsync();

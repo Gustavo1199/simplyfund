@@ -1,4 +1,5 @@
-﻿using SimplyFund.Domain.Base;
+﻿using Microsoft.AspNetCore.Identity;
+using SimplyFund.Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

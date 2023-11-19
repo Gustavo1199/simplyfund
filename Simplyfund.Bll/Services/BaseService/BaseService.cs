@@ -1,5 +1,6 @@
 ﻿using Simplyfund.Bll.ServicesInterface.IBaseServices;
-using Simplyfund.Dal.DataBase.IBaseData;
+using Simplyfund.Dal.Data.IBaseDatas;
+using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -240,5 +241,32 @@ namespace Simplyfund.Bll.Services.BaseServices
                 throw;
             }
         }
+
+        public PaginatedList<T> FilterAndPaginate(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+                return baseModel.FilterAndPaginate(filters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<PaginatedList<T>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+                return await baseModel.FilterAndPaginateAsync(filters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

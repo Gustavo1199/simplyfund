@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
+using Simplyfund.GeneralConfiguration.Autentication;
+using SimplyFund.Domain.Base.Filter;
 using SimplyFund.Domain.Dto.Responses;
 using System;
 using System.Linq.Expressions;
@@ -114,32 +116,6 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        //[HttpPost]
-        //public virtual ActionResult<int> Count(Expression<Func<T, bool>>? predicate = null)
-        //{
-        //    try
-        //    {
-        //        //return baseServices.Count(predicate);
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            var count = baseServices.Count(predicate);
-        //            return CreatedAtAction(nameof(Count), count);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
         [HttpDelete(Name = "Delete")]
         public virtual ActionResult<bool> Delete(T entity)
         {
@@ -165,32 +141,6 @@ namespace Simplyfund.Api.Controller.BaseController
             }
 
         }
-
-        //[HttpPost]
-        //public virtual ActionResult<T> Get(Expression<Func<T, bool>> predicate)
-        //{
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = baseServices.Get(predicate);
-        //            return CreatedAtAction(nameof(Get), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
 
         [HttpGet("GetAll")]
         public virtual ActionResult<IEnumerable<T>> GetAll()
@@ -243,30 +193,7 @@ namespace Simplyfund.Api.Controller.BaseController
 
         }
 
-        //[HttpPost]
-        //public virtual async Task<ActionResult<T>> GetAsync(Expression<Func<T, bool>> predicate)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = await baseServices.GetAsync(predicate);
-        //            return CreatedAtAction(nameof(GetAll), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
+        [Auth]
         [HttpGet("GetById")]
         public virtual ActionResult<T> GetById(int id)
         {
@@ -292,81 +219,6 @@ namespace Simplyfund.Api.Controller.BaseController
                 return StatusCode(500, errorResponses);
             }
         }
-
-        //[HttpPost]
-        //public virtual ActionResult<T> GetIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = baseServices.GetIncluding(predicate, includes);
-        //            return CreatedAtAction(nameof(GetById), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
-        //[HttpPost]
-        //public virtual ActionResult<IEnumerable<T>> GetMany(Expression<Func<T, bool>> predicate)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = baseServices.GetMany(predicate);
-        //            return CreatedAtAction(nameof(GetMany), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
-        //[HttpPost]
-        //public virtual async Task<ActionResult<IEnumerable<T>>> GetManyAsync(Expression<Func<T, bool>> predicate)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = await baseServices.GetManyAsync(predicate);
-        //            return CreatedAtAction(nameof(GetManyAsync), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
 
         [HttpPut("Update")]
         public virtual ActionResult Update(T entity)
@@ -428,6 +280,55 @@ namespace Simplyfund.Api.Controller.BaseController
                 {
                     var responses = await baseServices.UpdateAndReturnAsync(entity);
                     return CreatedAtAction(nameof(UpdateAndReturn), responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpPost("FilterAndPaginate")]
+        public ActionResult<PaginatedList<T>> FilterAndPaginate(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var responses = baseServices.FilterAndPaginate(filters);
+                    return CreatedAtAction(nameof(FilterAndPaginate), responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpPost("FilterAndPaginateAsync")]
+        public async Task<ActionResult<PaginatedList<T>>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var responses = await baseServices.FilterAndPaginateAsync(filters);
+                    return CreatedAtAction(nameof(FilterAndPaginateAsync), responses);
                 }
                 else
                 {

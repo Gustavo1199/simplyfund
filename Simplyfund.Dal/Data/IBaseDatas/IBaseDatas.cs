@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SimplyFund.Domain.Base.Filter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simplyfund.Dal.DataBase.IBaseData
+namespace Simplyfund.Dal.Data.IBaseDatas
 {
     public interface IBaseDatas<T> where T : class
     {
@@ -21,6 +22,9 @@ namespace Simplyfund.Dal.DataBase.IBaseData
         int Count(Expression<Func<T, bool>>? predicate = null);
         T AddAndReturn(T entity);
         T UpdateAndReturn(T entity);
+
+        PaginatedList<T> FilterAndPaginate(FilterAndPaginateRequestModel? filters);
+        Task<PaginatedList<T>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters);
         #region async methop
         Task<IEnumerable<T>> GetAsync();
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Simplyfund.Dal.Data.IBaseDatas;
 using Simplyfund.Dal.DataBase;
-using Simplyfund.Dal.DataBase.IBaseData;
+using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace Simplyfund.Dal.Data.BaseData
     public  class BaseDatas<T> : IBaseDatas<T> where T : class
     {
 
-        private readonly SimplyfundContext _context;
+        private readonly SimplyfundDbContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public BaseDatas(SimplyfundContext context)
+        public BaseDatas(SimplyfundDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<T>();
@@ -216,6 +217,120 @@ namespace Simplyfund.Dal.Data.BaseData
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public PaginatedList<T> FilterAndPaginate(FilterAndPaginateRequestModel? filters)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (filters != null)
+            {
+                if (filters.IncludeProperties != null)
+                {
+                    foreach (var includeProperty in filters.IncludeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+
+                if (filters.Filters != null)
+                {
+                    foreach (var filter in filters.Filters)
+                    {
+                        query = query.Where(e => EF.Property<object>(e, filter.PropertyName) == filter.Value);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(filters.OrderProperty))
+                {
+                    try
+                    {
+                        var propertyInfo = typeof(T).GetProperty(filters.OrderProperty);
+                        if (propertyInfo == null)
+                        {
+                            throw new ArgumentException($"La propiedad de ordenación '{filters.OrderProperty}' no existe en el modelo.");
+                        }
+
+                        query = filters.OrderDirection == "desc"
+                            ? query.OrderByDescending(e => EF.Property<object>(e, filters.OrderProperty))
+                            : query.OrderBy(e => EF.Property<object>(e, filters.OrderProperty));
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException($"Error al ordenar por la propiedad '{filters.OrderProperty}'. Detalles: {ex.Message}");
+                    }
+                }
+
+                int count = query.Count();
+
+                query = query.Skip((filters.PageIndex - 1) * filters.PageSize).Take(filters.PageSize);
+
+                List<T> result = query.ToList();
+
+                return new PaginatedList<T>(result, count, filters.PageIndex, filters.PageSize);
+            }
+            else
+            {
+                return new PaginatedList<T>(new List<T>(), 2, 1, 3);
+            }
+        }
+
+
+        public async Task<PaginatedList<T>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (filters != null)
+            {
+                if (filters.IncludeProperties != null)
+                {
+                    foreach (var includeProperty in filters.IncludeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+
+                if (filters.Filters != null)
+                {
+                    foreach (var filter in filters.Filters)
+                    {
+                        query = query.Where(e => EF.Property<object>(e, filter.PropertyName) == filter.Value);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(filters.OrderProperty))
+                {
+                    try
+                    {
+                        var propertyInfo = typeof(T).GetProperty(filters.OrderProperty);
+                        if (propertyInfo == null)
+                        {
+                            throw new ArgumentException($"La propiedad de ordenación '{filters.OrderProperty}' no existe en el modelo.");
+                        }
+
+                        query = filters.OrderDirection == "desc"
+                            ? query.OrderByDescending(e => EF.Property<object>(e, filters.OrderProperty))
+                            : query.OrderBy(e => EF.Property<object>(e, filters.OrderProperty));
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException($"Error al ordenar por la propiedad '{filters.OrderProperty}'. Detalles: {ex.Message}");
+                    }
+                }
+
+                int count = await query.CountAsync();
+
+                query = query.Skip((filters.PageIndex - 1) * filters.PageSize).Take(filters.PageSize);
+
+                List<T> result = await query.ToListAsync();
+
+                return new PaginatedList<T>(result, count, filters.PageIndex, filters.PageSize);
+            }
+            else
+            {
+                return new PaginatedList<T>(new List<T>(), 2, 1, 3);
+            }
+        }
+
     }
 }
 
