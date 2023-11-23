@@ -8,7 +8,7 @@ namespace SimplyFund.Domain.Base.Filter
 {
     public class FilterAndPaginateRequestModel
     {
-        public List<(string PropertyName, object Value)>? Filters { get; set; }
+        public List<(string? PropertyName, object? Value)>? Filters { get; set; }
         public required int PageIndex { get; set; }
         public required int PageSize { get; set; }
         public List<string>? IncludeProperties { get; set; } // Lista de propiedades a incluir

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Simplyfund.Bll.ServicesInterface.Auth;
 using SimplyFund.Domain.Dto.Login;
@@ -21,23 +22,69 @@ namespace Simplyfund.Api.Controller.Auth
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponses>> Login([FromBody] LoginModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-              
-                var login = await servicesAuth.Login(model);
-                if (login != null)
+                if (ModelState.IsValid)
                 {
-                    return Ok(login);
+
+                    var login = await servicesAuth.Login(model);
+                    if (login.token != null)
+                    {
+                        return Ok(login);
+                    }
+                    else
+                    {
+                        return Unauthorized(new { Messge = "Las credenciales no son válidas" });
+                    }
+
+
                 }
                 else
                 {
-                    return Unauthorized(new { Messge = "Las credenciales no son válidas" });
+                    return BadRequest(ModelState);
                 }
-               
-                
+
+                //return Unauthorized();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
             }
 
-            return Unauthorized();
         }
+
+        [HttpPost("AssignUserRole")]
+        public async Task<ActionResult<bool>> AssignUserRole(string userId, string roleName)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    return Ok(await servicesAuth.AssignUserRole(userId, roleName));
+
+
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+
+        }
+
+
+
+
     }
 }

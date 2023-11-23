@@ -41,12 +41,43 @@ namespace Simplyfund.GeneralConfiguration.Autentication
         }
 
 
+        //public static bool ValidateToken(string token, out ClaimsPrincipal principal)
+        //{
+        //    principal = null;
+
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var validationParameters = GetValidationParameters();
+
+        //    try
+        //    {
+        //        SecurityToken validatedToken;
+        //        principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // La validación del token falló
+        //        // Puedes manejar la excepción según tus necesidades (por ejemplo, registrarla)
+        //        return false;
+        //    }
+        //}
+
         public static bool ValidateToken(string token, out ClaimsPrincipal principal)
         {
             principal = null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = GetValidationParameters();
+
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = _issuer,
+                ValidAudience = _audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)))
+            };
 
             try
             {
@@ -54,10 +85,14 @@ namespace Simplyfund.GeneralConfiguration.Autentication
                 principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
                 return true;
             }
+            catch (SecurityTokenException)
+            {
+                // La validación del token falló debido a un problema con el token
+                return false;
+            }
             catch (Exception)
             {
-                // La validación del token falló
-                // Puedes manejar la excepción según tus necesidades (por ejemplo, registrarla)
+                // Otra excepción no relacionada con el token
                 return false;
             }
         }
@@ -66,14 +101,16 @@ namespace Simplyfund.GeneralConfiguration.Autentication
         {
             return new TokenValidationParameters
             {
+                RequireSignedTokens = true, // Cambiado a true
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
+                ValidateIssuerSigningKey = true, // Cambiado a true
                 ValidIssuer = _issuer,
                 ValidAudience = _audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey))
             };
         }
+
     }
 }

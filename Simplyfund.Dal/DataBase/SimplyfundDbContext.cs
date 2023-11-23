@@ -20,7 +20,7 @@ namespace Simplyfund.Dal.DataBase
 
         }
 
-
+        public DbSet<Role> Role { get; set; }
         public DbSet<Customers> Customers { get; set; }
     
 

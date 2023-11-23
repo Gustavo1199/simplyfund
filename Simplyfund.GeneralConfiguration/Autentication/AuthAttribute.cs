@@ -26,10 +26,12 @@ namespace Simplyfund.GeneralConfiguration.Autentication
                     var token = authorizationHeader.Substring("Bearer ".Length).Trim();
                     ClaimsPrincipal principal;
 
+                    
                     if (TokenService.ValidateToken(token, out principal))
                     {
                         var userIdFromToken = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                        var userIdFromRequest = context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                        var userIdFromRequest = context.HttpContext.Request.Headers["UserId"].ToString();
 
                         if (userIdFromToken != userIdFromRequest)
                         {
@@ -67,6 +69,9 @@ namespace Simplyfund.GeneralConfiguration.Autentication
 
             private bool HasPermission(string userId, string userRole, string actionName)
             {
+                //var per = tablatransacional(x => x.action == actionName && x.userRole == );
+
+                //if (per != null) { }
                
                 return userRole == "Admin";
             }

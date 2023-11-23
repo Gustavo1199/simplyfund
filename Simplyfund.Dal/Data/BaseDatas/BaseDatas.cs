@@ -15,11 +15,12 @@ namespace Simplyfund.Dal.Data.BaseData
     {
 
         private readonly SimplyfundDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        private readonly DbSet<T>? _dbSet;
 
         public BaseDatas(SimplyfundDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+
             _dbSet = _context.Set<T>();
         }
 
@@ -27,6 +28,7 @@ namespace Simplyfund.Dal.Data.BaseData
         {
             try
             {
+
                 return _dbSet.Find(id);
             }
             catch (Exception)

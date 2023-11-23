@@ -11,5 +11,6 @@ namespace Simplyfund.Bll.ServicesInterface.Auth
     public interface IServicesAuth
     {
         Task<LoginResponses> Login(LoginModel loginModel);
+        Task<bool> AssignUserRole(string userId, string roleName);
     }
 }
