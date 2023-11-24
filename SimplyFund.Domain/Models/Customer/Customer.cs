@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SimplyFund.Domain.Base;
+using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Models.Client
 {
-    public class Customers : BaseEntity
+    public class Customers : EntityBase
     {
         [Required]
         [MaxLength(50)]
@@ -68,19 +69,19 @@ namespace SimplyFund.Domain.Models.Client
 
 
         public virtual CustomerType? CustomerType { get; set; }
-        public virtual IdentityType IdentityType { get; set; }
-        public virtual Country Country { get; set; }
-        public virtual Country ConstitutionCountry { get; set; }
-        public virtual Province Province { get; set; }
-        public virtual List<ContactPerson> ContactPersons { get; set; }
+        public virtual IdentityType? IdentityType { get; set; }
+        public virtual Country? Country { get; set; }
+        public virtual Country? ConstitutionCountry { get; set; }
+        public virtual Province? Province { get; set; }
+        public virtual List<ContactPerson>? ContactPersons { get; set; }
         public virtual List<LegalRepresentative>? LegalRepresentatives { get; set; }
 
         //add for edit
-        public virtual List<BankAccount> BankAccounts { get; set; }
-        public virtual List<Shareholder> Shareholders { get; set; }
-        public virtual List<CustomerFile> Files { get; set; }
-        public virtual List<CustomerRequiredDocument> RequiredDocuments { get; set; }
-        public virtual CustomerWorkingInfo WorkingInfo { get; set; }
+        public virtual List<BankAccount>? BankAccounts { get; set; }
+        public virtual List<Shareholder>? Shareholders { get; set; }
+        public virtual List<CustomerFile>? Files { get; set; }
+        public virtual List<CustomerRequiredDocument>? RequiredDocuments { get; set; }
+        public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
         public virtual CompanyAdditionalInfo? CompanyAdditionalInfo { get; set; }
         public virtual List<SeniorityBalance>? SeniorityBalances { get; set; }
         public virtual CustomerFinancialSummary? FinancialSummary { get; set; }

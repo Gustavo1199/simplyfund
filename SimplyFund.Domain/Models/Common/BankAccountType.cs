@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimplyFund.Domain.Models.Customer
+namespace SimplyFund.Domain.Models.Common
 {
-    public class CustomerType : EntityBase
+    public class BankAccountType : EntityBase
     {
         [Required, MaxLength(80)]
-        public required string CustomerTypeName { get; set; }
+
+        public string? Name { get; set; }
         [MaxLength(100)]
         public string? Description { get; set; }
-
     }
 }

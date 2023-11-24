@@ -123,27 +123,36 @@ namespace Simplyfund.Dal.Data.Auth
 
         public async Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)));
+            if (_secretKey != null)
+            {
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)));
 
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new List<Claim>
+
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, userId),
                     new Claim(ClaimTypes.Name, userName),
                 };
 
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-            var token = new JwtSecurityToken(
-                _issuer,
-                _audience,
-                claims,
-                expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: credentials
-            );
+                var token = new JwtSecurityToken(
+                    _issuer,
+                    _audience,
+                    claims,
+                    expires: DateTime.UtcNow.AddDays(1),
+                    signingCredentials: credentials
+                );
 
-            return await Task.Run(() => new JwtSecurityTokenHandler().WriteToken(token));
+                return await Task.Run(() => new JwtSecurityTokenHandler().WriteToken(token));
+            }
+            else
+            {
+                throw new Exception("No has a secrect key");
+            }
         }
 
 
