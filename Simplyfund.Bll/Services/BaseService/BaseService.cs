@@ -30,6 +30,22 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
+        public async Task AddAsync(T entity)
+        {
+            try
+            {
+              await  baseModel.AddAsync(entity);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
+
         public virtual T AddAndReturn(T entity)
         {
             try
@@ -268,5 +284,6 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
+       
     }
 }

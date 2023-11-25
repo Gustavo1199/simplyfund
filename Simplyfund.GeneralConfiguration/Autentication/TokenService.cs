@@ -49,77 +49,50 @@ namespace Simplyfund.GeneralConfiguration.Autentication
             }
         }
 
-
-        //public static bool ValidateToken(string token, out ClaimsPrincipal principal)
-        //{
-        //    principal = null;
-
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var validationParameters = GetValidationParameters();
-
-        //    try
-        //    {
-        //        SecurityToken validatedToken;
-        //        principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // La validación del token falló
-        //        // Puedes manejar la excepción según tus necesidades (por ejemplo, registrarla)
-        //        return false;
-        //    }
-        //}
-
-        public static bool ValidateToken(string token, out ClaimsPrincipal principal)
+        
+        public static bool ValidateToken(string token, out ClaimsPrincipal? principal)
         {
-            principal = null;
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var validationParameters = new TokenValidationParameters
+            if (_secretKey != null)
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = _issuer,
-                ValidAudience = _audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)))
-            };
 
-            try
-            {
-                SecurityToken validatedToken;
-                principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
-                return true;
+                principal = null;
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _issuer,
+                    ValidAudience = _audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey.PadRight(128)))
+                };
+
+                try
+                {
+                    SecurityToken validatedToken;
+                    principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+                    return true;
+                }
+                catch (SecurityTokenException)
+                {
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            catch (SecurityTokenException)
+            else
             {
-                // La validación del token falló debido a un problema con el token
-                return false;
-            }
-            catch (Exception)
-            {
-                // Otra excepción no relacionada con el token
-                return false;
+                throw new Exception("Error");
+
             }
         }
 
-        private static TokenValidationParameters GetValidationParameters()
-        {
-            return new TokenValidationParameters
-            {
-                RequireSignedTokens = true, // Cambiado a true
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true, // Cambiado a true
-                ValidIssuer = _issuer,
-                ValidAudience = _audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey))
-            };
-        }
+     
 
     }
 }

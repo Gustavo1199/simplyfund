@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -116,11 +117,6 @@ namespace Simplyfund.Dal.Data.Auth
         }
 
 
-
-
-
-
-
         public async Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles)
         {
             if (_secretKey != null)
@@ -152,6 +148,82 @@ namespace Simplyfund.Dal.Data.Auth
             else
             {
                 throw new Exception("No has a secrect key");
+            }
+        }
+
+        public async Task<string> CreateUser(User user)
+        {
+            try
+            {
+                string password;
+                if (user != null)
+                {
+
+                    if (user.UserName != null)
+                    {
+                       password = await GenerateTemporaryPasswordAsync(user.UserName);
+
+
+                        string hashedPassword = _userManager.PasswordHasher.HashPassword(user,password);
+
+                        user.Password = password;
+                        user.PasswordHash = hashedPassword; 
+                      var account =  await _userManager.CreateAsync(user);
+                        return password;
+
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Username no puede ser null");
+                    }
+
+
+
+                }
+                else
+                {
+                    throw new InvalidOperationException("Usuario no puede ser null");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+         async Task<string> GenerateTemporaryPasswordAsync(string nombre)
+        {
+            DateTime today = DateTime.Today;
+
+            string fechaFormateada = today.ToString("yyyyMMdd");
+
+            string inputString = $"{nombre}{fechaFormateada}";
+
+            string hashedPassword = await CalculateMd5HashAsync(inputString);
+
+            string temporaryPassword = hashedPassword.Substring(0, 8);
+
+            return temporaryPassword;
+        }
+
+         async Task<string> CalculateMd5HashAsync(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = await Task.Run(() => md5.ComputeHash(inputBytes));
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+
+                return sb.ToString();
             }
         }
 

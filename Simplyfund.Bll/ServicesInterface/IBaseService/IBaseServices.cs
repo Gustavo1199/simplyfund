@@ -13,6 +13,8 @@ namespace Simplyfund.Bll.ServicesInterface.IBaseServices
         T GetById(int id);
         IEnumerable<T> GetAll();
         void Add(T entity);
+        Task AddAsync(T entity);
+
         void AddMany(IEnumerable<T> entities);
         void Update(T entity);
         bool Delete(T entity);

@@ -21,5 +21,10 @@ namespace SimplyFund.Domain.Dto.Login
         public DateTime LastUpdate { get; set; }
 
         public bool Active { get; set; } = true;
+
+        [NotMapped]
+        public string? Rol {  get; set; }    
+
+
     }
 }

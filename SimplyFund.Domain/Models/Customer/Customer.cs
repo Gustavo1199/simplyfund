@@ -5,6 +5,7 @@ using SimplyFund.Domain.Models.Customer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Models.Client
 {
-    public class Customers : EntityBase
+    public class Customer : EntityBase
     {
         [Required]
         [MaxLength(50)]
@@ -73,6 +74,7 @@ namespace SimplyFund.Domain.Models.Client
         public virtual Country? Country { get; set; }
         public virtual Country? ConstitutionCountry { get; set; }
         public virtual Province? Province { get; set; }
+
         public virtual List<ContactPerson>? ContactPersons { get; set; }
         public virtual List<LegalRepresentative>? LegalRepresentatives { get; set; }
 
@@ -81,12 +83,15 @@ namespace SimplyFund.Domain.Models.Client
         public virtual List<Shareholder>? Shareholders { get; set; }
         public virtual List<CustomerFile>? Files { get; set; }
         public virtual List<CustomerRequiredDocument>? RequiredDocuments { get; set; }
-        public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
-        public virtual CompanyAdditionalInfo? CompanyAdditionalInfo { get; set; }
+        //public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
+        //public virtual CompanyAdditionalInfo? CompanyAdditionalInfo { get; set; }
         public virtual List<SeniorityBalance>? SeniorityBalances { get; set; }
-        public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
-        public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
-        public virtual LaborData? LaborData { get; set; }
+
+        [NotMapped]
+        public string? Password { get; set; }
+        //public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
+        //public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
+        //public virtual LaborData? LaborData { get; set; }
 
     }
 }

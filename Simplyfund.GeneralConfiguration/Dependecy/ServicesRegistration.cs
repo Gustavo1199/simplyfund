@@ -6,7 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Simplyfund.Bll.Services.Auth;
 using Simplyfund.Bll.Services.BaseServices;
+using Simplyfund.Bll.Services.Common;
+using Simplyfund.Bll.Services.Customers;
 using Simplyfund.Bll.ServicesInterface.Auth;
+using Simplyfund.Bll.ServicesInterface.Common;
+using Simplyfund.Bll.ServicesInterface.Customers;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.Dal.Data.Auth;
 using Simplyfund.Dal.Data.BaseData;
@@ -45,6 +49,8 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #region services
             services.AddScoped(typeof(IBaseServices<>), typeof(BaseService<>));
             services.AddScoped<IServicesAuth, ServicesAuth>();
+            services.AddScoped<IServicesOptions, ServicesOptions>();
+            services.AddScoped<IServiceCustomer, ServiceCustomer>();
             #endregion
 
             #region data

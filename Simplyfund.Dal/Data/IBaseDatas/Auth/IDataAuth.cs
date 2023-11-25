@@ -14,5 +14,6 @@ namespace Simplyfund.Dal.Data.IBaseDatas.Auth
         Task<LoginResponses> Login(LoginModel model);
 
         Task<bool> AssignUserRole(string userId, string roleName);
+        Task<string> CreateUser(User user);
     }
 }

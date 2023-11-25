@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace SimplyFund.Domain.Models.Common
 {
     public class ContactPerson : EntityBase
     {
+        [Column("CustomerId")]
         public int CustomerId { get; set; }
 
         [Required, MaxLength(50)]

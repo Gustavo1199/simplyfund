@@ -13,6 +13,7 @@ namespace Simplyfund.Dal.Data.IBaseDatas
         T GetById(int id);
         IEnumerable<T> GetAll();
         void Add(T entity);
+        Task AddAsync(T entity);
         void AddMany(IEnumerable<T> entities);
         void Update(T entity);
         bool Delete(T entity);
@@ -21,6 +22,7 @@ namespace Simplyfund.Dal.Data.IBaseDatas
         T GetIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         int Count(Expression<Func<T, bool>>? predicate = null);
         T AddAndReturn(T entity);
+        Task<T> AddAndReturnAsync(T entity);
         T UpdateAndReturn(T entity);
 
         PaginatedList<T> FilterAndPaginate(FilterAndPaginateRequestModel? filters);
@@ -29,7 +31,6 @@ namespace Simplyfund.Dal.Data.IBaseDatas
         Task<IEnumerable<T>> GetAsync();
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> predicate);
-        Task<T> AddAndReturnAsync(T entity);
         Task<T> UpdateAndReturnAsync(T entity);
 
 
