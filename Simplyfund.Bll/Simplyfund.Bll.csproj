@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Include="..\.editorconfig" Link=".editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\Simplyfund.Dal\Simplyfund.Dal.csproj" />
       <ProjectReference Include="..\SimplyFund.Domain\SimplyFund.Domain.csproj" />
       <ProjectReference Include="..\Simplyfund.Library\Simplyfund.Library.csproj" />

@@ -1,5 +1,5 @@
 ﻿using Simplyfund.Bll.ServicesInterface.Common;
-using Simplyfund.Dal.Data.IBaseDatas;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;

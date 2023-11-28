@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.GeneralConfiguration.Dependecy;
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSwaggerGen(options =>
 {
+    options.MapType<SimplyFund.Domain.Dto.ViaFirma.Document>(() => new OpenApiSchema { Type = "Documents" });
+
     options.ResolveConflictingActions(apiDescription =>
     {
         var firstAction = apiDescription.First();
@@ -26,22 +29,32 @@ builder.Services.AddControllers();
 
 builder.Services.AddRegister(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("*")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 
 
 app.UseHttpsRedirection();
 
+app.UseCors();
 
 
 app.UseAuthentication();

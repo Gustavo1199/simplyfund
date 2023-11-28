@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simplyfund.Dal.Data.IBaseDatas
+namespace Simplyfund.Dal.DataInterface.IBaseDatas
 {
     public interface IBaseDatas<T> where T : class
     {

@@ -77,7 +77,7 @@ namespace Simplyfund.Dal.Data.Auth
                     {
                         throw new Exception("Usuario o contrasena invalida, el usuario no existe, chequea a ver");
                     }
-                  
+
                 }
                 else
                 {
@@ -93,9 +93,9 @@ namespace Simplyfund.Dal.Data.Auth
         }
 
 
-        public async Task<bool> AssignUserRole(string userId, string roleName)
+        public async Task<bool> AssignUserRole(string userName, string roleName)
         {
-            var usuario = await _userManager.FindByIdAsync(userId);
+            var usuario = await _userManager.FindByNameAsync(userName);
 
             if (usuario != null)
             {
@@ -112,7 +112,7 @@ namespace Simplyfund.Dal.Data.Auth
             }
             else
             {
-                throw new Exception($"Usuario con ID {userId} no encontrado.");
+                throw new Exception($"Usuario con ID {userName} no encontrado.");
             }
         }
 
@@ -161,14 +161,19 @@ namespace Simplyfund.Dal.Data.Auth
 
                     if (user.UserName != null)
                     {
-                       password = await GenerateTemporaryPasswordAsync(user.UserName);
+                        password = await GenerateTemporaryPasswordAsync(user.UserName);
 
 
-                        string hashedPassword = _userManager.PasswordHasher.HashPassword(user,password);
+                        string hashedPassword = _userManager.PasswordHasher.HashPassword(user, password);
 
                         user.Password = password;
-                        user.PasswordHash = hashedPassword; 
-                      var account =  await _userManager.CreateAsync(user);
+                        user.PasswordHash = hashedPassword;
+                        var create = await _userManager.CreateAsync(user);
+                        if (user.Rol != null)
+                        {
+                            await AssignUserRole(user.UserName, user.Rol);
+
+                        }
                         return password;
 
                     }
@@ -176,7 +181,6 @@ namespace Simplyfund.Dal.Data.Auth
                     {
                         throw new InvalidOperationException("Username no puede ser null");
                     }
-
 
 
                 }
@@ -193,8 +197,7 @@ namespace Simplyfund.Dal.Data.Auth
             }
         }
 
-
-         async Task<string> GenerateTemporaryPasswordAsync(string nombre)
+        async Task<string> GenerateTemporaryPasswordAsync(string nombre)
         {
             DateTime today = DateTime.Today;
 
@@ -209,7 +212,7 @@ namespace Simplyfund.Dal.Data.Auth
             return temporaryPassword;
         }
 
-         async Task<string> CalculateMd5HashAsync(string input)
+        async Task<string> CalculateMd5HashAsync(string input)
         {
             using (MD5 md5 = MD5.Create())
             {

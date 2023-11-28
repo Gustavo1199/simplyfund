@@ -23,7 +23,7 @@ namespace SimplyFund.Domain.Dto.Login
         public bool Active { get; set; } = true;
 
         [NotMapped]
-        public string? Rol {  get; set; }    
+        public required string? Rol {  get; set; }    
 
 
     }

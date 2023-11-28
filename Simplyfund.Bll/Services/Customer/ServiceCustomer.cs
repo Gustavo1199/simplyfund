@@ -1,11 +1,12 @@
 ﻿using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.ServicesInterface.Customers;
-using Simplyfund.Dal.Data.IBaseDatas;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Models.Client;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace Simplyfund.Bll.Services.Customers
         {
             try
             {
+                await Validation(entity);
+
                 var add = await baseModel.AddAndReturnAsync(entity);
 
                 if (add != null)
@@ -34,7 +37,6 @@ namespace Simplyfund.Bll.Services.Customers
                     var user = new User()
                     {
                         Password = "",
-                        CreatedDate = DateTime.Now,
                         Rol = "Customer",
                         Email = add.Email,
                         UserName = add.Email,
@@ -60,5 +62,20 @@ namespace Simplyfund.Bll.Services.Customers
             }
         }
 
+        private async Task Validation(Customer entity)
+        {
+            if (entity != null)
+            {
+                var email = await baseModel.GetAsync(x => x.Email == entity.Email);
+                if (email != null)
+                {
+                    throw new Exception("Ya tenemos una cuenta registrada con este correo electronico.");
+                }
+            }
+            else
+            {
+                throw new Exception("No puede ser null en modelo1");
+            }
+        }
     }
 }

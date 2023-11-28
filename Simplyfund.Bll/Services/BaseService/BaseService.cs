@@ -1,5 +1,5 @@
 ﻿using Simplyfund.Bll.ServicesInterface.IBaseServices;
-using Simplyfund.Dal.Data.IBaseDatas;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;

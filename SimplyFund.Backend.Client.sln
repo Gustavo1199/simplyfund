@@ -1,20 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.Bll", "Simplyfund.Bll\Simplyfund.Bll.csproj", "{52E1002D-B885-41A3-98FA-47A53EBB9287}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Bll", "Simplyfund.Bll\Simplyfund.Bll.csproj", "{52E1002D-B885-41A3-98FA-47A53EBB9287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.Dal", "Simplyfund.Dal\Simplyfund.Dal.csproj", "{3F5613E8-BF0D-42D8-AF7F-207BE973F9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Dal", "Simplyfund.Dal\Simplyfund.Dal.csproj", "{3F5613E8-BF0D-42D8-AF7F-207BE973F9A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyFund.Domain", "SimplyFund.Domain\SimplyFund.Domain.csproj", "{48108B36-A787-4120-A248-29B1AA0594EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyFund.Domain", "SimplyFund.Domain\SimplyFund.Domain.csproj", "{48108B36-A787-4120-A248-29B1AA0594EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.Api", "Simplyfund.Api\Simplyfund.Api.csproj", "{0505BBE4-604C-41F2-81B6-A15438AFFA37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Api", "Simplyfund.Api\Simplyfund.Api.csproj", "{0505BBE4-604C-41F2-81B6-A15438AFFA37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.GeneralConfiguration", "Simplyfund.GeneralConfiguration\Simplyfund.GeneralConfiguration.csproj", "{B6F18998-AA40-4728-A588-5837718F2CAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.GeneralConfiguration", "Simplyfund.GeneralConfiguration\Simplyfund.GeneralConfiguration.csproj", "{B6F18998-AA40-4728-A588-5837718F2CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.Library", "Simplyfund.Library\Simplyfund.Library.csproj", "{11B2B308-00E6-4CA5-B572-D4016E583BD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Library", "Simplyfund.Library\Simplyfund.Library.csproj", "{11B2B308-00E6-4CA5-B572-D4016E583BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.TestConsole", "Simplyfund.TestConsole\Simplyfund.TestConsole.csproj", "{A7E1B6B9-8386-4C9F-9A80-4D9CE990BEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.TestConsole", "Simplyfund.TestConsole\Simplyfund.TestConsole.csproj", "{A7E1B6B9-8386-4C9F-9A80-4D9CE990BEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplyfund.Test", "Simplyfund.Test\Simplyfund.Test.csproj", "{C70BF887-20F2-4D66-92FD-2002DC65B1CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Test", "Simplyfund.Test\Simplyfund.Test.csproj", "{C70BF887-20F2-4D66-92FD-2002DC65B1CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C9E4018-0C65-47D2-9CDE-650AF34B5A9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +59,11 @@ Global
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD8949CF-8044-44FB-BFDD-4E16E7C16D47}
 	EndGlobalSection
 EndGlobal

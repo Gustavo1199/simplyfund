@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Simplyfund.Dal.Data.IBaseDatas;
 using Simplyfund.Dal.DataBase;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;
