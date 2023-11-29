@@ -19,7 +19,7 @@ namespace SimplyFund.Domain.Models.Customer
         [Required, Range(0, 100)]
         public int PercentageOfShares { get; set; }
 
-        public ICollection<ShareholderFile>? ShareholderFiles { get; set; }
+        public virtual ICollection<ShareholderFile>? ShareholderFiles { get; set; }
 
     }
 }

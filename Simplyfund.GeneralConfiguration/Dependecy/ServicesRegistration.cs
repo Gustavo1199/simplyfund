@@ -45,7 +45,8 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #region context
 
             services.AddDbContext<SimplyfundDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                
                 sqlServerOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure();
@@ -135,8 +136,15 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #endregion
 
 
+            #region generalconfig
+
             services.AddHttpClient();
 
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+            #endregion
 
         }
 

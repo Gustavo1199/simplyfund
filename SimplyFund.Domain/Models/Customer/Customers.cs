@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Models.Client
 {
-    public class Customer : EntityBase
+    public class Customers : EntityBase
     {
         [Required]
         [MaxLength(50)]
@@ -92,6 +92,10 @@ namespace SimplyFund.Domain.Models.Client
         //public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
         //public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
         //public virtual LaborData? LaborData { get; set; }
+
+
+
+
 
     }
 }

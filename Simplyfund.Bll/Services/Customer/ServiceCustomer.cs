@@ -13,18 +13,18 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Bll.Services.Customers
 {
-    public class ServiceCustomer : BaseService<Customer>, IServiceCustomer
+    public class ServiceCustomer : BaseService<SimplyFund.Domain.Models.Client.Customers>, IServiceCustomer
     {
-        IBaseDatas<Customer> baseModel;
+        IBaseDatas<SimplyFund.Domain.Models.Client.Customers> baseModel;
         IDataAuth dataAuth;
-        public ServiceCustomer(IBaseDatas<Customer> baseModel, IDataAuth dataAuth) : base(baseModel)
+        public ServiceCustomer(IBaseDatas<SimplyFund.Domain.Models.Client.Customers> baseModel, IDataAuth dataAuth) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.dataAuth = dataAuth;
         }
 
 
-        public override async Task<Customer> AddAndReturnAsync(Customer entity)
+        public override async Task<SimplyFund.Domain.Models.Client.Customers> AddAndReturnAsync(SimplyFund.Domain.Models.Client.Customers entity)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Simplyfund.Bll.Services.Customers
             }
         }
 
-        private async Task Validation(Customer entity)
+        private async Task Validation(SimplyFund.Domain.Models.Client.Customers entity)
         {
             if (entity != null)
             {

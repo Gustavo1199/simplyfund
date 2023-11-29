@@ -21,12 +21,11 @@ namespace Simplyfund.Dal.DataBase
     {
         public SimplyfundDbContext(DbContextOptions<SimplyfundDbContext> options) : base(options)
         {
-                
-
+             
         }
 
         public DbSet<Role> Role { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Customers> Customers { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<Commission> Commisions { get; set; }
         public DbSet<Bank> Banks { get; set; }
@@ -50,10 +49,10 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<Smtp> SMTP { get; set; }
 
 
+
+
+
       
-
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

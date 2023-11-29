@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Bll.ServicesInterface.Customers
 {
-    public interface IServiceCustomer : IBaseServices<Customer>
+    public interface IServiceCustomer : IBaseServices<SimplyFund.Domain.Models.Client.Customers>
     {
         
     }
