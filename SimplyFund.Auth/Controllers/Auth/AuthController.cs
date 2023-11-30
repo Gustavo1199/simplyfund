@@ -5,7 +5,7 @@ using Simplyfund.Bll.ServicesInterface.Auth;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Dto.Responses;
 
-namespace Simplyfund.Api.Controller.Auth
+namespace Simplyfund.Auth.Controller.Auth
 {
     [ApiController]
     [Route("api/[controller]")]

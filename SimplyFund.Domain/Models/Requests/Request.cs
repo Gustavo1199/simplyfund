@@ -1,6 +1,7 @@
 ﻿using SimplyFund.Domain.Base;
 using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
+using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,13 +13,12 @@ namespace SimplyFund.Domain.Models.Requests
 {
     public class Request : EntityBase
     {
-        private Customer? customer;
 
         public int RequestStatusId { get; set; }
         [Required, MaxLength(100)]
         public int RequestCategoryId { get; set; }
         public bool RequireInterestInvoice { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
         public int CustomerId { get; set; }
         [Required]
@@ -41,7 +41,7 @@ namespace SimplyFund.Domain.Models.Requests
         [Required]
         public int BankAccountId { get; set; }
         [Required, MaxLength(255)]
-        public string Description { get; set; }
+        public required string Description { get; set; }
         [MaxLength(255)]
         public string? FutureStagesOfTheProject { get; set; }
         [MaxLength(200)]

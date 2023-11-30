@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplyfund.Test", "Simplyfu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C9E4018-0C65-47D2-9CDE-650AF34B5A9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyFund.Auth", "SimplyFund.Auth\SimplyFund.Auth.csproj", "{3D3E96A4-D171-42EF-A569-CAACFD24281C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C70BF887-20F2-4D66-92FD-2002DC65B1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3E96A4-D171-42EF-A569-CAACFD24281C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3E96A4-D171-42EF-A569-CAACFD24281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3E96A4-D171-42EF-A569-CAACFD24281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3E96A4-D171-42EF-A569-CAACFD24281C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

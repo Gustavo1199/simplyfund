@@ -44,8 +44,6 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-
-
         [HttpPost("AddAsync", Name = "AddAsync")]
         public virtual async Task<ActionResult> AddAsync(T entity)
         {
@@ -320,7 +318,6 @@ namespace Simplyfund.Api.Controller.BaseController
                 return StatusCode(500, errorResponses);
             }
         }
-
 
         [HttpPost("FilterAndPaginate")]
         public ActionResult<PaginatedList<T>> FilterAndPaginate(FilterAndPaginateRequestModel? filters)

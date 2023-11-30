@@ -12,9 +12,9 @@ namespace SimplyFund.Domain.Models.Requests
     {
         [Required, MaxLength(80)]
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [MaxLength(100)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
     }
 }
