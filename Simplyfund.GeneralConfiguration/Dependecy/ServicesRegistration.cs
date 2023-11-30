@@ -6,13 +6,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Simplyfund.Bll.Services.Auth;
 using Simplyfund.Bll.Services.BaseServices;
+using Simplyfund.Bll.Services.Common;
+using Simplyfund.Bll.Services.Customers;
+using Simplyfund.Bll.Services.ViaFirma;
 using Simplyfund.Bll.ServicesInterface.Auth;
+using Simplyfund.Bll.ServicesInterface.Common;
+using Simplyfund.Bll.ServicesInterface.Customers;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
+using Simplyfund.Bll.ServicesInterface.ViaFirma;
 using Simplyfund.Dal.Data.Auth;
 using Simplyfund.Dal.Data.BaseData;
-using Simplyfund.Dal.Data.IBaseDatas;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
+using Simplyfund.Dal.Data.ViaFirma;
 using Simplyfund.Dal.DataBase;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
+using Simplyfund.Dal.DataInterface.ViaFirma;
 using Simplyfund.GeneralConfiguration.AutoMaper;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Models.Auth;
@@ -37,7 +45,14 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #region context
 
             services.AddDbContext<SimplyfundDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                }),ServiceLifetime.Scoped);
+
+            
 
             #endregion
 
@@ -45,11 +60,18 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #region services
             services.AddScoped(typeof(IBaseServices<>), typeof(BaseService<>));
             services.AddScoped<IServicesAuth, ServicesAuth>();
+            services.AddScoped<IServicesOptions, ServicesOptions>();
+            services.AddScoped<IServiceCustomer, ServiceCustomer>();
+            services.AddScoped<IServicesViaFirma, ServicesViaFirma>();
+
+
             #endregion
 
             #region data
             services.AddScoped(typeof(IBaseDatas<>), typeof(BaseDatas<>));
             services.AddScoped<IDataAuth, DataAuth>();
+            services.AddScoped<IDataViafirma, DataViaFirma>(); 
+        
 
 
             #endregion
@@ -114,6 +136,15 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             #endregion
 
 
+            #region generalconfig
+
+            services.AddHttpClient();
+
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+            #endregion
 
         }
 

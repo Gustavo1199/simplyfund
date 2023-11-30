@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Simplyfund.Bll.ServicesInterface.Auth;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Dto.Responses;
+using SimplyFund.Domain.Models.Auth;
 using SimplyFund.Domain.Models.Client;
 using System;
 using System.Collections.Generic;
@@ -15,14 +17,12 @@ namespace Simplyfund.Bll.Services.Auth
 {
     public class ServicesAuth : IServicesAuth
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
+       
         private readonly IDataAuth dataAuth;
 
-        public ServicesAuth(UserManager<User> userManager, IConfiguration configuration, IDataAuth dataAuth)
+        public ServicesAuth(UserManager<User> userManager, IConfiguration configuration, IDataAuth dataAuth, RoleManager<Role> rolesManager)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+           
             this.dataAuth = dataAuth;
         }
 
@@ -30,21 +30,8 @@ namespace Simplyfund.Bll.Services.Auth
         public async Task<LoginResponses> Login(LoginModel model)
         {
             try
-            {
-                LoginResponses login = new LoginResponses();
-
-                var user = await _userManager.FindByNameAsync(model.UserName);
-
-                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-                {
-                    var token = await dataAuth.GenerateTokenAsync(user.Id,"Ernest","Admin");
-
-                    login.token = token;
-                    login.Expire = DateTime.Now.AddDays(1);
-                    login.userId = user.UserId.ToString();
-                    login.UserName = user.UserName;
-                }
-                return login;
+            {          
+               return await dataAuth.Login(model);
             }
             catch (Exception)
             {
@@ -52,6 +39,21 @@ namespace Simplyfund.Bll.Services.Auth
                 throw;
             }
 
-        }
+        }  
+        
+        public async Task<bool> AssignUserRole(string userId, string roleName)
+        {
+            try
+            {          
+               return await dataAuth.AssignUserRole(userId,roleName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }  
+
     }
 }

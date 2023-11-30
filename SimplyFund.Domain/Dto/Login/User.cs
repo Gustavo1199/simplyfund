@@ -13,7 +13,7 @@ namespace SimplyFund.Domain.Dto.Login
     {
 
         [NotMapped]
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         public int? UserId {  get; set; }
         public DateTime CreatedDate { get; set; }
@@ -21,5 +21,10 @@ namespace SimplyFund.Domain.Dto.Login
         public DateTime LastUpdate { get; set; }
 
         public bool Active { get; set; } = true;
+
+        [NotMapped]
+        public required string? Rol {  get; set; }    
+
+
     }
 }

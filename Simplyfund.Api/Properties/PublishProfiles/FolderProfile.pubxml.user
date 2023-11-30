@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\simplyclient</_PublishTargetUrl>
+    <History>True|2023-11-28T01:40:17.8363986Z;True|2023-11-27T21:37:14.9886511-04:00;True|2023-11-27T21:34:54.2399528-04:00;True|2023-11-27T21:31:27.7271855-04:00;True|2023-11-27T21:28:29.5718583-04:00;True|2023-11-27T20:18:34.0527194-04:00;True|2023-11-27T20:17:38.3571041-04:00;True|2023-11-27T20:15:56.7880005-04:00;True|2023-11-27T20:00:38.9245375-04:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

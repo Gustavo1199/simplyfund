@@ -1,5 +1,5 @@
 ﻿using Simplyfund.Bll.ServicesInterface.IBaseServices;
-using Simplyfund.Dal.Data.IBaseDatas;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,22 @@ namespace Simplyfund.Bll.Services.BaseServices
                 throw;
             }
         }
+
+        public async Task AddAsync(T entity)
+        {
+            try
+            {
+              await  baseModel.AddAsync(entity);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
 
         public virtual T AddAndReturn(T entity)
         {
@@ -268,5 +284,6 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
+       
     }
 }

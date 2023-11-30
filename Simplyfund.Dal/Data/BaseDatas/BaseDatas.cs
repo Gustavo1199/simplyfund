@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Simplyfund.Dal.Data.IBaseDatas;
 using Simplyfund.Dal.DataBase;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Base.Filter;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Simplyfund.Dal.Data.BaseData
 {
-    public  class BaseDatas<T> : IBaseDatas<T> where T : class
+    public class BaseDatas<T> : IBaseDatas<T> where T : class
     {
 
         private readonly SimplyfundDbContext _context;
@@ -20,6 +20,7 @@ namespace Simplyfund.Dal.Data.BaseData
         public BaseDatas(SimplyfundDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+
             _dbSet = _context.Set<T>();
         }
 
@@ -27,7 +28,17 @@ namespace Simplyfund.Dal.Data.BaseData
         {
             try
             {
-                return _dbSet.Find(id);
+                if (_dbSet != null)
+                {
+                    return _dbSet.Find(id);
+                }
+                else
+                {
+                    throw new InvalidOperationException("");
+                }
+
+
+
             }
             catch (Exception)
             {
@@ -53,6 +64,16 @@ namespace Simplyfund.Dal.Data.BaseData
             {
                 _dbSet.Add(entity);
                 _context.SaveChanges();
+            }
+            catch (Exception) { throw; }
+        }
+
+        public virtual async Task AddAsync(T entity)
+        {
+            try
+            {
+                await _dbSet.AddAsync(entity);
+                await _context.SaveChangesAsync();
             }
             catch (Exception) { throw; }
         }
@@ -89,7 +110,7 @@ namespace Simplyfund.Dal.Data.BaseData
             try
             {
                 _dbSet.Remove(entity);
-               var de = _context.SaveChanges();
+                var de = _context.SaveChanges();
                 return de > 0;
             }
             catch (Exception)
@@ -196,7 +217,7 @@ namespace Simplyfund.Dal.Data.BaseData
         {
             try
             {
-                var add = _dbSet.Add(entity);
+                var add = await _dbSet.AddAsync(entity);
                 await _context.SaveChangesAsync();
 
 
@@ -330,6 +351,7 @@ namespace Simplyfund.Dal.Data.BaseData
                 return new PaginatedList<T>(new List<T>(), 2, 1, 3);
             }
         }
+
 
     }
 }

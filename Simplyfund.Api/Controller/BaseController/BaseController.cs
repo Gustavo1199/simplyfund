@@ -20,7 +20,7 @@ namespace Simplyfund.Api.Controller.BaseController
         }
 
 
-        [HttpPost(Name = "Add")]
+        [HttpPost("Add", Name = "Add")]
         public virtual ActionResult Add(T entity)
         {
             try
@@ -44,7 +44,31 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost(Name = "AddAndReturn")]
+        [HttpPost("AddAsync", Name = "AddAsync")]
+        public virtual async Task<ActionResult> AddAsync(T entity)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await baseServices.AddAsync(entity);
+                    return CreatedAtAction(nameof(AddAsync), entity);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpPost("AddAndReturn", Name = "AddAndReturn")]
         public virtual ActionResult<T> AddAndReturn(T entity)
         {
             try
@@ -67,7 +91,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost(Name = "AddAndReturnAsync")]
+        [HttpPost("AddAndReturnAsync", Name = "AddAndReturnAsync")]
         public virtual async Task<ActionResult<T>> AddAndReturnAsync(T entity)
         {
             try
@@ -91,7 +115,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost(Name = "AddMany")]
+        [HttpPost("AddMany", Name = "AddMany")]
         public virtual ActionResult AddMany(IEnumerable<T> entities)
         {
             try
@@ -116,7 +140,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpDelete(Name = "Delete")]
+        [HttpDelete("Delete", Name = "Delete")]
         public virtual ActionResult<bool> Delete(T entity)
         {
             try
@@ -193,7 +217,6 @@ namespace Simplyfund.Api.Controller.BaseController
 
         }
 
-        [Auth]
         [HttpGet("GetById")]
         public virtual ActionResult<T> GetById(int id)
         {
@@ -234,8 +257,8 @@ namespace Simplyfund.Api.Controller.BaseController
                 {
                     return BadRequest(ModelState);
                 }
-                
-               
+
+
             }
             catch (Exception ex)
             {
@@ -252,7 +275,7 @@ namespace Simplyfund.Api.Controller.BaseController
             {
                 if (ModelState.IsValid)
                 {
-                   var responses = baseServices.UpdateAndReturn(entity);
+                    var responses = baseServices.UpdateAndReturn(entity);
                     return CreatedAtAction(nameof(UpdateAndReturn), responses);
                 }
                 else
@@ -295,7 +318,6 @@ namespace Simplyfund.Api.Controller.BaseController
                 return StatusCode(500, errorResponses);
             }
         }
-
 
         [HttpPost("FilterAndPaginate")]
         public ActionResult<PaginatedList<T>> FilterAndPaginate(FilterAndPaginateRequestModel? filters)
