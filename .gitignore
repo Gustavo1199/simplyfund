@@ -44,3 +44,8 @@
 /Simplyfund.GeneralConfiguration/bin/Release/net8.0
 /Simplyfund.Bll/bin/Release/net8.0
 /Simplyfund.Library/bin/Release/net8.0
+/SimplyFund.Auth/bin/Debug/net8.0
+/SimplyFund.Auth/obj/Debug/net8.0
+/SimplyFund.Auth/obj/Release/net8.0
+/SimplyFund.Auth/obj
+/SimplyFund.Auth/Properties
