@@ -19,6 +19,7 @@ using Simplyfund.Dal.Data.BaseData;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using Simplyfund.Dal.Data.ViaFirma;
 using Simplyfund.Dal.DataBase;
+using Simplyfund.Dal.DataInterface.Auth;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
 using Simplyfund.Dal.DataInterface.ViaFirma;
 using Simplyfund.GeneralConfiguration.AutoMaper;
@@ -63,6 +64,7 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServicesOptions, ServicesOptions>();
             services.AddScoped<IServiceCustomer, ServiceCustomer>();
             services.AddScoped<IServicesViaFirma, ServicesViaFirma>();
+            services.AddScoped<IServicesRol, ServicesRol>();
 
 
             #endregion
@@ -71,7 +73,8 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped(typeof(IBaseDatas<>), typeof(BaseDatas<>));
             services.AddScoped<IDataAuth, DataAuth>();
             services.AddScoped<IDataViafirma, DataViaFirma>(); 
-        
+            services.AddScoped<IDataRol, DataRol>();
+
 
 
             #endregion

@@ -8,13 +8,13 @@ using SimplyFund.Domain.Dto.Responses;
 namespace Simplyfund.Auth.Controller.Auth
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    [Route("api/Auth/[controller]")]
+    public class AccountController : ControllerBase
     {
         private readonly IServicesAuth servicesAuth;
 
 
-        public AuthController(IServicesAuth userManager)
+        public AccountController(IServicesAuth userManager)
         {
             servicesAuth = userManager;
         }
@@ -56,15 +56,23 @@ namespace Simplyfund.Auth.Controller.Auth
 
         }
 
-        [HttpPost("AssignUserRole")]
-        public async Task<ActionResult<bool>> AssignUserRole(string userId, string roleName)
+        [HttpPost("ForgotPassword")]
+        public async Task<ActionResult<object>> ForgotPassword([FromBody] ForgotPasswordDto model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
 
-                    return Ok(await servicesAuth.AssignUserRole(userId, roleName));
+                    var responses = await servicesAuth.ForgotPassword(model);
+                    if (responses != null)
+                    {
+                        return Ok(responses);
+                    }
+                    else
+                    {
+                        return Unauthorized(new { Messge = "Las credenciales no son válidas" });
+                    }
 
 
                 }
@@ -72,6 +80,7 @@ namespace Simplyfund.Auth.Controller.Auth
                 {
                     return BadRequest(ModelState);
                 }
+
 
             }
             catch (Exception ex)
@@ -82,6 +91,38 @@ namespace Simplyfund.Auth.Controller.Auth
             }
 
         }
+
+        [HttpPost("ResetPassword")]
+        public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordDto model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var responses = await servicesAuth.ResetPassword(model);
+
+                    return Ok(responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+
+        }
+
+
+
+
 
 
 

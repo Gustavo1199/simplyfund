@@ -53,7 +53,7 @@ namespace SimplyFund.Domain.Models.Requests
         public bool? IsScrowAccountDefault { get; set; }
 
 
-        public virtual Customers? Customer { get; set; }
+        public virtual Client.Customer? Customer { get; set; }
         public virtual Period? Period { get; set; }
         public virtual Badge? Badge { get; set; }
         public virtual RequestStatus? RequestStatus { get; set; }

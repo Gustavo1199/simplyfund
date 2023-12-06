@@ -25,7 +25,7 @@ namespace Simplyfund.Dal.DataBase
         }
 
         public DbSet<Role> Role { get; set; }
-        public DbSet<Customers> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<Commission> Commisions { get; set; }
         public DbSet<Bank> Banks { get; set; }
@@ -46,6 +46,8 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<Document> Documents { get; set; }
         public DbSet<CustomerFinancialSummary> CustomerFinancialSummaries { get; set; }
         public DbSet<FinancialSummary> LegalFinancialSumaries { get; set; }
+        public DbSet<EntityType> EntityTypes { get; set; }
+
         public DbSet<Smtp> SMTP { get; set; }
 
 
