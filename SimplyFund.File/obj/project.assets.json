@@ -1894,6 +1894,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "Azure.Storage.Files.Shares": "12.17.1",
           "SimplyFund.Domain": "1.0.0",
           "Simplyfund.Dal": "1.0.0",

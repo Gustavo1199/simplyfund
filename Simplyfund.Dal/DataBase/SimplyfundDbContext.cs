@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = SimplyFund.Domain.Models.Common.File;
 
 namespace Simplyfund.Dal.DataBase
 {
@@ -47,6 +48,7 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<CustomerFinancialSummary> CustomerFinancialSummaries { get; set; }
         public DbSet<FinancialSummary> LegalFinancialSumaries { get; set; }
         public DbSet<EntityType> EntityTypes { get; set; }
+        public DbSet<File> Files { get; set; }
 
         public DbSet<Smtp> SMTP { get; set; }
 

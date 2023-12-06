@@ -16,13 +16,13 @@ namespace SimplyFund.Domain.Models.Common
         public string? FilePath { get; set; }
         public string? FileType { get; set; }
 
-        [ForeignKey("Document")]
+        //[ForeignKey("Document")]
         public int? DocumentId { get; set; }
-        public virtual Document? Document { get; set; }
+        //public virtual Document? Document { get; set; }
 
-        [ForeignKey("EntityType")]
+        //[ForeignKey("EntityType")]
         public int? EntityTypeId { get; set; }
-        public virtual EntityType? EntityType { get; set; }
+        //public virtual EntityType? EntityType { get; set; }
 
         [Required]
         [StringLength(100)]

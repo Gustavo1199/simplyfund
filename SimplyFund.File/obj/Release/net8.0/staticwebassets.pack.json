@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20231206_112913294hola.txt",
+      "PackagePath": "staticwebassets\\Files\\20231206_112913294hola.txt"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20231206_112924498hola.txt",
+      "PackagePath": "staticwebassets\\Files\\20231206_112924498hola.txt"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.SimplyFund.File.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.SimplyFund.File.props",
+      "PackagePath": "build\\SimplyFund.File.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.SimplyFund.File.props",
+      "PackagePath": "buildMultiTargeting\\SimplyFund.File.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.SimplyFund.File.props",
+      "PackagePath": "buildTransitive\\SimplyFund.File.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

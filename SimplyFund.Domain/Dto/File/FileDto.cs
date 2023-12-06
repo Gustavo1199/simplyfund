@@ -15,10 +15,20 @@ namespace SimplyFund.Domain.Dto.File
         public string? FileName { get; set; }
         public string? FilePath { get; set; }
         public string? FileType { get; set; }
+        [Required]
+
         public string? Document { get; set; }
+        [Required]
         public string? EntityType { get; set; }
+        [Required]
         public int? EntityId { get; set; }
+        [Required]
         public IFormFile? File { get; set; }
 
+        public int? EntityTypeId { get; set; }
+        public int? DocumentId { get; set; }
+        public string? ShareName { get; set; }
+        public string? DirName { get; set; }
+        public int FileId { get; set; }
     }
 }

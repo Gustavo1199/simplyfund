@@ -119,6 +119,21 @@ namespace Simplyfund.Dal.Data.BaseData
             }
         }
 
+        public virtual async Task<bool> DeleteAsync(T entity)
+        {
+            try
+            {
+                _dbSet.Remove(entity);
+                var changes = await _context.SaveChangesAsync();
+                return changes > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> predicate)
         {
             try

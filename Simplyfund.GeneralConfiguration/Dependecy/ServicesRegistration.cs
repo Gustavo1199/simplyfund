@@ -8,10 +8,12 @@ using Simplyfund.Bll.Services.Auth;
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.Services.Common;
 using Simplyfund.Bll.Services.Customers;
+using Simplyfund.Bll.Services.Files;
 using Simplyfund.Bll.Services.ViaFirma;
 using Simplyfund.Bll.ServicesInterface.Auth;
 using Simplyfund.Bll.ServicesInterface.Common;
 using Simplyfund.Bll.ServicesInterface.Customers;
+using Simplyfund.Bll.ServicesInterface.File;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.Bll.ServicesInterface.ViaFirma;
 using Simplyfund.Dal.Data.Auth;
@@ -65,6 +67,7 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServiceCustomer, ServiceCustomer>();
             services.AddScoped<IServicesViaFirma, ServicesViaFirma>();
             services.AddScoped<IServicesRol, ServicesRol>();
+            services.AddScoped<IServicesFile, ServicesFile>();
 
 
             #endregion

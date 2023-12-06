@@ -10,5 +10,12 @@ namespace Simplyfund.Bll.ServicesInterface.File
     public interface IServicesFile
     {
         Task UploadFilesAsync(List<FileDto> files);
+        Task<DownloadResponses> DownloadFileAsync(int FileId);
+
+        Task<List<DownloadResponses>> DownloadFileManyAsync(List<int> FileId);
+
+        Task<List<DownloadResponses>> UpdateFileAsync(List<FileDto> files);
+
+        Task<DownloadResponses> DeleteFileAsync(int FileId);
     }
 }
