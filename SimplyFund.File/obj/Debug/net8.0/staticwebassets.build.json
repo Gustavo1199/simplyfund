@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "Hash": "9Be2C4eRJuPXokUGD0Ek1uuOpu1RaXwEbeD2ILnds4s=",
+  "Source": "SimplyFund.File",
+  "BasePath": "_content/SimplyFund.File",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "SimplyFund.File\\wwwroot",
+      "Source": "SimplyFund.File",
+      "ContentRoot": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\",
+      "BasePath": "_content/SimplyFund.File",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20231206_112913294hola.txt",
+      "SourceId": "SimplyFund.File",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\",
+      "BasePath": "_content/SimplyFund.File",
+      "RelativePath": "Files/20231206_112913294hola.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\20231206_112913294hola.txt"
+    },
+    {
+      "Identity": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20231206_112924498hola.txt",
+      "SourceId": "SimplyFund.File",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\",
+      "BasePath": "_content/SimplyFund.File",
+      "RelativePath": "Files/20231206_112924498hola.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\20231206_112924498hola.txt"
+    }
+  ]
+}

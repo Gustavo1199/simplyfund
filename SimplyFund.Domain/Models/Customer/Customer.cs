@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Models.Client
 {
-    public class Customers : EntityBase
+    public class Customer : EntityBase
     {
         [Required]
         [MaxLength(50)]

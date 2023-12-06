@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
+using Simplyfund.Dal.DataInterface.Auth;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Dto.Responses;
 using SimplyFund.Domain.Models.Auth;
@@ -24,18 +25,18 @@ namespace Simplyfund.Dal.Data.Auth
 
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _rolesManager;
+        private readonly IDataRol dataRol;
         private readonly IConfiguration _configuration;
 
 
-        public DataAuth(UserManager<User> userManager, RoleManager<Role> rolesManager, IConfiguration configuration)
+
+        public DataAuth(UserManager<User> userManager, RoleManager<Role> rolesManager, IConfiguration configuration, IDataRol dataRol)
         {
             _userManager = userManager;
             _rolesManager = rolesManager;
             _configuration = configuration;
+            this.dataRol = dataRol;
         }
-
-
-
 
         public async Task<LoginResponses> Login(LoginModel model)
         {
@@ -92,32 +93,56 @@ namespace Simplyfund.Dal.Data.Auth
 
         }
 
-
-        public async Task<bool> AssignUserRole(string userName, string roleName)
+        public async Task<object> ForgotPassword(ForgotPasswordDto model)
         {
-            var usuario = await _userManager.FindByNameAsync(userName);
-
-            if (usuario != null)
+            try
             {
-                var result = await _userManager.AddToRoleAsync(usuario, roleName);
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
-                if (result.Succeeded)
+                if (user != null && (await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return true;
+                    throw new Exception("No es posible restablecer su contrasena.");
                 }
                 else
                 {
-                    return false;
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                    //Enviar Correo 
+                    return new { mensaje = token/*"Se a enviado un correo con la informaciones necesarias para restablecer la contrasena."*/ };
                 }
+
             }
-            else
+            catch (Exception)
             {
-                throw new Exception($"Usuario con ID {userName} no encontrado.");
+
+                throw;
             }
         }
 
+        public async Task<bool> ResetPassword(ResetPasswordDto model)
+        {
 
-        public async Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles)
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                throw new Exception("No es posible restablecer su contrasena.");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private async Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles)
         {
             if (_secretKey != null)
             {
@@ -171,7 +196,7 @@ namespace Simplyfund.Dal.Data.Auth
                         var create = await _userManager.CreateAsync(user);
                         if (user.Rol != null)
                         {
-                            await AssignUserRole(user.UserName, user.Rol);
+                            await dataRol.AssignUserRole(user.UserName, user.Rol);
 
                         }
                         return password;

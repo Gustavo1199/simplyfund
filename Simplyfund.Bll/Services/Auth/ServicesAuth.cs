@@ -17,21 +17,22 @@ namespace Simplyfund.Bll.Services.Auth
 {
     public class ServicesAuth : IServicesAuth
     {
-       
+
         private readonly IDataAuth dataAuth;
 
-        public ServicesAuth(UserManager<User> userManager, IConfiguration configuration, IDataAuth dataAuth, RoleManager<Role> rolesManager)
+        public ServicesAuth(IDataAuth dataAuth)
         {
-           
+
             this.dataAuth = dataAuth;
         }
+
 
 
         public async Task<LoginResponses> Login(LoginModel model)
         {
             try
-            {          
-               return await dataAuth.Login(model);
+            {
+                return await dataAuth.Login(model);
             }
             catch (Exception)
             {
@@ -39,21 +40,32 @@ namespace Simplyfund.Bll.Services.Auth
                 throw;
             }
 
-        }  
-        
-        public async Task<bool> AssignUserRole(string userId, string roleName)
+        }
+
+
+        public async Task<object> ForgotPassword(ForgotPasswordDto model)
         {
             try
-            {          
-               return await dataAuth.AssignUserRole(userId,roleName);
+            {
+                return await dataAuth.ForgotPassword(model);
             }
             catch (Exception)
             {
 
                 throw;
             }
+        }
+        public async Task<bool> ResetPassword(ResetPasswordDto model)
+        {
+            try
+            {
+                return await dataAuth.ResetPassword(model);
+            }
+            catch (Exception)
+            {
 
-        }  
-
+                throw;
+            }
+        }
     }
 }

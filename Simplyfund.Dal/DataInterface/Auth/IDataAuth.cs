@@ -10,10 +10,10 @@ namespace Simplyfund.Dal.Data.IBaseDatas.Auth
 {
     public interface IDataAuth
     {
-        Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles);
         Task<LoginResponses> Login(LoginModel model);
+        Task<bool> ResetPassword(ResetPasswordDto model);
+        Task<object> ForgotPassword(ForgotPasswordDto model);
 
-        Task<bool> AssignUserRole(string userId, string roleName);
         Task<string> CreateUser(User user);
     }
 }

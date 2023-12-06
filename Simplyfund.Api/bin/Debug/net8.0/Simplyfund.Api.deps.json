@@ -9,6 +9,7 @@
       "Simplyfund.Api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "8.0.0",
+          "RabbitMQ.Client": "6.7.0",
           "SimplyFund.Domain": "1.0.0",
           "Simplyfund.Bll": "1.0.0",
           "Simplyfund.GeneralConfiguration": "1.0.0",
@@ -63,7 +64,7 @@
           "Azure.Core": "1.25.0",
           "Microsoft.Identity.Client": "4.47.2",
           "Microsoft.Identity.Client.Extensions.Msal": "2.19.3",
-          "System.Memory": "4.5.4",
+          "System.Memory": "4.5.5",
           "System.Security.Cryptography.ProtectedData": "6.0.0",
           "System.Text.Json": "4.7.2",
           "System.Threading.Tasks.Extensions": "4.5.4"
@@ -671,6 +672,18 @@
           }
         }
       },
+      "RabbitMQ.Client/6.7.0": {
+        "dependencies": {
+          "System.Memory": "4.5.5",
+          "System.Threading.Channels": "7.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.7.0.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -762,7 +775,7 @@
           }
         }
       },
-      "System.Memory/4.5.4": {},
+      "System.Memory/4.5.5": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
           "System.Text.Encodings.Web": "6.0.0",
@@ -853,6 +866,7 @@
         }
       },
       "System.Text.Json/4.7.2": {},
+      "System.Threading.Channels/7.0.0": {},
       "System.Threading.Tasks.Extensions/4.5.4": {},
       "System.Windows.Extensions/6.0.0": {
         "dependencies": {
@@ -1463,6 +1477,13 @@
       "path": "newtonsoft.json.bson/1.0.2",
       "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
     },
+    "RabbitMQ.Client/6.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b8Jn6dCWZjBmge1KX3hbXNtopBPYjFfFAFRQ7BMlgxWonGBAR19JpLr4V5OiEf8TRx7bWhi/SvLsPQVpL+lxng==",
+      "path": "rabbitmq.client/6.7.0",
+      "hashPath": "rabbitmq.client.6.7.0.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",
       "serviceable": true,
@@ -1540,12 +1561,12 @@
       "path": "system.identitymodel.tokens.jwt/7.0.3",
       "hashPath": "system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512"
     },
-    "System.Memory/4.5.4": {
+    "System.Memory/4.5.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
-      "path": "system.memory/4.5.4",
-      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
     "System.Memory.Data/1.0.2": {
       "type": "package",
@@ -1644,6 +1665,13 @@
       "sha512": "sha512-TcMd95wcrubm9nHvJEQs70rC0H/8omiSGGpU4FQ/ZA1URIqD4pjmFJh2Mfv1yH1eHgJDWTi2hMDXwTET+zOOyg==",
       "path": "system.text.json/4.7.2",
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
+    },
+    "System.Threading.Channels/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qmeeYNROMsONF6ndEZcIQ+VxR4Q/TX/7uIVLJqtwIWL7dDWeh0l1UIqgo4wYyjG//5lUNhwkLDSFl+pAWO6oiA==",
+      "path": "system.threading.channels/7.0.0",
+      "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
     },
     "System.Threading.Tasks.Extensions/4.5.4": {
       "type": "package",

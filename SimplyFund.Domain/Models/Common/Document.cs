@@ -16,7 +16,6 @@ namespace SimplyFund.Domain.Models.Common
         [Required, MaxLength(100)]
         public string? AllowedExtensions { get; set; }
 
-        public bool IsAvailable { get; set; } = true;
 
 
 

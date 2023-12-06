@@ -17,6 +17,8 @@ namespace Simplyfund.Dal.DataInterface.IBaseDatas
         void AddMany(IEnumerable<T> entities);
         void Update(T entity);
         bool Delete(T entity);
+
+        Task<bool> DeleteAsync(T entity);
         IEnumerable<T> GetMany(Expression<Func<T, bool>> predicate);
         T Get(Expression<Func<T, bool>> predicate);
         T GetIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
