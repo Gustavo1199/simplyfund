@@ -8,22 +8,27 @@ using Simplyfund.Bll.Services.Auth;
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.Services.Common;
 using Simplyfund.Bll.Services.Customers;
+using Simplyfund.Bll.Services.Email;
 using Simplyfund.Bll.Services.Files;
 using Simplyfund.Bll.Services.ViaFirma;
 using Simplyfund.Bll.ServicesInterface.Auth;
 using Simplyfund.Bll.ServicesInterface.Common;
 using Simplyfund.Bll.ServicesInterface.Customers;
+using Simplyfund.Bll.ServicesInterface.Email;
 using Simplyfund.Bll.ServicesInterface.File;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.Bll.ServicesInterface.ViaFirma;
 using Simplyfund.Dal.Data.Auth;
 using Simplyfund.Dal.Data.BaseData;
+using Simplyfund.Dal.Data.Email;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using Simplyfund.Dal.Data.ViaFirma;
 using Simplyfund.Dal.DataBase;
 using Simplyfund.Dal.DataInterface.Auth;
+using Simplyfund.Dal.DataInterface.Email;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
 using Simplyfund.Dal.DataInterface.ViaFirma;
+using Simplyfund.Dal.Rabbit;
 using Simplyfund.GeneralConfiguration.AutoMaper;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Models.Auth;
@@ -68,6 +73,9 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServicesViaFirma, ServicesViaFirma>();
             services.AddScoped<IServicesRol, ServicesRol>();
             services.AddScoped<IServicesFile, ServicesFile>();
+            services.AddScoped<IServicesEmail, ServicesEmail>();
+        
+
 
 
             #endregion
@@ -77,6 +85,10 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IDataAuth, DataAuth>();
             services.AddScoped<IDataViafirma, DataViaFirma>(); 
             services.AddScoped<IDataRol, DataRol>();
+            services.AddScoped<IDataEmail, DataEmail>();
+        
+            services.AddScoped<IRabitMQProducer, RabitMQProducer>();
+       
 
 
 

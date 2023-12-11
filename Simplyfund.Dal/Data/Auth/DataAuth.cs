@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using Simplyfund.Dal.DataInterface.Auth;
 using SimplyFund.Domain.Dto.Login;
@@ -19,6 +20,13 @@ namespace Simplyfund.Dal.Data.Auth
 {
     public class DataAuth : IDataAuth
     {
+
+
+
+        private readonly ConnectionFactory _factory;
+        private readonly string _exchangeName = "user_created_exchange";
+
+
         private static readonly string? _secretKey = "secretKeyapi";
         private static readonly string? _issuer = "_issuerapi";
         private static readonly string? _audience = "audienceapi";
@@ -255,6 +263,28 @@ namespace Simplyfund.Dal.Data.Auth
             }
         }
 
+
+
+        private void SendMessage(string username)
+        {
+            using (var connection = _factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                // Declara el exchange (asegúrate de hacerlo solo una vez, idealmente en la inicialización de tu aplicación)
+                channel.ExchangeDeclare(exchange: _exchangeName, type: ExchangeType.Fanout);
+
+                // Puedes enviar información adicional en el mensaje si es necesario
+                var message = $"Nuevo usuario creado: {username}";
+
+                // Convierte el mensaje a bytes
+                var body = Encoding.UTF8.GetBytes(message);
+
+                // Publica el mensaje en el exchange
+                channel.BasicPublish(exchange: _exchangeName, routingKey: "", basicProperties: null, body: body);
+
+                Console.WriteLine($"[x] Enviado '{message}' al exchange '{_exchangeName}'");
+            }
+        }
 
     }
 }

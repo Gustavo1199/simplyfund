@@ -1,0 +1,31 @@
+{
+  "RabbitMQ": {
+    "Host": "localhost",
+    "Port": 15672,
+    "UserName": "guest",
+    "Password": "guest",
+    "VirtualHost": "/",
+    "Exchanges": [
+      {
+        "Name": "emailExchange",
+        "Type": "direct",
+        "Durable": true
+      }
+    ],
+    "Queues": [
+      {
+        "Name": "emailQueue",
+        "Durable": true,
+        "Exclusive": false,
+        "AutoDelete": false
+      }
+    ],
+    "Bindings": [
+      {
+        "QueueName": "emailQueue",
+        "ExchangeName": "emailExchange",
+        "RoutingKey": "email.routing.key"
+      }
+    ]
+  }
+}

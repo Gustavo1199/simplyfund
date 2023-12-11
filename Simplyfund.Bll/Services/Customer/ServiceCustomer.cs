@@ -2,12 +2,16 @@
 using Simplyfund.Bll.ServicesInterface.Customers;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
+using Simplyfund.Dal.Rabbit;
+using SimplyFund.Domain.Dto.Email;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Models.Client;
+using SimplyFund.Domain.Models.RabbitMQ;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,10 +21,12 @@ namespace Simplyfund.Bll.Services.Customers
     {
         IBaseDatas<SimplyFund.Domain.Models.Client.Customer> baseModel;
         IDataAuth dataAuth;
-        public ServiceCustomer(IBaseDatas<SimplyFund.Domain.Models.Client.Customer> baseModel, IDataAuth dataAuth) : base(baseModel)
+        IRabitMQProducer rabitMQProducer;
+        public ServiceCustomer(IBaseDatas<SimplyFund.Domain.Models.Client.Customer> baseModel, IDataAuth dataAuth, IRabitMQProducer rabitMQProducer) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.dataAuth = dataAuth;
+            this.rabitMQProducer = rabitMQProducer;
         }
 
 
@@ -44,8 +50,9 @@ namespace Simplyfund.Bll.Services.Customers
 
                     };
 
-                   string userAcoount = await dataAuth.CreateUser(user);
+                    string userAcoount = await dataAuth.CreateUser(user);
                     add.Password = userAcoount;
+                    SendMail(add);
                     return add;
                 }
                 else
@@ -60,6 +67,37 @@ namespace Simplyfund.Bll.Services.Customers
 
                 throw;
             }
+        }
+
+
+        public void SendMail(Customer add)
+        {
+            RequestEmail requestEmail = new RequestEmail()
+            {
+                Action = "Contrasena Temporal",
+            Module = "Clientes",
+        };
+           
+
+            requestEmail.Recipients = new List<string>() { add.Email };
+
+            requestEmail.Entity = new Dictionary<string, string>
+                        {
+                            {"cliente.nombre",add.FirstName},
+                            {"cliente.apellido", add.FirstLastName},
+                            {"cliente.passwordTemp", add.Password},
+                        };
+
+            var request = new RequestRabbitMQ()
+            {
+                queue = "emailQueue",
+                exchange = "emailExchange",
+                message = requestEmail,
+                routingkey = "email.routing.key"
+            };
+
+            rabitMQProducer.SendProductMessage(request);
+
         }
 
         private async Task Validation(SimplyFund.Domain.Models.Client.Customer entity)

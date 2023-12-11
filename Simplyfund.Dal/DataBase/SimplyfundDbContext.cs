@@ -8,6 +8,7 @@ using SimplyFund.Domain.Models.Auth;
 using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
+using SimplyFund.Domain.Models.Email.NotificationsModel;
 using SimplyFund.Domain.Models.Smtp;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,17 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<FinancialSummary> LegalFinancialSumaries { get; set; }
         public DbSet<EntityType> EntityTypes { get; set; }
         public DbSet<File> Files { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationModule> NotificationModules { get; set; }
+        public DbSet<NotificationAction> NotificationActions { get; set; }
+        public DbSet<NotificationTarget> NotificationTargets { get; set; }
+        public DbSet<NotificationExecutionType> NotificationExecutionTypes { get; set; }
+        //public DbSet<NotificationGroup> NotificationGroups { get; set; }
+        //public DbSet<NotificationGroupsNotification> NotificationGroupsNotifications { get; set; }
+
+
+
 
         public DbSet<Smtp> SMTP { get; set; }
 
