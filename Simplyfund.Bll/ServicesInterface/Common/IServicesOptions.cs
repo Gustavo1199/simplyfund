@@ -15,6 +15,8 @@ namespace Simplyfund.Bll.ServicesInterface.Common
 
         Task<List<OptionsResponses>> GetIdentityTypeData();
 
+        Task<List<OptionsResponses>> GetCategories();
+
 
     }
 }

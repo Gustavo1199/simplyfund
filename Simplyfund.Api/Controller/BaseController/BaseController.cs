@@ -20,7 +20,7 @@ namespace Simplyfund.Api.Controller.BaseController
         }
 
 
-        [HttpPost("Add", Name = "Add")]
+        [HttpPost("Add")]
         public virtual ActionResult Add(T entity)
         {
             try
@@ -44,7 +44,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost("AddAsync", Name = "AddAsync")]
+        [HttpPost("AddAsync")]
         public virtual async Task<ActionResult> AddAsync(T entity)
         {
             try
@@ -68,7 +68,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost("AddAndReturn", Name = "AddAndReturn")]
+        [HttpPost("AddAndReturn")]
         public virtual ActionResult<T> AddAndReturn(T entity)
         {
             try
@@ -91,7 +91,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost("AddAndReturnAsync", Name = "AddAndReturnAsync")]
+        [HttpPost("AddAndReturnAsync")]
         public virtual async Task<ActionResult<T>> AddAndReturnAsync(T entity)
         {
             try
@@ -115,7 +115,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPost("AddMany", Name = "AddMany")]
+        [HttpPost("AddMany")]
         public virtual ActionResult AddMany(IEnumerable<T> entities)
         {
             try
@@ -140,7 +140,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpDelete("Delete", Name = "Delete")]
+        [HttpDelete("Delete")]
         public virtual ActionResult<bool> Delete(T entity)
         {
             try

@@ -18,7 +18,6 @@ namespace Simplyfund.Api.Controller.Common
             errorResponses = new ErrorResponses();
         }
 
-
         [HttpGet("GetCountry", Name = "GetCountry")]
         public async Task<ActionResult<List<OptionsResponses>>> GetCountry()
         {
@@ -94,7 +93,32 @@ namespace Simplyfund.Api.Controller.Common
             }
         }
 
+        [HttpGet("GetCategories")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetCategories()
+        {
+            try
+            {
+                return await servicesOptions.GetCategories();
 
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        } 
+        
+        
         [HttpGet("GetIdentityTypeData", Name = "GetIdentityTypeData")]
         public async Task<ActionResult<List<OptionsResponses>>> GetIdentityTypeData()
         {

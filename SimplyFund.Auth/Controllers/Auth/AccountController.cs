@@ -121,6 +121,34 @@ namespace Simplyfund.Auth.Controller.Auth
         }
 
 
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var responses = await servicesAuth.ChangePassword(model);
+
+                    return Ok(responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
 
 
 

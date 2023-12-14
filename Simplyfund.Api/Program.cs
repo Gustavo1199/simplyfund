@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-ServicesRabbitmqRegistration.AddRegisterRabbitmqProducer();
+//ServicesRabbitmqRegistration.AddRegisterRabbitmqProducer();
 
 builder.Services.AddControllers();
 

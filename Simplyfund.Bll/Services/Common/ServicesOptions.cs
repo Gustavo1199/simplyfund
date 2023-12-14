@@ -3,6 +3,7 @@ using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
+using SimplyFund.Domain.Models.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace Simplyfund.Bll.Services.Common
         IBaseDatas<Province> proviceData;
         IBaseDatas<CustomerType> CustomerTypeData;
         IBaseDatas<IdentityType> IdentityTypeData;
-        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData)
+        IBaseDatas<RequestCategory> RequestCategoryData;
+        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData)
         {
             this.countryData = countryData;
             this.proviceData = proviceData;
             CustomerTypeData = customerTypeseData;
             IdentityTypeData = identityTypeData;
+            RequestCategoryData = requestCategoryData;
         }
 
         public async Task<List<OptionsResponses>> GetCountry()
@@ -127,6 +130,35 @@ namespace Simplyfund.Bll.Services.Common
                         optionsResponses.Add(new OptionsResponses()
                         {
                             displayname = item.IdentityName,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<OptionsResponses>> GetCategories()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await RequestCategoryData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
                             value = item.Id
                         });
                     }

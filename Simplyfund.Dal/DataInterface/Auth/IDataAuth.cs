@@ -15,5 +15,7 @@ namespace Simplyfund.Dal.Data.IBaseDatas.Auth
         Task<object> ForgotPassword(ForgotPasswordDto model);
 
         Task<string> CreateUser(User user);
+
+        Task<bool> ChangePassword(ChangePasswordDto model);
     }
 }

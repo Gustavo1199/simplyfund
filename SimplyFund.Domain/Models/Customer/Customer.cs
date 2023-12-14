@@ -2,6 +2,7 @@
 using SimplyFund.Domain.Base;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
+using SimplyFund.Domain.Models.Funds;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -86,12 +87,15 @@ namespace SimplyFund.Domain.Models.Client
         //public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
         //public virtual CompanyAdditionalInfo? CompanyAdditionalInfo { get; set; }
         public virtual List<SeniorityBalance>? SeniorityBalances { get; set; }
+        public virtual List<Fund>? Funds { get; set; }
 
         [NotMapped]
         public string? Password { get; set; }
         //public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
         //public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
         //public virtual LaborData? LaborData { get; set; }
+
+        public bool? PasswordChange { get; set; }
 
 
 

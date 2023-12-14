@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -9,6 +8,8 @@ using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
 using SimplyFund.Domain.Models.Email.NotificationsModel;
+using SimplyFund.Domain.Models.Funds;
+using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Smtp;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,11 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<NotificationAction> NotificationActions { get; set; }
         public DbSet<NotificationTarget> NotificationTargets { get; set; }
         public DbSet<NotificationExecutionType> NotificationExecutionTypes { get; set; }
+        public DbSet<Fund> Funds { get; set; }
+        public DbSet<Request> REQUESTS { get; set; }
+        public DbSet<RequestCategory> RequestCategories { get; set; }
+        public DbSet<Period> Periods { get; set; }
+
         //public DbSet<NotificationGroup> NotificationGroups { get; set; }
         //public DbSet<NotificationGroupsNotification> NotificationGroupsNotifications { get; set; }
 
@@ -118,8 +124,10 @@ namespace Simplyfund.Dal.DataBase
 
             });
 
-        //    modelBuilder.Entity<Country>()
-        //.Ignore(e => e.Request.Method);
+            //    modelBuilder.Entity<Country>()
+            //.Ignore(e => e.Request.Method);
+
+  
 
 
             //modelBuilder.Entity<User>()

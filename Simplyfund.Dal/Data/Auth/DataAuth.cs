@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EasyNetQ.Events;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
 using Simplyfund.Dal.Data.IBaseDatas.Auth;
 using Simplyfund.Dal.DataInterface.Auth;
+using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Dto.Login;
 using SimplyFund.Domain.Dto.Responses;
 using SimplyFund.Domain.Models.Auth;
+using SimplyFund.Domain.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -35,15 +38,16 @@ namespace Simplyfund.Dal.Data.Auth
         private readonly RoleManager<Role> _rolesManager;
         private readonly IDataRol dataRol;
         private readonly IConfiguration _configuration;
+        private readonly IBaseDatas<Customer> dataCustomer;
 
 
-
-        public DataAuth(UserManager<User> userManager, RoleManager<Role> rolesManager, IConfiguration configuration, IDataRol dataRol)
+        public DataAuth(UserManager<User> userManager, RoleManager<Role> rolesManager, IConfiguration configuration, IDataRol dataRol, IBaseDatas<Customer> dataCustomer)
         {
             _userManager = userManager;
             _rolesManager = rolesManager;
             _configuration = configuration;
             this.dataRol = dataRol;
+            this.dataCustomer = dataCustomer;
         }
 
         public async Task<LoginResponses> Login(LoginModel model)
@@ -148,6 +152,53 @@ namespace Simplyfund.Dal.Data.Auth
                 return false;
             }
 
+        }
+
+        public async Task<bool> ChangePassword(ChangePasswordDto model)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    throw new Exception("Usuario no encontrado");
+                }
+
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+                if (changePasswordResult.Succeeded)
+                {
+                    await UpdateUser(model.Email);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private async Task UpdateUser(string email)
+        {
+            try
+            {
+                var customer = await dataCustomer.GetAsync(x=>x.Email == email);
+                if (customer != null)
+                {
+                    customer.PasswordChange = true;
+                    await dataCustomer.UpdateAndReturnAsync(customer);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private async Task<string> GenerateTokenAsync(string userId, string userName, List<string> roles)

@@ -10,6 +10,7 @@ using Simplyfund.Bll.Services.Common;
 using Simplyfund.Bll.Services.Customers;
 using Simplyfund.Bll.Services.Email;
 using Simplyfund.Bll.Services.Files;
+using Simplyfund.Bll.Services.Requests;
 using Simplyfund.Bll.Services.ViaFirma;
 using Simplyfund.Bll.ServicesInterface.Auth;
 using Simplyfund.Bll.ServicesInterface.Common;
@@ -17,6 +18,7 @@ using Simplyfund.Bll.ServicesInterface.Customers;
 using Simplyfund.Bll.ServicesInterface.Email;
 using Simplyfund.Bll.ServicesInterface.File;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
+using Simplyfund.Bll.ServicesInterface.Requests;
 using Simplyfund.Bll.ServicesInterface.ViaFirma;
 using Simplyfund.Dal.Data.Auth;
 using Simplyfund.Dal.Data.BaseData;
@@ -74,7 +76,10 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServicesRol, ServicesRol>();
             services.AddScoped<IServicesFile, ServicesFile>();
             services.AddScoped<IServicesEmail, ServicesEmail>();
+            services.AddScoped<IServicesValidate, ServicesValidate>();
+            services.AddScoped<IServicesRequest, ServicesRequest>();
         
+
 
 
 
@@ -110,7 +115,7 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = true;
 
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";

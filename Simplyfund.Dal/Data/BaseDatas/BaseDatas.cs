@@ -313,6 +313,11 @@ namespace Simplyfund.Dal.Data.BaseData
 
         public async Task<PaginatedList<T>> FilterAndPaginateAsync(FilterAndPaginateRequestModel? filters)
         {
+
+            try
+            {
+
+
             IQueryable<T> query = _context.Set<T>();
 
             if (filters != null)
@@ -364,6 +369,13 @@ namespace Simplyfund.Dal.Data.BaseData
             else
             {
                 return new PaginatedList<T>(new List<T>(), 2, 1, 3);
+            }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 

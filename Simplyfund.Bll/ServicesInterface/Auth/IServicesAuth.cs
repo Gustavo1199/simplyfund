@@ -13,5 +13,7 @@ namespace Simplyfund.Bll.ServicesInterface.Auth
         Task<object> ForgotPassword(ForgotPasswordDto model);
         Task<bool> ResetPassword(ResetPasswordDto model);
         Task<LoginResponses> Login(LoginModel loginModel);
+
+        Task<bool> ChangePassword(ChangePasswordDto model);
     }
 }

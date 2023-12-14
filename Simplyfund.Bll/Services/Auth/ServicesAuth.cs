@@ -66,6 +66,24 @@ namespace Simplyfund.Bll.Services.Auth
 
                 throw;
             }
+        } 
+        
+        
+        public async Task<bool> ChangePassword(ChangePasswordDto model)
+        {
+            try
+            {
+                return await dataAuth.ChangePassword(model);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+
+
+        
+
     }
 }
