@@ -1,4 +1,5 @@
-﻿using Simplyfund.Bll.ServicesInterface.IBaseServices;
+﻿using Microsoft.EntityFrameworkCore;
+using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Base.Filter;
 using System;
@@ -12,7 +13,7 @@ namespace Simplyfund.Bll.Services.BaseServices
 {
     public class BaseService<T> : IBaseServices<T> where T : class
     {
-         IBaseDatas<T> baseModel;
+        IBaseDatas<T> baseModel;
         public BaseService(IBaseDatas<T> baseModel)
         {
             this.baseModel = baseModel;
@@ -34,7 +35,7 @@ namespace Simplyfund.Bll.Services.BaseServices
         {
             try
             {
-              await  baseModel.AddAsync(entity);
+                await baseModel.AddAsync(entity);
             }
             catch (Exception)
             {
@@ -50,7 +51,7 @@ namespace Simplyfund.Bll.Services.BaseServices
         {
             try
             {
-         
+
                 return baseModel.AddAndReturn(entity);
             }
             catch (Exception)
@@ -103,14 +104,27 @@ namespace Simplyfund.Bll.Services.BaseServices
         {
             try
             {
-              return  baseModel.Delete(entity);
+                return baseModel.Delete(entity);
             }
             catch (Exception)
             {
 
                 throw;
             }
-           
+
+        }
+
+        public virtual async Task<bool> DeleteByIdAsync(int id)
+        {
+            try
+            {
+
+                return await baseModel.DeleteByIdAsync(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public virtual T Get(Expression<Func<T, bool>> predicate)
@@ -149,8 +163,8 @@ namespace Simplyfund.Bll.Services.BaseServices
             {
 
                 throw;
-            }      
-        
+            }
+
         }
 
         public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
@@ -166,7 +180,21 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
-        public  virtual T GetById(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
+        {
+            try
+            {
+                return await baseModel.GetByIdAsync(id);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public virtual T GetById(int id)
         {
             try
             {
@@ -223,7 +251,7 @@ namespace Simplyfund.Bll.Services.BaseServices
         {
             try
             {
-                 baseModel.Update(entity);
+                baseModel.Update(entity);
             }
             catch (Exception)
             {
@@ -231,6 +259,20 @@ namespace Simplyfund.Bll.Services.BaseServices
                 throw;
             }
         }
+
+        public virtual async Task<bool> UpdateAsync(T entity)
+        {
+            try
+            {
+                return await baseModel.UpdateAsync(entity);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         public virtual T UpdateAndReturn(T entity)
         {
@@ -245,7 +287,7 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
-        public  virtual async Task<T> UpdateAndReturnAsync(T entity)
+        public virtual async Task<T> UpdateAndReturnAsync(T entity)
         {
             try
             {
@@ -284,6 +326,6 @@ namespace Simplyfund.Bll.Services.BaseServices
             }
         }
 
-       
+
     }
 }

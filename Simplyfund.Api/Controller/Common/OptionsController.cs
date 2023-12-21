@@ -143,5 +143,135 @@ namespace Simplyfund.Api.Controller.Common
                 return StatusCode(500, errorResponses);
             }
         }
+
+        [HttpGet("GetBankAccountType", Name = "GetBankAccountType")]
+
+        public async Task<ActionResult<List<OptionsResponses>>> GetBankAccountType()
+        {
+            try
+            {
+                return await servicesOptions.GetBankAccountType();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpGet("GetoffersRequestsPeriod", Name = "GetoffersRequestsPeriod")]
+
+        public async Task<ActionResult<List<OptionsResponses>>> GetoffersRequestsPeriod()
+        {
+            try
+            {
+                return await servicesOptions.GetoffersRequestsPeriod();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetOfferType", Name = "GetOfferType")]
+
+        public async Task<ActionResult<List<OptionsResponses>>> GetOfferType()
+        {
+            try
+            {
+                return await servicesOptions.GetOfferType();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }  
+        
+        [HttpGet("GetOfferStatus", Name = "GetOfferStatus")]
+
+        public async Task<ActionResult<List<OptionsResponses>>> GetOfferStatus()
+        {
+            try
+            {
+                return await servicesOptions.GetOfferStatus();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpGet("GetBankAccountByUser/{id}", Name = "GetBankAccountByUser")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetBankAccountByUser(int id)
+        {
+            try
+            {
+                return await servicesOptions.GetBankAccountByUser(id);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
     }
 }

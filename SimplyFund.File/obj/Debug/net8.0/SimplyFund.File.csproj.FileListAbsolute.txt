@@ -94,3 +94,6 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Debug\net8.0\SimplyFund.File.genruntimeconfig.cache
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Debug\net8.0\ref\SimplyFund.File.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Debug\net8.0\SimplyFund.File.staticwebassets.runtime.json
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Debug\net8.0\EasyNetQ.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Debug\net8.0\RabbitMQ.Client.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Debug\net8.0\Microsoft.WindowsAzure.Storage.dll

@@ -11,11 +11,16 @@ namespace Simplyfund.Dal.DataInterface.IBaseDatas
     public interface IBaseDatas<T> where T : class
     {
         T GetById(int id);
+        Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAll();
         void Add(T entity);
         Task AddAsync(T entity);
         void AddMany(IEnumerable<T> entities);
         void Update(T entity);
+
+        Task<bool> UpdateAsync(T entity);
+
+        Task<bool> DeleteByIdAsync(int id);
         bool Delete(T entity);
 
         Task<bool> DeleteAsync(T entity);

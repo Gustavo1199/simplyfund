@@ -30,7 +30,30 @@ namespace Simplyfund.Dal.Data.BaseData
             {
                 if (_dbSet != null)
                 {
+
                     return _dbSet.Find(id);
+                }
+                else
+                {
+                    throw new InvalidOperationException("");
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
+        public async virtual Task<T> GetByIdAsync(int id)
+        {
+            try
+            {
+                if (_dbSet != null)
+                {
+                    return await _dbSet.FindAsync(id);
                 }
                 else
                 {
@@ -105,6 +128,23 @@ namespace Simplyfund.Dal.Data.BaseData
             }
         }
 
+
+        public virtual async Task<bool> UpdateAsync(T entity)
+        {
+            try
+            {
+                _dbSet.Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;              
+               
+                int affectedRows = await _context.SaveChangesAsync();
+                return affectedRows > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public virtual bool Delete(T entity)
         {
             try
@@ -133,6 +173,26 @@ namespace Simplyfund.Dal.Data.BaseData
             }
         }
 
+        public virtual async Task<bool> DeleteByIdAsync(int id)
+        {
+            try
+            {
+                T? entityToRemove = await _dbSet.FindAsync(id);
+
+                if (entityToRemove != null)
+                {
+                    _dbSet.Remove(entityToRemove);
+                    int affectedRows = await _context.SaveChangesAsync();
+                    return affectedRows > 0;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> predicate)
         {

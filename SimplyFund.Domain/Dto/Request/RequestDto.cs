@@ -1,5 +1,6 @@
 ﻿using SimplyFund.Domain.Dto.Base;
 using SimplyFund.Domain.Dto.Common;
+using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
 using System;
@@ -21,6 +22,8 @@ namespace SimplyFund.Domain.Dto.Request
         public double Amount { get; set; }
 
         public bool IsNegotiable { get; set; }
+
+        public List<FileDto>? WarrantyFiles { get; set; }
 
         public  virtual PeriodDto? Period { get; set; }
         public virtual RequestCategoryDto? RequestCategory { get; set; }

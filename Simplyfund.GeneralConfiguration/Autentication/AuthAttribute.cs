@@ -24,12 +24,12 @@ namespace Simplyfund.GeneralConfiguration.Autentication
                 if (authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
                 {
                     var token = authorizationHeader.Substring("Bearer ".Length).Trim();
-                    ClaimsPrincipal principal;
+                    ClaimsPrincipal? principal;
 
                     
                     if (TokenService.ValidateToken(token, out principal))
                     {
-                        var userIdFromToken = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var userIdFromToken = principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                         var userIdFromRequest = context.HttpContext.Request.Headers["UserId"].ToString();
 

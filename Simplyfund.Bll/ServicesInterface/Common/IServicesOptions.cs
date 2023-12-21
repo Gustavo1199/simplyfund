@@ -17,6 +17,14 @@ namespace Simplyfund.Bll.ServicesInterface.Common
 
         Task<List<OptionsResponses>> GetCategories();
 
+        Task<List<OptionsResponses>> GetBankAccountByUser(int UserId);
+
+        Task<List<OptionsResponses>> GetBankAccountType();
+
+        Task<List<OptionsResponses>> GetoffersRequestsPeriod();
+
+        Task<List<OptionsResponses>> GetOfferType();
+        Task<List<OptionsResponses>> GetOfferStatus();
 
     }
 }

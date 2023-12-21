@@ -166,6 +166,33 @@ namespace Simplyfund.Api.Controller.BaseController
 
         }
 
+        
+       [HttpDelete("DeleteByIdAsync/{Id}")]
+        public virtual async Task<ActionResult> DeleteByIdAsync(int Id)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    var responses = await baseServices.DeleteByIdAsync(Id);
+                    return CreatedAtAction(nameof(DeleteByIdAsync), true);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
+
+        }
+
         [HttpGet("GetAll")]
         public virtual ActionResult<IEnumerable<T>> GetAll()
         {
@@ -241,6 +268,32 @@ namespace Simplyfund.Api.Controller.BaseController
                 errorResponses.Message = ex.Message;
                 return StatusCode(500, errorResponses);
             }
+        } 
+        
+        [HttpGet("GetByIdAsync")]
+        public virtual async Task<ActionResult<T>> GetByIdAsync(int id)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    var responses = await baseServices.GetByIdAsync(id);
+                    return CreatedAtAction(nameof(GetByIdAsync), responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorResponses errorResponses = new ErrorResponses();
+                errorResponses.Message = ex.Message;
+                return StatusCode(500, errorResponses);
+            }
         }
 
         [HttpPut("Update")]
@@ -268,56 +321,84 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-        [HttpPut("UpdateAndReturn")]
-        public virtual ActionResult<T> UpdateAndReturn(T entity)
+        //Task<bool> UpdateAsync(T entity)
+
+        [HttpPut("UpdateAsync")]
+        public virtual async Task<ActionResult<bool>> UpdateAsync(T entity)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var responses = baseServices.UpdateAndReturn(entity);
-                    return CreatedAtAction(nameof(UpdateAndReturn), responses);
+                    var responses =  await  baseServices.UpdateAsync(entity);
+                    return CreatedAtAction(nameof(Update), responses);
                 }
                 else
                 {
                     return BadRequest(ModelState);
                 }
 
+
             }
             catch (Exception ex)
             {
-
                 ErrorResponses errorResponses = new ErrorResponses();
                 errorResponses.Message = ex.Message;
                 return StatusCode(500, errorResponses);
             }
         }
 
-        [HttpPut("UpdateAndReturnAsync")]
-        public virtual async Task<ActionResult<T>> UpdateAndReturnAsync(T entity)
-        {
-            try
-            {
 
-                if (ModelState.IsValid)
-                {
-                    var responses = await baseServices.UpdateAndReturnAsync(entity);
-                    return CreatedAtAction(nameof(UpdateAndReturn), responses);
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+        //[HttpPut("UpdateAndReturn")]
+        //public virtual ActionResult<T> UpdateAndReturn(T entity)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var responses = baseServices.UpdateAndReturn(entity);
+        //            return CreatedAtAction(nameof(UpdateAndReturn), responses);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
-                return StatusCode(500, errorResponses);
-            }
-        }
+        //        ErrorResponses errorResponses = new ErrorResponses();
+        //        errorResponses.Message = ex.Message;
+        //        return StatusCode(500, errorResponses);
+        //    }
+        //}
+
+        //[HttpPut("UpdateAndReturnAsync")]
+        //public virtual async Task<ActionResult<T>> UpdateAndReturnAsync(T entity)
+        //{
+        //    try
+        //    {
+
+        //        if (ModelState.IsValid)
+        //        {
+        //            var responses = await baseServices.UpdateAndReturnAsync(entity);
+        //            return CreatedAtAction(nameof(UpdateAndReturn), responses);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        ErrorResponses errorResponses = new ErrorResponses();
+        //        errorResponses.Message = ex.Message;
+        //        return StatusCode(500, errorResponses);
+        //    }
+        //}
 
         [HttpPost("FilterAndPaginate")]
         public ActionResult<PaginatedList<T>> FilterAndPaginate(FilterAndPaginateRequestModel? filters)

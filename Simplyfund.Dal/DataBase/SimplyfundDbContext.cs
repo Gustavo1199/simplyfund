@@ -10,7 +10,10 @@ using SimplyFund.Domain.Models.Customer;
 using SimplyFund.Domain.Models.Email.NotificationsModel;
 using SimplyFund.Domain.Models.Funds;
 using SimplyFund.Domain.Models.Requests;
+using SimplyFund.Domain.Models.Requests.Offers;
+using SimplyFund.Domain.Models.Requests.Offers.AddedOffers;
 using SimplyFund.Domain.Models.Smtp;
+using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +64,15 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<Request> REQUESTS { get; set; }
         public DbSet<RequestCategory> RequestCategories { get; set; }
         public DbSet<Period> Periods { get; set; }
+        public DbSet<Warranty> Warranties { get; set; }
+
+
+        public DbSet<OfferRequest> OffersRequests { get; set; }
+        public DbSet<OfferRequestPeriod> OffersRequestsPeriods { get; set; }
+        public DbSet<OfferType> OffersTypes { get; set; }
+        public DbSet<OfferStatus> OffersStatus { get; set; }
+        public DbSet<AddedOffer> AddedOffers { get; set; }
+
 
         //public DbSet<NotificationGroup> NotificationGroups { get; set; }
         //public DbSet<NotificationGroupsNotification> NotificationGroupsNotifications { get; set; }

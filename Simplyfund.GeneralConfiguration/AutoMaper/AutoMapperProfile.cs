@@ -1,9 +1,15 @@
 ﻿using AutoMapper;
 using SimplyFund.Domain.Dto.Common;
+using SimplyFund.Domain.Dto.Customer;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Request;
+using SimplyFund.Domain.Dto.Request.Offers;
+using SimplyFund.Domain.Dto.Warrantys;
+using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
+using SimplyFund.Domain.Models.Requests.Offers;
+using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +24,19 @@ namespace Simplyfund.GeneralConfiguration.AutoMaper
         
         {
 
-            CreateMap<FileDto, SimplyFund.Domain.Models.Common.File>();
+            CreateMap<FileDto, SimplyFund.Domain.Models.Common.File>().ReverseMap();
             CreateMap<RequestDto, Request>().ReverseMap();
             CreateMap<Period, PeriodDto>();
             CreateMap<RequestCategory, RequestCategoryDto>();
+            CreateMap<RequestDatailsDto, Request>().ReverseMap();
+            CreateMap<OfferRequestDto, OfferRequest>().ReverseMap();
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<Badge, BadgeDto>();
+            CreateMap<RequestStatus, RequestStatusDto>();
+            CreateMap<Warranty, WarrantyDto>();
+
+
+
 
         }
     }

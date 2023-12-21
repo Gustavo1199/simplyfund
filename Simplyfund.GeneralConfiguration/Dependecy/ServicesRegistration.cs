@@ -10,6 +10,8 @@ using Simplyfund.Bll.Services.Common;
 using Simplyfund.Bll.Services.Customers;
 using Simplyfund.Bll.Services.Email;
 using Simplyfund.Bll.Services.Files;
+using Simplyfund.Bll.Services.Request.Offers;
+using Simplyfund.Bll.Services.Request.Offers.AddedOffers;
 using Simplyfund.Bll.Services.Requests;
 using Simplyfund.Bll.Services.ViaFirma;
 using Simplyfund.Bll.ServicesInterface.Auth;
@@ -18,6 +20,8 @@ using Simplyfund.Bll.ServicesInterface.Customers;
 using Simplyfund.Bll.ServicesInterface.Email;
 using Simplyfund.Bll.ServicesInterface.File;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
+using Simplyfund.Bll.ServicesInterface.Request.Offers;
+using Simplyfund.Bll.ServicesInterface.Request.Offers.AddedOffers;
 using Simplyfund.Bll.ServicesInterface.Requests;
 using Simplyfund.Bll.ServicesInterface.ViaFirma;
 using Simplyfund.Dal.Data.Auth;
@@ -78,6 +82,8 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServicesEmail, ServicesEmail>();
             services.AddScoped<IServicesValidate, ServicesValidate>();
             services.AddScoped<IServicesRequest, ServicesRequest>();
+            services.AddScoped<IServicesOffers, ServicesOffers>();
+            services.AddScoped<IServicesAddedOffers, ServicesAddedOffers>();
         
 
 

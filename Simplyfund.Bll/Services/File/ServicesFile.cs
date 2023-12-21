@@ -13,6 +13,9 @@ using SimplyFund.Domain.Dto.ViaFirma;
 using Document = SimplyFund.Domain.Models.Common.Document;
 using System.ComponentModel.Design;
 using System.Collections.Generic;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Azure.Storage.Sas;
+using Azure.Storage;
 
 namespace Simplyfund.Bll.Services.Files
 {
@@ -67,6 +70,8 @@ namespace Simplyfund.Bll.Services.Files
                             {
                                 item.File.CopyTo(stream);
                                 item.FileType = item.File.ContentType;
+                                item.FileName = item.File.FileName;
+                                item.FileType = item.File.Name;
                             }
 
                         }
@@ -96,6 +101,15 @@ namespace Simplyfund.Bll.Services.Files
                                 new HttpRange(0, stream.Length),
                                 stream);
                         }
+
+
+                        // var url =  GenerateSignature(file);
+
+                        string? sasToken = Configuration.GetSection("AzureFileShare:SasToken").Value;
+
+                        item.FilePath = file.Uri.ToString() + sasToken;
+
+
 
 
                         await saveFile(item);
@@ -306,7 +320,32 @@ namespace Simplyfund.Bll.Services.Files
             }
         }
 
+        public string GenerateSignature(ShareFileClient file)
+        {
+            var accountName = Configuration.GetSection("AzureFileShare:AccountName").Value;
+            var accountKey = Configuration.GetSection("AzureFileShare:AccountKey").Value;
 
+            StorageSharedKeyCredential sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
+
+            // Crear el generador de SAS para el archivo de Share
+            ShareSasBuilder sasBuilder = new ShareSasBuilder
+            {
+                ShareName = file.ShareName,
+                FilePath = file.Name,
+                Resource = "f",
+                StartsOn = DateTimeOffset.UtcNow,
+                ExpiresOn = DateTimeOffset.MaxValue,
+            };
+
+            sasBuilder.SetPermissions(ShareSasPermissions.Read);
+
+            // Obtener la firma de acceso compartido (SAS)
+            string sasBlobToken = sasBuilder.ToSasQueryParameters(sharedKeyCredential).ToString();
+
+            Uri blobSasUri = new Uri(file.Uri + "?" + sasBlobToken);
+
+            return blobSasUri.ToString();
+        }
 
 
         async Task saveFile(FileDto item)

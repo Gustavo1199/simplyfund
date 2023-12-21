@@ -11,13 +11,20 @@ namespace Simplyfund.Bll.ServicesInterface.IBaseServices
     public interface IBaseServices<T> where T : class 
     {
         T GetById(int id);
+
+        Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAll();
         void Add(T entity);
         Task AddAsync(T entity);
 
         void AddMany(IEnumerable<T> entities);
         void Update(T entity);
+
+        Task<bool> UpdateAsync(T entity);
         bool Delete(T entity);
+
+        Task<bool> DeleteByIdAsync(int id);
+
         IEnumerable<T> GetMany(Expression<Func<T, bool>> predicate);
         T Get(Expression<Func<T, bool>> predicate);
         T GetIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);

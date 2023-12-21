@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Dto\Customer\" />
       <Folder Include="Models\ViaFirma\" />
     </ItemGroup>
 
