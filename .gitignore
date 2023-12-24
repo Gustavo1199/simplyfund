@@ -8,4 +8,17 @@
 **/**/**/bin/
 **/**/obj/
 **/wwwroot
+**/.obj/
+/.obj/
+
+
+/**/bin/
+/**/obj/
+**/**/bin/
+**/**/**/bin/
+**/**/obj/
+**/wwwroot
+**/.obj/
+/.obj/
+
 /SimplyFund.Mail/bin/

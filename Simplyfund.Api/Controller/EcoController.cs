@@ -11,7 +11,7 @@ namespace Simplyfund.Api.Controller
         public  ActionResult Eco()
         {
 
-            return CreatedAtAction(nameof(Eco), "Online");
+            return Ok("Online");
         }
     }
 }
