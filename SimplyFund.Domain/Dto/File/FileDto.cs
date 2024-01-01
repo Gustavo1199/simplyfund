@@ -25,10 +25,14 @@ namespace SimplyFund.Domain.Dto.File
         [Required]
         public IFormFile? File { get; set; }
 
+        public byte[]? Content { get; set; }
         public int? EntityTypeId { get; set; }
         public int? DocumentId { get; set; }
         public string? ShareName { get; set; }
         public string? DirName { get; set; }
         public int? FileId { get; set; }
+
+        public string? ContentDisposition { get; set; }
+
     }
 }

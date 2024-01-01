@@ -43,48 +43,13 @@ app.MapControllers();
 
 app.Run();
 
-//void ConfigureRabbitMQConsumer(IServiceProvider services, IServiceCollection servicesCollection)
-//{
-//    var factory = new ConnectionFactory() { HostName = "localhost" };
-
-//    using (var connection = factory.CreateConnection())
-//    using (var channel = connection.CreateModel())
-//    {
-//        var exchangeName = "emailexchange";
-//        var queueName = "emailqueue";
-
-//        channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Fanout);
-//        channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
-//        channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: "");
-
-//        Console.WriteLine($"[*] Esperando mensajes en la cola '{queueName}'. Para salir, presiona CTRL+C");
-
-//        var consumer = new EventingBasicConsumer(channel);
-//        consumer.Received += (model, ea) =>
-//        {
-//            var body = ea.Body.ToArray();
-//            var message = Encoding.UTF8.GetString(body);
-
-           
-         
-//        };
-
-//        channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
-//    }
-
-
-
-
-//}
-
-
 void ConfigureRabbitMQConsumer(IServiceProvider services)
 {
 
         var controller = services.GetService<EmailController>();
         if (controller != null)
         {
-             controller.RecibeImagen();
+             controller.InitializeConsumerEmail();
         }
     
 }

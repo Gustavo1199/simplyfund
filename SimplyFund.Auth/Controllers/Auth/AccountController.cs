@@ -51,7 +51,7 @@ namespace Simplyfund.Auth.Controller.Auth
             {
                 ErrorResponses errorResponses = new ErrorResponses();
                 errorResponses.Message = ex.Message;
-                return StatusCode(500, errorResponses);
+                return Unauthorized( errorResponses);
             }
 
         }

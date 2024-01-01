@@ -1,4 +1,5 @@
 using Simplyfund.GeneralConfiguration.Dependecy;
+using SimplyFund.File.Controllers.File;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRegister(builder.Configuration);
+builder.Services.AddScoped<FileController>();
+
+if (builder.Services != null)
+{
+    IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+
+    ConfigureRabbitMQConsumer(serviceProvider);
+}
+
 
 var app = builder.Build();
 
@@ -25,3 +35,16 @@ app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();
+
+
+
+void ConfigureRabbitMQConsumer(IServiceProvider services)
+{
+
+    var controller = services.GetService<FileController>();
+    if (controller != null)
+    {
+        controller.InitializeConsumerFiles();
+    }
+
+}

@@ -28,9 +28,7 @@ namespace SimplyFund.Mail.Controllers.Email
         }
 
 
-
-        [HttpGet("RecibeImagen")]
-        public void RecibeImagen()
+        public void InitializeConsumerEmail()
        {
             var factory = new ConnectionFactory
             {

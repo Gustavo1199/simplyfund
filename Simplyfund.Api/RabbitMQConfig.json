@@ -10,11 +10,22 @@
         "Name": "emailExchange",
         "Type": "direct",
         "Durable": true
+      },
+      {
+        "Name": "fileExchange",
+        "Type": "direct",
+        "Durable": true
       }
     ],
     "Queues": [
       {
         "Name": "emailQueue",
+        "Durable": true,
+        "Exclusive": false,
+        "AutoDelete": false
+      },
+      {
+        "Name": "fileQueue",
         "Durable": true,
         "Exclusive": false,
         "AutoDelete": false
@@ -25,7 +36,13 @@
         "QueueName": "emailQueue",
         "ExchangeName": "emailExchange",
         "RoutingKey": "email.routing.key"
+      },
+      {
+        "QueueName": "fileQueue",
+        "ExchangeName": "fileExchange",
+        "RoutingKey": "file.routing.key"
       }
+
     ]
   }
 }

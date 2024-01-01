@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RabbitMQ.Client.Events;
+using RabbitMQ.Client;
 using Simplyfund.Bll.ServicesInterface.File;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Responses;
 using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace SimplyFund.File.Controllers.File
 {
@@ -229,6 +233,91 @@ namespace SimplyFund.File.Controllers.File
                 }
                 return StatusCode(500, errorResponses);
             }
+        }
+
+
+
+        [NonAction]
+        public  void InitializeConsumerFiles()
+        {
+            Task.Run(() => ListenToRabbitMQ());
+        }
+
+
+        private void ListenToRabbitMQ()
+        {
+            var factory = new ConnectionFactory
+            {
+                HostName = "localhost"
+            };
+
+            var connection = factory.CreateConnection();
+
+            using var channel = connection.CreateModel();
+
+            channel.QueueDeclarePassive("fileQueue");
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += async (model, eventArgs) =>
+            {
+                var body = eventArgs.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+
+                var request = JsonConvert.DeserializeObject<List<FileDto>>(message);
+                List<FileDto> files = new List<FileDto>();
+                if (request != null)
+                {
+                    foreach (var item in request)
+                    {
+                        item.File = ConvertByteArrayToIFormFile(item.Content, item.FileName, item.FileType, item.ContentDisposition);
+                        files.Add(item);
+                    }
+                }
+
+                await servicesFile.UploadFilesAsync(files);
+            };
+
+            channel.BasicConsume(queue: "fileQueue", autoAck: true, consumer: consumer);
+
+            // Espera infinita para que el hilo no termine y el método continúe escuchando
+            while (true)
+            {
+                Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según sea necesario
+            }
+        }
+
+     
+        //public IFormFile ConvertByteArrayToIFormFile(byte[] fileBytes, string fileName, string contentType, string contentDisposition)
+        //{
+        //    using (MemoryStream memoryStream = new MemoryStream(fileBytes))
+        //    {
+        //        IFormFile file = new FormFile(memoryStream, 0, fileBytes.Length, "file", fileName)
+        //        {
+        //            Headers = new HeaderDictionary(),
+        //            ContentType = contentType,
+        //            ContentDisposition = contentDisposition
+        //        };
+
+        //        return file;
+        //    }
+        //}
+
+
+        [NonAction]
+        public IFormFile ConvertByteArrayToIFormFile(byte[] fileBytes, string fileName, string contentType, string contentDisposition)
+        {
+            MemoryStream memoryStream = new MemoryStream(fileBytes);
+
+            IFormFile file = new FormFile(memoryStream, 0, fileBytes.Length, "Files", fileName)
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = contentType,
+                ContentDisposition = contentDisposition
+            };
+
+          
+
+            return file;
         }
 
     }

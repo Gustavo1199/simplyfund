@@ -68,12 +68,11 @@ namespace Simplyfund.Bll.Services.Files
                         {
                             if (item.File != null)
                             {
-                                item.File.CopyTo(stream);
+                                await item.File.CopyToAsync(stream);
                                 item.FileType = item.File.ContentType;
                                 item.FileName = item.File.FileName;
-                                item.FileType = item.File.Name;
+                               
                             }
-
                         }
 
                         ShareClient share = new ShareClient(conexionString, shareName);
@@ -94,7 +93,7 @@ namespace Simplyfund.Bll.Services.Files
                         string fileName = Path.GetFileName(temp);
                         ShareFileClient file = directory.GetFileClient(fileName);
 
-                        using (FileStream stream = File.OpenRead(temp))
+                        using (var stream = File.OpenRead(temp))
                         {
                             await file.CreateAsync(stream.Length);
                             await file.UploadRangeAsync(
@@ -363,5 +362,7 @@ namespace Simplyfund.Bll.Services.Files
 
 
         }
+
+
     }
 }

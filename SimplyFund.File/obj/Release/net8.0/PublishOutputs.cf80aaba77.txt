@@ -12,6 +12,7 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Storage.Common.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Storage.Files.Shares.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Castle.Core.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\EasyNetQ.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Microsoft.AspNetCore.Identity.UI.dll
@@ -37,6 +38,7 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.Bson.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\RabbitMQ.Client.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -49,6 +51,7 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\System.Security.Permissions.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\System.Windows.Extensions.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Microsoft.WindowsAzure.Storage.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll

@@ -1,28 +1,115 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/simplyclient/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5127
+          "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/client/{everything}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamPathTemplate": "/simplyclient/api/{everything}",
+      "UpstreamHttpMethod": [ "GET","POST","PUT","DELETE" ]
     },
     {
-      "DownstreamPathTemplate": "/swagger/{everything}",
+      "DownstreamPathTemplate": "/simplyclient/swagger/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5127
+          "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/client/swagger/{everything}",
+      "UpstreamPathTemplate": "/simplyclient/swagger/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+    //Simplyfile Config
+
+    {
+      "DownstreamPathTemplate": "/simplyfile/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplyfile/api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/simplyfile/swagger/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplyfile/swagger/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+
+    //Simply Authentication
+
+    {
+      "DownstreamPathTemplate": "/simplyauth/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplyauth/api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/simplyauth/swagger/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplyauth/swagger/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+
+    //simply back office
+    {
+      "DownstreamPathTemplate": "/simplybackoffice/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplybackoffice/api/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/simplybackoffice/swagger/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/simplybackoffice/swagger/{everything}",
       "UpstreamHttpMethod": [ "Get" ]
     }
+
+
   ]
 }

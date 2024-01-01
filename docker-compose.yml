@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  simplyfund-api:
+    image: simplyfund-api:latest
+    build:
+      context: .
+      dockerfile: Simplyfund.Api/Dockerfile
+    ports:
+      - "8080:8080"
+      - "4443:4443"
+    networks:
+      - simplyfund-net
+
+  # simplyfund-auth:
+  #   image: simplyfund-auth:latest
+  #   build:
+  #     context: .
+  #     dockerfile: SimplyFund.Auth/Dockerfile
+  #   ports:
+  #     - "8081:81"
+  #     - "4440:444"
+  #   networks:
+  #     - simplyfund-net
+
+
+  # simplyfund-api-gateway:
+  #   image: simplyfund-ApiGateWay:latest
+  #   build:
+  #     context: .
+  #     dockerfile: SimplyFund.ApiGateWay/Dockerfile
+  #   ports:
+  #     - "8080:80"
+  #     - "4430:443"
+  #   networks:
+  #     - simplyfund-net
+
+networks:
+    simplyfund-net:
+      name: simplyfund-net
