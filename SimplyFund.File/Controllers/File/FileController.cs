@@ -24,8 +24,6 @@ namespace SimplyFund.File.Controllers.File
 
         }
 
-
-
         [HttpPost("UploadFilesListAsync")]
         public async Task<ActionResult> UploadFileListsAsync([FromForm] List<FileDto> files)
         {
@@ -94,7 +92,6 @@ namespace SimplyFund.File.Controllers.File
                 return StatusCode(500, errorResponses);
             }
         }
-
 
         [HttpPut("UpdateFileAsync")]
         public async Task<ActionResult> UpdateFileAsync([FromForm] FileDto files)
@@ -165,8 +162,6 @@ namespace SimplyFund.File.Controllers.File
             }
         }
 
-
-
         [HttpDelete("DeleteFileAsync")]
         public async Task<ActionResult<DownloadResponses>> DeleteFileAsync(int FileId)
         {
@@ -235,14 +230,11 @@ namespace SimplyFund.File.Controllers.File
             }
         }
 
-
-
         [NonAction]
         public  void InitializeConsumerFiles()
         {
             Task.Run(() => ListenToRabbitMQ());
         }
-
 
         private void ListenToRabbitMQ()
         {
@@ -285,23 +277,6 @@ namespace SimplyFund.File.Controllers.File
                 Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según sea necesario
             }
         }
-
-     
-        //public IFormFile ConvertByteArrayToIFormFile(byte[] fileBytes, string fileName, string contentType, string contentDisposition)
-        //{
-        //    using (MemoryStream memoryStream = new MemoryStream(fileBytes))
-        //    {
-        //        IFormFile file = new FormFile(memoryStream, 0, fileBytes.Length, "file", fileName)
-        //        {
-        //            Headers = new HeaderDictionary(),
-        //            ContentType = contentType,
-        //            ContentDisposition = contentDisposition
-        //        };
-
-        //        return file;
-        //    }
-        //}
-
 
         [NonAction]
         public IFormFile ConvertByteArrayToIFormFile(byte[] fileBytes, string fileName, string contentType, string contentDisposition)

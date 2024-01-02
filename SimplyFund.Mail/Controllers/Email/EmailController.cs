@@ -22,28 +22,30 @@ namespace SimplyFund.Mail.Controllers.Email
         [HttpGet]
         public async Task<ActionResult> SendEmail(string json)
         {
-           
+
             return Ok(await servicesEmail.SendMail(json));
 
         }
 
+        [NonAction]
+        private void ListenToRabbitMQ()
+        {
 
-        public void InitializeConsumerEmail()
-       {
             var factory = new ConnectionFactory
             {
                 HostName = "localhost"
             };
 
             var connection = factory.CreateConnection();
-    
+
             using
             var channel = connection.CreateModel();
 
             channel.QueueDeclarePassive("emailQueue");
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, eventArgs) => {
+            consumer.Received += (model, eventArgs) =>
+            {
                 var body = eventArgs.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
@@ -51,11 +53,22 @@ namespace SimplyFund.Mail.Controllers.Email
             };
 
             channel.BasicConsume(queue: "emailQueue", autoAck: true, consumer: consumer);
-            Console.ReadKey();
-        }
- 
 
-         void Main()
+            while (true)
+            {
+                Thread.Sleep(1000); 
+            }
+
+        }
+
+        [NonAction]
+        public void InitializeConsumerEmail()
+        {
+            Task.Run(() => ListenToRabbitMQ());
+        }
+
+
+        void Main()
         {
             // Sender's email address and credentials
             string fromAddress = "notificaciones@simplyfund.com.do";

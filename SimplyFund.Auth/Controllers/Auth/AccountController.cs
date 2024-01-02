@@ -44,8 +44,6 @@ namespace Simplyfund.Auth.Controller.Auth
                     return BadRequest(ModelState);
                 }
 
-                //return Unauthorized();
-
             }
             catch (Exception ex)
             {
