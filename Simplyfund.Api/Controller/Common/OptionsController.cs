@@ -273,5 +273,60 @@ namespace Simplyfund.Api.Controller.Common
                 return StatusCode(500, errorResponses);
             }
         }
+
+
+        [HttpGet("GetDocumentsType", Name = "GetDocumentsType")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetDocumentsType()
+        {
+            try
+            {
+                return await servicesOptions.GetDocumentsType();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+
+        [HttpGet("GetEntityType", Name = "GetEntityType")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetEntityType()
+        {
+            try
+            {
+                return await servicesOptions.GetEntityType();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
     }
 }

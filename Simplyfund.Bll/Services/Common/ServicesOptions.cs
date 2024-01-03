@@ -25,8 +25,10 @@ namespace Simplyfund.Bll.Services.Common
         IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData;
         IBaseDatas<OfferType> OfferTypeData;
         IBaseDatas<OfferStatus> OfferStatusData;
+        IBaseDatas<Document> DocumentData;
+        IBaseDatas<EntityType> EntityTypeData;
 
-        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData)
+        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData, IBaseDatas<Document> documentData, IBaseDatas<EntityType> entityTypeData)
         {
             this.countryData = countryData;
             this.proviceData = proviceData;
@@ -38,6 +40,8 @@ namespace Simplyfund.Bll.Services.Common
             this.offersRequestsPeriodData = offersRequestsPeriodData;
             OfferTypeData = offerTypeData;
             OfferStatusData = offerStatusData;
+            DocumentData = documentData;
+            EntityTypeData = entityTypeData;
         }
 
         public async Task<List<OptionsResponses>> GetCountry()
@@ -337,7 +341,62 @@ namespace Simplyfund.Bll.Services.Common
             }
         }
 
+        public async Task<List<OptionsResponses>> GetDocumentsType()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await DocumentData.GetAsync();
 
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Description,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        public async Task<List<OptionsResponses>> GetEntityType()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await EntityTypeData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 
 

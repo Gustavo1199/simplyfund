@@ -271,10 +271,9 @@ namespace SimplyFund.File.Controllers.File
 
             channel.BasicConsume(queue: "fileQueue", autoAck: true, consumer: consumer);
 
-            // Espera infinita para que el hilo no termine y el método continúe escuchando
             while (true)
             {
-                Thread.Sleep(1000); // Puedes ajustar el tiempo de espera según sea necesario
+                Thread.Sleep(1000); 
             }
         }
 

@@ -25,6 +25,9 @@ namespace Simplyfund.Bll.ServicesInterface.Common
 
         Task<List<OptionsResponses>> GetOfferType();
         Task<List<OptionsResponses>> GetOfferStatus();
+        Task<List<OptionsResponses>> GetDocumentsType();
+
+        Task<List<OptionsResponses>> GetEntityType();
 
     }
 }

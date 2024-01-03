@@ -22,7 +22,7 @@ namespace SimplyFund.Domain.Models.Common
 
         //[ForeignKey("EntityType")]
         public int? EntityTypeId { get; set; }
-        //public virtual EntityType? EntityType { get; set; }
+        public virtual EntityType? EntityType { get; set; }
 
         [Required]
         [StringLength(100)]
