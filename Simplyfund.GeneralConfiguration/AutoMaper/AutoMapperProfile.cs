@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = SimplyFund.Domain.Models.Common.File;
 
 namespace Simplyfund.GeneralConfiguration.AutoMaper
 {
@@ -23,8 +24,10 @@ namespace Simplyfund.GeneralConfiguration.AutoMaper
         public AutoMapperProfile() 
         
         {
+            CreateMap<FileDto, File>();
 
-            CreateMap<FileDto, SimplyFund.Domain.Models.Common.File>().ReverseMap();
+            CreateMap<FileDto,File>().ReverseMap();
+            CreateMap<File,FileDto > ().ReverseMap();
             CreateMap<RequestDto, Request>().ReverseMap();
             CreateMap<Period, PeriodDto>();
             CreateMap<RequestCategory, RequestCategoryDto>();

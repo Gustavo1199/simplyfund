@@ -31,6 +31,16 @@ builder.Services.AddSwaggerGen(c =>
 //builder.Services.AddOcelot();
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("*")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -39,7 +49,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
+app.UseCors();
 
 app.MapControllers();
 

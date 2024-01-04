@@ -181,6 +181,34 @@
       "PackagePath": "staticwebassets\\Files\\20240101_10503246120231216_225901182foto.jpg"
     },
     {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_130926229",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_131015875",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_145109365",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_145140298",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_145213915",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_145341348",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
+      "Id": "C:\\Users\\gustavo.sanchez\\source\\repos\\Simplyfund_Backend_Client\\SimplyFund.File\\wwwroot\\Files\\20240104_145944563",
+      "PackagePath": "staticwebassets\\Files"
+    },
+    {
       "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.SimplyFund.File.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\simplyfile</_PublishTargetUrl>
-    <History>True|2024-01-03T19:20:28.0352214Z;True|2024-01-01T22:35:43.6337728-04:00;True|2024-01-01T12:25:42.9927589-04:00;True|2024-01-01T11:06:22.8257573-04:00;True|2023-12-06T12:37:03.5715318-04:00;</History>
+    <History>True|2024-01-04T19:03:32.3616272Z;True|2024-01-03T15:20:28.0352214-04:00;True|2024-01-01T22:35:43.6337728-04:00;True|2024-01-01T12:25:42.9927589-04:00;True|2024-01-01T11:06:22.8257573-04:00;True|2023-12-06T12:37:03.5715318-04:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
