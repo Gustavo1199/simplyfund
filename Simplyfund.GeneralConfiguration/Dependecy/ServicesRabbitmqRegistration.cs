@@ -30,11 +30,16 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
 
             if (rabbitMQConfig != null)
             {
+
                 var factory = new ConnectionFactory
                 {
-                    HostName = rabbitMQConfig.Host
-                 
+                    HostName = rabbitMQConfig.Host,
+                    UserName = rabbitMQConfig.UserName,
+                    Password = rabbitMQConfig.Password,
+                    Port = rabbitMQConfig.Port,
+                    RequestedConnectionTimeout = TimeSpan.FromMinutes(1)
                 };
+
 
                 using (var connection = factory.CreateConnection())
                 {

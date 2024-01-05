@@ -14,14 +14,15 @@ namespace SimplyFund.File.Controllers.File
     [Route("api/[controller]")]
     public class FileController : ControllerBase
     {
+        IConfiguration _configuration;
         public readonly IServicesFile servicesFile;
         ErrorResponses errorResponses;
 
-        public FileController(IServicesFile servicesFile)
+        public FileController(IServicesFile servicesFile, IConfiguration configuration)
         {
             this.servicesFile = servicesFile;
             errorResponses = new ErrorResponses();
-
+            _configuration = configuration;
         }
 
         [HttpPost("UploadFilesListAsync")]
@@ -240,7 +241,7 @@ namespace SimplyFund.File.Controllers.File
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = _configuration.GetSection("Bus:RabbitMQ:Hostname").Value,
             };
 
             var connection = factory.CreateConnection();

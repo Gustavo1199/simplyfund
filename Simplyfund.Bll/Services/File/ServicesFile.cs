@@ -60,7 +60,13 @@ namespace Simplyfund.Bll.Services.Files
                         item.EntityTypeId = FileType.Id;
                         item.ShareName = shareName;
                         item.DirName = FileType.Name;
-                        item.FileName = DateTime.Now.ToString("yyyyMMdd_HHmmssfff") + item.FileName;
+
+                        if (item.File != null)
+                        {
+                            item.FileName = DateTime.Now.ToString("yyyyMMdd_HHmmssfff") + item.File.FileName;
+
+                        }
+
 
                         string temp = Path.Combine($"{Directory.GetCurrentDirectory()}{Configuration.GetSection("FilesDirectory").Value}", item.FileName);
                         item.FilePath = temp;
@@ -70,7 +76,6 @@ namespace Simplyfund.Bll.Services.Files
                             {
                                 await item.File.CopyToAsync(stream);
                                 item.FileType = item.File.ContentType;
-                                item.FileName = item.File.FileName;
                                
                             }
                         }

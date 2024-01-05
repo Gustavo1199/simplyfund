@@ -13,9 +13,11 @@ namespace SimplyFund.Mail.Controllers.Email
     public class EmailController : ControllerBase
     {
         IServicesEmail servicesEmail;
-        public EmailController(IServicesEmail servicesEmail)
+        IConfiguration configuration;
+        public EmailController(IServicesEmail servicesEmail, IConfiguration configuration)
         {
             this.servicesEmail = servicesEmail;
+            this.configuration = configuration;
         }
 
 
@@ -33,7 +35,7 @@ namespace SimplyFund.Mail.Controllers.Email
 
             var factory = new ConnectionFactory
             {
-                HostName = "localhost"
+                 HostName = configuration.GetSection("Bus:RabbitMQ:Hostname").Value,
             };
 
             var connection = factory.CreateConnection();
