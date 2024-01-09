@@ -32,6 +32,7 @@ namespace SimplyFund.Domain.Models.Common
         [StringLength(100)]
         public string? DirName { get; set; }
 
+        public string? Relation { get; set; }
 
         public int? EntityId { get; set; }
 

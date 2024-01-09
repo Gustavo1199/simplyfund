@@ -33,6 +33,7 @@ namespace SimplyFund.Domain.Dto.File
         public int? FileId { get; set; }
 
         public string? ContentDisposition { get; set; }
-
+        public string? Relation { get; set; }
+        public long? Length { get; set; }
     }
 }

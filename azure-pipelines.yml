@@ -1,0 +1,36 @@
+trigger:
+- develop  
+
+pool:
+  vmImage: 'ubuntu-latest'  
+
+jobs:
+- job: BuildAndDeploy
+  displayName: 'Build and Deploy'
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2  
+    inputs:
+      packageType: 'sdk'
+      version: '3.1.x' 
+
+  - task: DockerCompose@0
+    inputs:
+      containerregistrytype: 'Container Registry'
+      action: 'Build services'
+      dockerComposeFile: 'docker-compose.yml'
+      dockerComposeFileArgs: '-f docker-compose.yml'  
+
+  - task: DockerCompose@0
+    inputs:
+      containerregistrytype: 'Container Registry'
+      action: 'Push services'
+      dockerComposeFile: 'docker-compose.yml'
+      dockerComposeFileArgs: '-f docker-compose.yml'
+
+  - task: SSH@0
+    inputs:
+      sshEndpoint: 'nombre_de_tu_conexion_ssh'
+      runOptions: 'inline'
+      inline: 'docker-compose -f docker-compose.yml up -d'

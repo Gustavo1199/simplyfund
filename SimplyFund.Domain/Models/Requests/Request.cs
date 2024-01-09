@@ -1,10 +1,12 @@
 ﻿using SimplyFund.Domain.Base;
+using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +63,11 @@ namespace SimplyFund.Domain.Models.Requests
 
         public virtual Warranty? Warranty { get; set; }
         public virtual RequestCategory? RequestCategory { get; set; }
+
+
+        [NotMapped]
+        public List<FileDto>? Files { get; set; }
+
 
     }
 

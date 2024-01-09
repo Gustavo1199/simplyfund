@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.ServicesInterface.Requests;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
+using Simplyfund.Dal.Rabbit;
 using SimplyFund.Domain.Base.Filter;
 using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Enums;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Request;
 using SimplyFund.Domain.Models.Common;
+using SimplyFund.Domain.Models.RabbitMQ;
 using SimplyFund.Domain.Models.Requests;
+using System.Collections.Generic;
 using Document = SimplyFund.Domain.Models.Common.Document;
 using File = SimplyFund.Domain.Models.Common.File;
 using request1 = SimplyFund.Domain.Models.Requests.Request;
@@ -22,13 +26,16 @@ namespace Simplyfund.Bll.Services.Requests
         IBaseDatas<Document> baseDocumento;
         IBaseDatas<EntityType> baseEntityType;
         IMapper mapper;
-        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType) : base(baseModel)
+        IRabitMQProducer rabitMQProducer;
+
+        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
             this.baseFile = baseFile;
             this.baseDocumento = baseDocumento;
             this.baseEntityType = baseEntityType;
+            this.rabitMQProducer = rabitMQProducer;
         }
 
         public async Task<PaginatedList<RequestDto>?> RequestLists(FilterAndPaginateRequestModel? filters)
@@ -145,8 +152,105 @@ namespace Simplyfund.Bll.Services.Requests
 
         }
 
+        public override async Task<request1> AddAndReturnAsync(request1 entity)
+        {
+
+            try
+            {
 
 
+                if (entity != null)
+                {
+                    if (entity.Files != null)
+                    {
+                        var file = entity.Files;
+
+                        var addRequest = await baseModel.AddAndReturnAsync(entity);
+
+                        List<FileDto> fileDtos = new List<FileDto>();
+                        foreach (var item in file)
+                        {
+                            item.EntityId = addRequest.Id;
+                            fileDtos.Add(item);
+                        }
+
+                        UploadManyDocument(fileDtos);
+
+                        return addRequest;
+
+
+
+                    }
+                    else
+                    {
+                        throw new Exception("Es necesario que suba los archivos con la solicitud.");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Modelo no puede ser null.");
+                }
+
+
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+
+
+        public void UploadManyDocument(List<FileDto> fileDtos)
+        {
+
+            try
+            {
+                List<FileDto> fileDatosList = new List<FileDto>();
+
+                foreach (var file in fileDtos)
+                {
+                    if (file.File != null)
+                    {
+                        file.Content = ConvertIFormFileToByteArray(file.File);
+                        file.FileType = file.File.ContentType;
+                        file.FileName = file.File.FileName;
+                        file.ContentDisposition = file.File.ContentDisposition;
+                        fileDatosList.Add(file);
+                    }
+                }
+
+                RequestRabbitMQ requestRabbitMQ = new RequestRabbitMQ();
+                requestRabbitMQ.queue = "fileQueue";
+                requestRabbitMQ.message = fileDatosList;
+                requestRabbitMQ.exchange = "fileExchange";
+                requestRabbitMQ.routingkey = "file.routing.key";
+
+                rabitMQProducer.SendProductMessage(requestRabbitMQ);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
+        public byte[] ConvertIFormFileToByteArray(IFormFile file)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
 
     }
 }

@@ -76,7 +76,10 @@ namespace Simplyfund.Bll.Services.Files
                             {
                                 await item.File.CopyToAsync(stream);
                                 item.FileType = item.File.ContentType;
-                               
+                                item.Length = item.File.Length;
+
+
+
                             }
                         }
 
