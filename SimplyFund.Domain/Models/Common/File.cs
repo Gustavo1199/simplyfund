@@ -36,6 +36,8 @@ namespace SimplyFund.Domain.Models.Common
 
         public int? EntityId { get; set; }
 
+        public long? Length { get; set; }
+
 
     }
 }

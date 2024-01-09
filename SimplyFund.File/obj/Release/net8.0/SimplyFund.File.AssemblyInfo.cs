@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimplyFund.File")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d6858bac301d3cca9e6c35b609b4c395f9b23e5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c6aaeed56f60598d95a53382956fd41f6511151")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimplyFund.File")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimplyFund.File")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
