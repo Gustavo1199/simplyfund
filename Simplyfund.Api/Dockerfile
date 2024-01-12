@@ -42,10 +42,12 @@ COPY "Simplyfund.Dal/" "Simplyfund.Dal/"
 COPY "SimplyFund.Domain/" "SimplyFund.Domain/"
 COPY "Simplyfund.Library/" "Simplyfund.Library/"
 COPY "Simplyfund.GeneralConfiguration/" "Simplyfund.GeneralConfiguration/"
-# RUN dotnet restore "./Simplyfund.Api/./Simplyfund.Api.csproj"# Restore as distinct layers
-RUN dotnet restore
+RUN dotnet restore "./Simplyfund.Api/Simplyfund.Api.csproj"
+# RUN dotnet restore
 # Build and publish a release
-RUN dotnet publish -c Release -o out
+# RUN dotnet publish -c Release -o out
+RUN dotnet publish "Simplyfund.Api/Simplyfund.Api.csproj" -c Release -o out
+
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0

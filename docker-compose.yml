@@ -3,6 +3,7 @@ version: '3.8'
 services:
   simplyfund-api:
     image: simplyfund-api:latest
+    container_name: simplyfund-api
     build:
       context: .
       dockerfile: Simplyfund.Api/Dockerfile
