@@ -7,10 +7,20 @@ services:
       context: .
       dockerfile: Simplyfund.Api/Dockerfile
     ports:
-      - "8080:8080"
+      - "8082:8080"
       - "4443:4443"
-    networks:
-      - simplyfund-net
+    # networks:
+    #   - simplyfund-net
+    # volumes:
+    #   - simplyfund-api-data:/volumen/
+
+    # env_file: 
+    #   - .env
+    # environment:
+    #   - userdb=simplyfund
+    #   - passworddb=simplyfund
+    #   - hostdb=simplyfunddb
+    #   - ENVIROMENT=
 
   # simplyfund-auth:
   #   image: simplyfund-auth:latest
@@ -35,6 +45,10 @@ services:
   #   networks:
   #     - simplyfund-net
 
-networks:
-    simplyfund-net:
-      name: simplyfund-net
+# volumes:
+#   simplyfund-api-data:
+#     driver: local
+
+# networks:
+#     simplyfund-net:
+#       name: simplyfund-net

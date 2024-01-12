@@ -157,8 +157,6 @@ namespace Simplyfund.Bll.Services.Requests
 
             try
             {
-
-
                 if (entity != null)
                 {
                     if (entity.Files != null)
@@ -178,8 +176,6 @@ namespace Simplyfund.Bll.Services.Requests
 
                         return addRequest;
 
-
-
                     }
                     else
                     {
@@ -191,9 +187,6 @@ namespace Simplyfund.Bll.Services.Requests
                 {
                     throw new Exception("Modelo no puede ser null.");
                 }
-
-
-                
 
             }
             catch (Exception)
