@@ -37,6 +37,9 @@ namespace Simplyfund.GeneralConfiguration.AutoMaper
             CreateMap<Badge, BadgeDto>();
             CreateMap<RequestStatus, RequestStatusDto>();
             CreateMap<Warranty, WarrantyDto>();
+            CreateMap<ExpenseDto, Expense>().ReverseMap();
+            CreateMap<OffersRequestsCommentDto, OffersRequestsComment>().ReverseMap();
+
 
 
 

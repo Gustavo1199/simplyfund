@@ -84,7 +84,10 @@ namespace Simplyfund.GeneralConfiguration.Dependecy
             services.AddScoped<IServicesRequest, ServicesRequest>();
             services.AddScoped<IServicesOffers, ServicesOffers>();
             services.AddScoped<IServicesAddedOffers, ServicesAddedOffers>();
+
+            services.AddScoped<IServicesExpenses, ServicesExpenses>();
         
+
 
 
 

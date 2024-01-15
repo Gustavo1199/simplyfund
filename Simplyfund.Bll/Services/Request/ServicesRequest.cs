@@ -25,10 +25,11 @@ namespace Simplyfund.Bll.Services.Requests
         IBaseDatas<File> baseFile;
         IBaseDatas<Document> baseDocumento;
         IBaseDatas<EntityType> baseEntityType;
+        IBaseDatas<RequestStatus> baseRequestStatus;
         IMapper mapper;
         IRabitMQProducer rabitMQProducer;
 
-        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer) : base(baseModel)
+        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer, IBaseDatas<RequestStatus> baseRequestStatus) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
@@ -36,6 +37,7 @@ namespace Simplyfund.Bll.Services.Requests
             this.baseDocumento = baseDocumento;
             this.baseEntityType = baseEntityType;
             this.rabitMQProducer = rabitMQProducer;
+            this.baseRequestStatus = baseRequestStatus;
         }
 
         public async Task<PaginatedList<RequestDto>?> RequestLists(FilterAndPaginateRequestModel? filters)
@@ -159,6 +161,13 @@ namespace Simplyfund.Bll.Services.Requests
             {
                 if (entity != null)
                 {
+
+
+                    var statusRequest = await baseRequestStatus.GetAsync(x => x.Name == RequestEstatusEnum.revisión);
+                    if (statusRequest != null)
+                    {
+                        entity.RequestStatusId = statusRequest.Id;
+                    }
                     if (entity.Files != null)
                     {
                         var file = entity.Files;
@@ -197,6 +206,11 @@ namespace Simplyfund.Bll.Services.Requests
            
         }
 
+
+        public override async Task<request1> UpdateAndReturnAsync(request1 entity)
+        {
+            return await base.UpdateAndReturnAsync(entity);
+        }
 
         public void UploadManyDocument(List<FileDto> fileDtos)
         {

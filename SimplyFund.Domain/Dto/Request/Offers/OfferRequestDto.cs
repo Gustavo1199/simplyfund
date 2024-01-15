@@ -1,9 +1,11 @@
-﻿using SimplyFund.Domain.Dto.Common;
+﻿using SimplyFund.Domain.Dto.Base;
+using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Requests.Offers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ using Requests = SimplyFund.Domain.Models.Requests.Request;
 
 namespace SimplyFund.Domain.Dto.Request.Offers
 {
-    public class OfferRequestDto
+    public class OfferRequestDto : EntityBaseDto
     {
         public int InvestorId { get; set; }
         public int BadgeId { get; set; }
@@ -32,5 +34,8 @@ namespace SimplyFund.Domain.Dto.Request.Offers
         public virtual OfferStatus? OffersStatus { get; set; }
         public int BankAccountId { get; set; }
         public bool? FundsSent { get; set; }
+
+        [NotMapped]
+        public IEnumerable<OffersRequestsComment>? OfferComments { get; set; }
     }
 }

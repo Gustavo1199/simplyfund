@@ -5,6 +5,7 @@ using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Customer;
 using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Requests.Offers;
+using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +28,14 @@ namespace Simplyfund.Bll.Services.Common
         IBaseDatas<OfferStatus> OfferStatusData;
         IBaseDatas<Document> DocumentData;
         IBaseDatas<EntityType> EntityTypeData;
+        IBaseDatas<Warranty> WarrantyData;
+        IBaseDatas<WarrantyField> WarrantyFieldData;
+        IBaseDatas<Badge> BadgedData;
+        IBaseDatas<Commission> CommissionData;
+        IBaseDatas<Modality> ModalityData;
+        IBaseDatas<Period> PeriodData;
 
-        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData, IBaseDatas<Document> documentData, IBaseDatas<EntityType> entityTypeData)
+        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData, IBaseDatas<Document> documentData, IBaseDatas<EntityType> entityTypeData, IBaseDatas<Warranty> warrantyData, IBaseDatas<WarrantyField> warrantyFieldData, IBaseDatas<Badge> badgedData, IBaseDatas<Commission> commissionData, IBaseDatas<Modality> modalityData, IBaseDatas<Period> periodData)
         {
             this.countryData = countryData;
             this.proviceData = proviceData;
@@ -42,6 +49,12 @@ namespace Simplyfund.Bll.Services.Common
             OfferStatusData = offerStatusData;
             DocumentData = documentData;
             EntityTypeData = entityTypeData;
+            WarrantyData = warrantyData;
+            WarrantyFieldData = warrantyFieldData;
+            BadgedData = badgedData;
+            CommissionData = commissionData;
+            ModalityData = modalityData;
+            PeriodData = periodData;
         }
 
         public async Task<List<OptionsResponses>> GetCountry()
@@ -369,6 +382,7 @@ namespace Simplyfund.Bll.Services.Common
                 throw;
             }
         } 
+
         public async Task<List<OptionsResponses>> GetEntityType()
         {
             try
@@ -397,6 +411,182 @@ namespace Simplyfund.Bll.Services.Common
                 throw;
             }
         }
+        
+        public async Task<List<OptionsResponses>> GetWarranty()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await WarrantyData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            description = item.Document,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<OptionsResponses>> GetWarrantyField(int WarrantyId)
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await WarrantyFieldData.GetManyAsync(x => x.WarrantyId == WarrantyId);
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Field,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task<List<OptionsResponses>> GetBadged()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await BadgedData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Iso4217,
+                            description = item.Currency,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        
+        public async Task<OptionsResponses> GetCommission(int BadgeId)
+        {
+            try
+            {
+                OptionsResponses optionsResponses = new OptionsResponses();
+                var data = await CommissionData.GetAsync(x=>x.BadgeId == BadgeId);
+
+                if (data != null)
+                {
+                    optionsResponses.displayname = data.AnnualPercentage.ToString();
+                    optionsResponses.value = data.Id;
+                                     
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<OptionsResponses>> GetModality()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await ModalityData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        public async Task<List<OptionsResponses>> GetPeriodData()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await PeriodData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+
+
+
+
+
     }
 
 

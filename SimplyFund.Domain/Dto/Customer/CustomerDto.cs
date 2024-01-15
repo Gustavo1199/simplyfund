@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Customer
 {
-    public class CustomerDto : DtoBase
+    public class CustomerDto : EntityBaseDto
     {
 
         [MaxLength(50)]

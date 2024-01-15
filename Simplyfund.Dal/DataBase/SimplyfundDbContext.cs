@@ -73,6 +73,15 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<OfferStatus> OffersStatus { get; set; }
         public DbSet<AddedOffer> AddedOffers { get; set; }
 
+        public DbSet<WarrantyField> WarrantyFields { get; set; }
+
+        public DbSet<Modality> Modalitys { get; set; }
+
+        public DbSet<Expense> Expenses { get; set; }
+
+        public DbSet<OffersRequestsComment> OffersRequestsComments { get; set; }
+
+
 
         //public DbSet<NotificationGroup> NotificationGroups { get; set; }
         //public DbSet<NotificationGroupsNotification> NotificationGroupsNotifications { get; set; }

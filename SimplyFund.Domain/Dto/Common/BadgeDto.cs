@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Common
 {
-    public class BadgeDto : DtoBase
+    public class BadgeDto : EntityBaseDto
     {
         public string? Currency { get; set; }
         public string? Symbol { get; set; }

@@ -29,5 +29,17 @@ namespace Simplyfund.Bll.ServicesInterface.Common
 
         Task<List<OptionsResponses>> GetEntityType();
 
+        Task<List<OptionsResponses>> GetWarranty();
+
+        Task<List<OptionsResponses>> GetWarrantyField(int WarrantyId);
+
+        Task<List<OptionsResponses>> GetBadged();
+
+        Task<OptionsResponses> GetCommission(int BadgeId);
+
+        Task<List<OptionsResponses>> GetModality();
+
+        Task<List<OptionsResponses>> GetPeriodData();
     }
+
 }

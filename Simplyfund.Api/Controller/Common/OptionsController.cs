@@ -67,7 +67,7 @@ namespace Simplyfund.Api.Controller.Common
                 return StatusCode(500, errorResponses);
             }
         }
-        
+
         [HttpGet("GetCustomerTypes", Name = "GetCustomerTypes")]
         public async Task<ActionResult<List<OptionsResponses>>> GetCustomerTypes()
         {
@@ -116,9 +116,9 @@ namespace Simplyfund.Api.Controller.Common
                 }
                 return StatusCode(500, errorResponses);
             }
-        } 
-        
-        
+        }
+
+
         [HttpGet("GetIdentityTypeData", Name = "GetIdentityTypeData")]
         public async Task<ActionResult<List<OptionsResponses>>> GetIdentityTypeData()
         {
@@ -221,8 +221,8 @@ namespace Simplyfund.Api.Controller.Common
                 }
                 return StatusCode(500, errorResponses);
             }
-        }  
-        
+        }
+
         [HttpGet("GetOfferStatus", Name = "GetOfferStatus")]
 
         public async Task<ActionResult<List<OptionsResponses>>> GetOfferStatus()
@@ -307,7 +307,7 @@ namespace Simplyfund.Api.Controller.Common
         {
             try
             {
-                return await servicesOptions.GetEntityType();
+                return Ok(await servicesOptions.GetEntityType());
 
             }
             catch (Exception ex)
@@ -328,5 +328,160 @@ namespace Simplyfund.Api.Controller.Common
         }
 
 
+        [HttpGet("GetFieldsByWarranty/{WarrantyId:int}", Name = "GetFieldsByWarranty")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetWarrantyField(int WarrantyId)
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetWarrantyField(WarrantyId));
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetBadged", Name = "GetBadged")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetBadged()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetBadged());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetWarranty", Name = "GetWarranty")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetWarranty()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetWarranty());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetCommission/{BadgeId:int}", Name = "GetCommission")]
+        public async Task<ActionResult<OptionsResponses>> GetCommission(int BadgeId)
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetCommission(BadgeId));
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetModality", Name = "GetModality")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetModality()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetModality());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }  
+        
+        [HttpGet("GetPeriodData", Name = "GetPeriodData")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetPeriodData()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetPeriodData());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
     }
+
+
 }

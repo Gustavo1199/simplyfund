@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Request
 {
-    public class RequestDto : DtoBase
+    public class RequestDto : EntityBaseDto
     {
         public string? RequestCategoryId { get; set; }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Warrantys
 {
-    public class WarrantyDto  : DtoBase
+    public class WarrantyDto  : EntityBaseDto
     {
         public string? Name { get; set; }
         public string? Document { get; set; }

@@ -1,4 +1,4 @@
-﻿using SimplyFund.Domain.Dto.Base;
+﻿using SimplyFund.Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimplyFund.Domain.Dto.Common
+namespace SimplyFund.Domain.Models.Common
 {
-    public class PeriodDto : EntityBaseDto
+    public class Modality : EntityBase
     {
         [Required, MaxLength(100)]
         public string? Name { get; set; }

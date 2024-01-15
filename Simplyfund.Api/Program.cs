@@ -21,8 +21,17 @@ builder.Services.AddMvc(options =>
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.MapType<SimplyFund.Domain.Dto.ViaFirma.Document>(() => new OpenApiSchema { Type = "Documents" });
 
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Simplyfund api client", // Set your API name here
+        Description = "Microservicio orientado a la logica del cliente."
+    });
+
+
+    options.MapType<SimplyFund.Domain.Dto.ViaFirma.Document>(() => new OpenApiSchema { Type = "Documents" });
+ 
     options.ResolveConflictingActions(apiDescription =>
     {
         var firstAction = apiDescription.First();

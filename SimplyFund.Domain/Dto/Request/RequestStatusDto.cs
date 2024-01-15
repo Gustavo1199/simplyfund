@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Request
 {
-    public class RequestStatusDto : DtoBase
+    public class RequestStatusDto : EntityBaseDto
     {
        
             [Required, MaxLength(100)]

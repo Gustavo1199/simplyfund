@@ -17,12 +17,14 @@ namespace Simplyfund.Bll.Services.Request.Offers
     {
         IBaseDatas<OfferRequest> baseModel;
         IBaseDatas<OfferStatus> dataOfferStatus;
+        IBaseDatas<OffersRequestsComment> dataOfferRequestComment;
         IMapper mapper;
-        public ServicesOffers(IBaseDatas<OfferRequest> baseModel, IMapper mapper, IBaseDatas<OfferStatus> dataOfferStatus) : base(baseModel)
+        public ServicesOffers(IBaseDatas<OfferRequest> baseModel, IMapper mapper, IBaseDatas<OfferStatus> dataOfferStatus, IBaseDatas<OffersRequestsComment> dataOfferRequestCommentDto) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
             this.dataOfferStatus = dataOfferStatus;
+            this.dataOfferRequestComment = dataOfferRequestCommentDto;
         }
 
         public async Task<List<OfferRequestDto>> GetOffersByRequestId(int requestId)
@@ -33,7 +35,31 @@ namespace Simplyfund.Bll.Services.Request.Offers
 
                 var map = mapper.Map<List<OfferRequestDto>>(offers);
 
-                return map;
+
+                var offersList = new List<OfferRequestDto>();
+
+                foreach (var item in map)
+                {
+                    if (item != null)
+                    {
+                        var offerstatus = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Devuelta);
+                        if (offerstatus != null)
+                        {
+                            if (item.OffersStatusId == offerstatus.Id)
+                            {
+                                var comment = await dataOfferRequestComment.GetManyAsync(x => x.OfferRequestId == item.Id);
+                                if (comment != null)
+                                {
+                                    item.OfferComments = comment;
+                                }
+                            }
+                        }
+
+                        offersList.Add(item);
+                    }
+                }
+
+                return offersList;
             }
             catch (Exception)
             {
@@ -55,7 +81,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
                         var statusOffer = await dataOfferStatus.GetAsync(x => x.Id == offer.OffersStatusId);
                         if (statusOffer != null)
                         {
-                            if ( statusOffer.Description == offersStatusEnum.Devuelta)
+                            if (statusOffer.Description == offersStatusEnum.Devuelta)
                             {
                                 return await baseModel.UpdateAsync(offer);
                             }
@@ -123,9 +149,9 @@ namespace Simplyfund.Bll.Services.Request.Offers
                     }
 
                 }
-                else 
-                { 
-                   throw new Exception("No existe esta oferta."); 
+                else
+                {
+                    throw new Exception("No existe esta oferta.");
                 }
 
             }
@@ -176,6 +202,58 @@ namespace Simplyfund.Bll.Services.Request.Offers
                 {
                     throw new Exception("No existe la este estatus configurado");
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> Counteroffer(OffersRequestsCommentDto offerRequestCommentDto)
+        {
+            try
+            {
+
+
+
+                var offer = await baseModel.GetAsync(x => x.Id == offerRequestCommentDto.Id);
+                if (offer != null)
+                {
+                    var offerstatus = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Devuelta);
+
+                    if (offerstatus != null)
+                    {
+                        if (offer.OffersStatusId != offerstatus.Id)
+                        {
+
+                            var map = mapper.Map<OffersRequestsComment>(offerRequestCommentDto);
+                            await dataOfferRequestComment.AddAsync(map);
+
+
+                            offer.OffersStatusId = offerstatus.Id;
+
+                            await baseModel.UpdateAsync(offer);
+
+                            return true;
+                        }
+                        else
+                        {
+                            throw new Exception("No es posible realizar contraoferta por que el estatus no lo permite.");
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception("Estatus no encontrado");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Offerta no encontrada.");
+                }
+
+
             }
             catch (Exception)
             {

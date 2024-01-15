@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Request
 {
-    public class RequestDatailsDto : DtoBase
+    public class RequestDatailsDto : EntityBaseDto
     {
         public int RequestStatusId { get; set; }
         public int RequestCategoryId { get; set; }

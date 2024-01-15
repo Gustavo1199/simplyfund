@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimplyFund.Domain.Dto.Base
 {
-    public class DtoBase
+    public class EntityBaseDto
     {
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
