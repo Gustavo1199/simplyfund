@@ -89,5 +89,38 @@ namespace Simplyfund.Api.Controller.Requests.Offers
             }
         }
 
+
+
+        [HttpPost("Counteroffer")]
+        public async Task<ActionResult<bool>> Counteroffer(OffersRequestsCommentDto offerRequestCommentDto)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await baseServices.Counteroffer(offerRequestCommentDto));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
     }
 }

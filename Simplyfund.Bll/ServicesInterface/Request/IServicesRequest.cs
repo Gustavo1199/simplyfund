@@ -16,6 +16,6 @@ namespace Simplyfund.Bll.ServicesInterface.Requests
     {
         Task<PaginatedList<RequestDto>?> RequestLists(FilterAndPaginateRequestModel? filters);
 
-        Task<RequestDatailsDto> GetByIdDetailsAsync(int id);
+        Task<RequestDatailsDto> GetByIdDetailsAsync(int id,int? userId);
     }
 }

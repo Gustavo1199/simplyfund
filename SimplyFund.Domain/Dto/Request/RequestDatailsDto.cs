@@ -4,6 +4,7 @@ using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Customer;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Warrantys;
+using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace SimplyFund.Domain.Dto.Request
         public virtual WarrantyDto? Warranty { get; set; }
         public List<FileDto>? WarrantyFiles { get; set; }
         
+        public List<RequestExpenseRelation>? Expenses { get; set; }
         public int? OfferCount { get; set; }
 
         public bool Iniciar { get; set; }

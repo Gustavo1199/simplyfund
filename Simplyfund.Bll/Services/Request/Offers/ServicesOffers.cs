@@ -215,9 +215,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
             try
             {
 
-
-
-                var offer = await baseModel.GetAsync(x => x.Id == offerRequestCommentDto.Id);
+                var offer = await baseModel.GetAsync(x => x.Id == offerRequestCommentDto.OfferRequestId);
                 if (offer != null)
                 {
                     var offerstatus = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Devuelta);
@@ -261,6 +259,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
                 throw;
             }
         }
+
 
     }
 }

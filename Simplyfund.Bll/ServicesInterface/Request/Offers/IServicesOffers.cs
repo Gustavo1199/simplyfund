@@ -14,5 +14,7 @@ namespace Simplyfund.Bll.ServicesInterface.Request.Offers
         Task<List<OfferRequestDto>> GetOffersByRequestId(int requestId);
 
         Task<bool> RejectInvesmentOffer(int id);
+
+        Task<bool> Counteroffer(OffersRequestsCommentDto offerRequestCommentDto);
     }
 }

@@ -23,6 +23,10 @@ namespace SimplyFund.Domain.Dto.Request
 
         public bool IsNegotiable { get; set; }
 
+        public int Installments { get; set; }
+
+
+
         public List<FileDto>? WarrantyFiles { get; set; }
 
         public  virtual PeriodDto? Period { get; set; }

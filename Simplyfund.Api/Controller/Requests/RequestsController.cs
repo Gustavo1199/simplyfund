@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
 using Simplyfund.Api.Controller.BaseController;
 using Simplyfund.Bll.Services.Common;
 using Simplyfund.Bll.ServicesInterface.Common;
@@ -18,14 +19,14 @@ namespace Simplyfund.Api.Controller.Requests
         IServicesRequest baseServices;
         ErrorResponses errorResponses;
 
-        public RequestsController(IServicesRequest baseServices) : base(baseServices) 
+        public RequestsController(IServicesRequest baseServices) : base(baseServices)
         {
             errorResponses = new ErrorResponses();
             this.baseServices = baseServices;
         }
 
         [HttpPost("RequestLists")]
-      public async Task<ActionResult<PaginatedList<RequestDto>>> RequestLists(FilterAndPaginateRequestModel? filters)
+        public async Task<ActionResult<PaginatedList<RequestDto>>> RequestLists(FilterAndPaginateRequestModel? filters)
         {
             try
             {
@@ -37,7 +38,7 @@ namespace Simplyfund.Api.Controller.Requests
                 {
                     return BadRequest(ModelState);
                 }
-               
+
 
             }
             catch (Exception ex)
@@ -56,22 +57,23 @@ namespace Simplyfund.Api.Controller.Requests
                 return StatusCode(500, errorResponses);
             }
         }
-        
-        
+
+
         [HttpGet("GetByIdDetailsAsync/{Id}")]
-      public async Task<ActionResult<RequestDatailsDto>> GetByIdDetailsAsync(int Id)
+        public async Task<ActionResult<RequestDatailsDto>> GetByIdDetailsAsync(int Id)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    return Ok(await baseServices.GetByIdDetailsAsync(Id));
+                    var userId = GetUserByToken();
+                    return Ok(await baseServices.GetByIdDetailsAsync(Id, userId));
                 }
                 else
                 {
                     return BadRequest(ModelState);
                 }
-               
+
 
             }
             catch (Exception ex)

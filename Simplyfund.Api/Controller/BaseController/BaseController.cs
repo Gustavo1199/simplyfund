@@ -149,7 +149,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = baseServices.Delete(entity);
-                    return CreatedAtAction(nameof(Delete), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -166,8 +166,8 @@ namespace Simplyfund.Api.Controller.BaseController
 
         }
 
-        
-       [HttpDelete("DeleteByIdAsync/{Id}")]
+
+        [HttpDelete("DeleteByIdAsync/{Id}")]
         public virtual async Task<ActionResult> DeleteByIdAsync(int Id)
         {
             try
@@ -176,7 +176,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = await baseServices.DeleteByIdAsync(Id);
-                    return CreatedAtAction(nameof(DeleteByIdAsync), true);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -202,7 +202,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = baseServices.GetAll();
-                    return CreatedAtAction(nameof(GetAll), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -227,7 +227,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = await baseServices.GetAsync();
-                    return CreatedAtAction(nameof(GetAll), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -253,7 +253,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = baseServices.GetById(id);
-                    return CreatedAtAction(nameof(GetById), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -268,8 +268,8 @@ namespace Simplyfund.Api.Controller.BaseController
                 errorResponses.Message = ex.Message;
                 return StatusCode(500, errorResponses);
             }
-        } 
-        
+        }
+
         [HttpGet("GetByIdAsync")]
         public virtual async Task<ActionResult<T>> GetByIdAsync(int id)
         {
@@ -279,7 +279,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = await baseServices.GetByIdAsync(id);
-                    return CreatedAtAction(nameof(GetByIdAsync), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -304,7 +304,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     baseServices.Update(entity);
-                    return CreatedAtAction(nameof(Update), true);
+                    return Ok(true);
                 }
                 else
                 {
@@ -330,8 +330,8 @@ namespace Simplyfund.Api.Controller.BaseController
             {
                 if (ModelState.IsValid)
                 {
-                    var responses =  await  baseServices.UpdateAsync(entity);
-                    return CreatedAtAction(nameof(Update), responses);
+                    var responses = await baseServices.UpdateAsync(entity);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -408,7 +408,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = baseServices.FilterAndPaginate(filters);
-                    return CreatedAtAction(nameof(FilterAndPaginate), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -431,7 +431,7 @@ namespace Simplyfund.Api.Controller.BaseController
                 if (ModelState.IsValid)
                 {
                     var responses = await baseServices.FilterAndPaginateAsync(filters);
-                    return CreatedAtAction(nameof(FilterAndPaginateAsync), responses);
+                    return Ok(responses);
                 }
                 else
                 {
@@ -445,6 +445,22 @@ namespace Simplyfund.Api.Controller.BaseController
                 ErrorResponses errorResponses = new ErrorResponses();
                 errorResponses.Message = ex.Message;
                 return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [NonAction]
+        public int GetUserByToken()
+        {
+
+            if (HttpContext.Request.Headers.TryGetValue("UserId", out var userIdValues))
+            {
+                int userId = Convert.ToInt32(userIdValues.FirstOrDefault());
+                return userId;
+            }
+            else
+            {
+                return -1;
             }
         }
 

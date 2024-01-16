@@ -80,6 +80,7 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<Expense> Expenses { get; set; }
 
         public DbSet<OffersRequestsComment> OffersRequestsComments { get; set; }
+        public DbSet<RequestExpenseRelation> RequestExpenseRelation { get; set; }
 
 
 

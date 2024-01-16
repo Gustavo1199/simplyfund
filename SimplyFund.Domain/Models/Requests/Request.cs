@@ -69,6 +69,9 @@ namespace SimplyFund.Domain.Models.Requests
         public List<FileDto>? Files { get; set; }
 
 
+        [NotMapped]
+        public List<RequestExpenseRelation>? RequestExpenses { get; set; }
+
     }
 
 
