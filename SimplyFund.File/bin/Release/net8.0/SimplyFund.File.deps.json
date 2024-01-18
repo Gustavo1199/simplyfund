@@ -686,6 +686,14 @@
           }
         }
       },
+      "ncalc/1.3.8": {
+        "runtime": {
+          "lib/NCalc.dll": {
+            "assemblyVersion": "1.3.8.0",
+            "fileVersion": "1.3.8.0"
+          }
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -1564,7 +1572,8 @@
           "SimplyFund.Domain": "1.0.0",
           "Simplyfund.Dal": "1.0.0",
           "Simplyfund.Library": "1.0.0",
-          "WindowsAzure.Storage": "9.3.3"
+          "WindowsAzure.Storage": "9.3.3",
+          "ncalc": "1.3.8"
         },
         "runtime": {
           "Simplyfund.Bll.dll": {}
@@ -2180,6 +2189,13 @@
       "sha512": "sha512-hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
+    },
+    "ncalc/1.3.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T3kt6mWc70x3Ex5PxOmuILy563CGAdoAnyknXX7Du2/SXs2T94hNwc5CVwZcwCu5/A2ZBZhnHnc5dpcqCRGQ0A==",
+      "path": "ncalc/1.3.8",
+      "hashPath": "ncalc.1.3.8.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

@@ -18,7 +18,7 @@ namespace SimplyFund.Domain.Models.Requests
     {
         [Required]
         public int RequestStatusId { get; set; }
-        [Required, MaxLength(100)]
+        [Required]
         public int RequestCategoryId { get; set; }
         public bool RequireInterestInvoice { get; set; }
         public string? Name { get; set; }
@@ -54,6 +54,7 @@ namespace SimplyFund.Domain.Models.Requests
         public bool? FundsReceived { get; set; }
         public string? DestinationBankAccount { get; set; }
         public bool? IsScrowAccountDefault { get; set; }
+        public bool? escrow { get; set; }
 
 
         public virtual Customers? Customer { get; set; }

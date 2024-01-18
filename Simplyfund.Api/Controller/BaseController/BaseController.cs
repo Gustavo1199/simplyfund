@@ -348,57 +348,7 @@ namespace Simplyfund.Api.Controller.BaseController
             }
         }
 
-
-        //[HttpPut("UpdateAndReturn")]
-        //public virtual ActionResult<T> UpdateAndReturn(T entity)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = baseServices.UpdateAndReturn(entity);
-        //            return CreatedAtAction(nameof(UpdateAndReturn), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
-
-        //[HttpPut("UpdateAndReturnAsync")]
-        //public virtual async Task<ActionResult<T>> UpdateAndReturnAsync(T entity)
-        //{
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            var responses = await baseServices.UpdateAndReturnAsync(entity);
-        //            return CreatedAtAction(nameof(UpdateAndReturn), responses);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorResponses errorResponses = new ErrorResponses();
-        //        errorResponses.Message = ex.Message;
-        //        return StatusCode(500, errorResponses);
-        //    }
-        //}
+       
 
         [HttpPost("FilterAndPaginate")]
         public ActionResult<PaginatedList<T>> FilterAndPaginate(FilterAndPaginateRequestModel? filters)

@@ -93,5 +93,14 @@ namespace Simplyfund.Api.Controller.Requests
             }
         }
 
+
+        [Consumes("multipart/form-data")]
+        [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
+        [HttpPost("AddRequest")]
+        public async Task<ActionResult<Request>> AddRequest([FromForm] Request entity)
+        {
+            return await base.AddAndReturnAsync(entity);
+        }
+
     }
 }

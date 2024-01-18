@@ -25,6 +25,7 @@ namespace SimplyFund.Domain.Dto.Request
 
         public int Installments { get; set; }
 
+        public bool? escrow { get; set; }
 
 
         public List<FileDto>? WarrantyFiles { get; set; }

@@ -2,6 +2,7 @@
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.ServicesInterface.Request.Offers;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
+using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Enums;
 using SimplyFund.Domain.Dto.Request.Offers;
 using SimplyFund.Domain.Models.Requests.Offers;
@@ -249,6 +250,160 @@ namespace Simplyfund.Bll.Services.Request.Offers
                 else
                 {
                     throw new Exception("Offerta no encontrada.");
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> Acceptoffer(ValidateOffer validateOffer)
+        {
+            try
+            {
+                var offer = await baseModel.GetAsync(x => x.Id == validateOffer.OfferId);
+
+                if (offer != null)
+                {
+                    var offerstatus = await dataOfferStatus.GetAsync(x => x.Id == offer.OffersStatusId);
+
+                    if (offerstatus != null)
+                    {
+                        var validateStatusOffer = offerstatus.Description == offersStatusEnum.Aprobada || offerstatus.Description == offersStatusEnum.Rechazada || offerstatus.Description == offersStatusEnum.Eliminada;
+                        if (!validateStatusOffer)
+                        {
+                            var statusAccept = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Aprobada);
+                            if (statusAccept != null)
+                            {
+                                if (offer.Requests != null)
+                                {
+                                    if (offer.Requests.CustomerId == validateOffer.UserId)
+                                    {
+                                        offer.LastUpdate = DateTime.UtcNow;
+                                        offer.OffersStatusId = statusAccept.Id;
+                                        await baseModel.UpdateAsync(offer);
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("Solo el customer puede aceptar esta offerta.");
+                                    }
+
+                                }
+                                else
+                                {
+                                    throw new Exception("Error validando el customer de esta offerta.");
+                                }
+                                
+                            }
+                            else
+                            {
+                                throw new Exception("No existe el estatus para aceptado.");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"Offerta no puede completar accion se encuentra estatus {offerstatus.Description}");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("El estatus de esta oferta no existe.");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Oferta no existe, enviar una oferta que sea valida.");
+                }
+
+               
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public async Task<bool> Rejectoffer(ValidateOffer validateOffer)
+        {
+            try
+            {
+                var offer = await baseModel.GetAsync(x => x.Id == validateOffer.OfferId);
+
+                if (offer != null)
+                {
+                    var offerstatus = await dataOfferStatus.GetAsync(x => x.Id == offer.OffersStatusId);
+
+                    if (offerstatus != null)
+                    {
+                        var validateStatusOffer = offerstatus.Description == offersStatusEnum.Aprobada || offerstatus.Description == offersStatusEnum.Rechazada || offerstatus.Description == offersStatusEnum.Eliminada;
+                        if (!validateStatusOffer)
+                        {
+                            var statusAccept = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Rechazada);
+                            if (statusAccept != null)
+                            {
+                                if (offer.Requests != null)
+                                {
+                                    if (offer.Requests.CustomerId == validateOffer.UserId)
+                                    {
+                                        offer.LastUpdate = DateTime.UtcNow;
+                                   
+                                        offer.OffersStatusId = statusAccept.Id;
+                                        await baseModel.UpdateAsync(offer);
+
+
+                                        if(validateOffer.Comment != null)
+                                        {
+                                            var offerComment = new OffersRequestsComment()
+                                            {
+                                                OfferRequestId = offer.Id,
+                                                Commnet = validateOffer.Comment
+                                            };
+
+                                            await dataOfferRequestComment.AddAsync(offerComment);
+                                        }
+                                       
+
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("Solo el customer puede aceptar esta offerta.");
+                                    }
+
+                                }
+                                else
+                                {
+                                    throw new Exception("Error validando el customer de esta offerta.");
+                                }
+
+                            }
+                            else
+                            {
+                                throw new Exception("No existe el estatus para aceptado.");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"Offerta no puede completar accion se encuentra estatus {offerstatus.Description}");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("El estatus de esta oferta no existe.");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Oferta no existe, enviar una oferta que sea valida.");
                 }
 
 

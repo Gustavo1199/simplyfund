@@ -51,6 +51,8 @@ namespace SimplyFund.Domain.Dto.Request
 
         public bool Iniciar { get; set; }
         public bool Eliminar { get; set; }
+        public bool? escrow { get; set; }
+
     }
 
 }

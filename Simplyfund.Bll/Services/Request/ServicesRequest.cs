@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Simplyfund.Bll.Services.BaseServices;
+using Simplyfund.Bll.Services.Files;
+using Simplyfund.Bll.ServicesInterface.File;
 using Simplyfund.Bll.ServicesInterface.Requests;
 using Simplyfund.Dal.DataInterface.IBaseDatas;
 using Simplyfund.Dal.Rabbit;
@@ -29,8 +31,9 @@ namespace Simplyfund.Bll.Services.Requests
         IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation;
         IMapper mapper;
         IRabitMQProducer rabitMQProducer;
+        IServicesFile servicesFile;
 
-        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer, IBaseDatas<RequestStatus> baseRequestStatus, IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation) : base(baseModel)
+        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer, IBaseDatas<RequestStatus> baseRequestStatus, IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation, IServicesFile servicesFile) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
@@ -40,6 +43,7 @@ namespace Simplyfund.Bll.Services.Requests
             this.rabitMQProducer = rabitMQProducer;
             this.baseRequestStatus = baseRequestStatus;
             this.baseRequestExpenseRelation = baseRequestExpenseRelation;
+            this.servicesFile = servicesFile;
         }
 
         public async Task<PaginatedList<RequestDto>?> RequestLists(FilterAndPaginateRequestModel? filters)
@@ -190,8 +194,6 @@ namespace Simplyfund.Bll.Services.Requests
                     {
                         var file = entity.Files;
 
-                        var expenses = entity.RequestExpenses;
-
                         var addRequest = await baseModel.AddAndReturnAsync(entity);
 
                         List<FileDto> fileDtos = new List<FileDto>();
@@ -201,25 +203,20 @@ namespace Simplyfund.Bll.Services.Requests
                             fileDtos.Add(item);
                         }
 
-                        UploadManyDocument(fileDtos);
-
-                        if (expenses != null)
-                        {
-                            foreach (var item in expenses)
-                            {
-                                item.RequestID = addRequest.Id;
-                                await baseRequestExpenseRelation.AddAsync(item);
-                            }
-                           
-                        }
+                      await servicesFile.UploadFilesAsync(fileDtos);
+                        //UploadManyDocument(fileDtos);
 
                         return addRequest;
 
                     }
+
                     else
                     {
                         throw new Exception("Es necesario que suba los archivos con la solicitud.");
                     }
+
+
+
 
                 }
                 else

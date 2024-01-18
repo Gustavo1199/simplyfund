@@ -3,6 +3,7 @@ using Simplyfund.Api.Controller.BaseController;
 using Simplyfund.Bll.Services.BaseServices;
 using Simplyfund.Bll.ServicesInterface.IBaseServices;
 using Simplyfund.Bll.ServicesInterface.Request.Offers;
+using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Request;
 using SimplyFund.Domain.Dto.Request.Offers;
 using SimplyFund.Domain.Dto.Responses;
@@ -99,6 +100,68 @@ namespace Simplyfund.Api.Controller.Requests.Offers
                 if (ModelState.IsValid)
                 {
                     return Ok(await baseServices.Counteroffer(offerRequestCommentDto));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        } 
+        
+        [HttpPost("Acceptoffer")]
+        public async Task<ActionResult<bool>> Acceptoffer(ValidateOffer validateOffer)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await baseServices.Acceptoffer(validateOffer));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpPost("Rejectoffer")]
+        public async Task<ActionResult<bool>> Rejectoffer(ValidateOffer validateOffer)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await baseServices.Rejectoffer(validateOffer));
                 }
                 else
                 {

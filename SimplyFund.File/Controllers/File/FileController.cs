@@ -239,12 +239,28 @@ namespace SimplyFund.File.Controllers.File
 
         private void ListenToRabbitMQ()
         {
+            //var factory = new ConnectionFactory
+            //{
+            //    HostName = _configuration.GetSection("Bus:RabbitMQ:Host").Value,
+            //    //HostName = "localhost",
+
+            //};
+
+            //var connection = factory.CreateConnection();
+
+
+
             var factory = new ConnectionFactory
             {
                 HostName = _configuration.GetSection("Bus:RabbitMQ:Hostname").Value,
+                UserName = _configuration.GetSection("Bus:RabbitMQ:Username").Value,
+                Password = _configuration.GetSection("Bus:RabbitMQ:Password").Value,
+                Port = Convert.ToInt32(_configuration.GetSection("Bus:RabbitMQ:Port").Value),
+                VirtualHost = _configuration.GetSection("Bus:RabbitMQ:VirtualHost").Value,
             };
 
             var connection = factory.CreateConnection();
+
 
             using var channel = connection.CreateModel();
 
