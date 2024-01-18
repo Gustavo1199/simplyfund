@@ -1,32 +1,19 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
-ARG BUILD_CONFIGURATION=Release
+# Copy everything
 WORKDIR /src
-COPY ["SimplyFund.Mail/SimplyFund.Mail.csproj", "SimplyFund.Mail/"]
-COPY ["Simplyfund.Bll/Simplyfund.Bll.csproj", "Simplyfund.Bll/"]
-COPY ["Simplyfund.Dal/Simplyfund.Dal.csproj", "Simplyfund.Dal/"]
-COPY ["SimplyFund.Domain/SimplyFund.Domain.csproj", "SimplyFund.Domain/"]
-COPY ["Simplyfund.Library/Simplyfund.Library.csproj", "Simplyfund.Library/"]
-COPY ["Simplyfund.GeneralConfiguration/Simplyfund.GeneralConfiguration.csproj", "Simplyfund.GeneralConfiguration/"]
-RUN dotnet restore "./SimplyFund.Mail/./SimplyFund.Mail.csproj"
-COPY . .
-WORKDIR "/src/SimplyFund.Mail"
-RUN dotnet build "./SimplyFund.Mail.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+COPY "SimplyFund.Mail/" "SimplyFund.Mail/"
+COPY "Simplyfund.Bll/" "Simplyfund.Bll/"
+COPY "Simplyfund.Dal/" "Simplyfund.Dal/"
+COPY "SimplyFund.Domain/" "SimplyFund.Domain/"
+COPY "Simplyfund.Library/" "Simplyfund.Library/"
+COPY "Simplyfund.GeneralConfiguration/" "Simplyfund.GeneralConfiguration/"
+RUN dotnet restore "./SimplyFund.Mail/SimplyFund.Mail.csproj"
+RUN dotnet publish "SimplyFund.Mail/SimplyFund.Mail.csproj" -c Release -o out
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./SimplyFund.Mail.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /src
+COPY --from=build-env /src/out .
 ENTRYPOINT ["dotnet", "SimplyFund.Mail.dll"]

@@ -1,27 +1,14 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
-ARG BUILD_CONFIGURATION=Release
+# Copy everything
 WORKDIR /src
-COPY ["SimplyFund.ApiGateWay/SimplyFund.ApiGateWay.csproj", "SimplyFund.ApiGateWay/"]
-RUN dotnet restore "./SimplyFund.ApiGateWay/./SimplyFund.ApiGateWay.csproj"
-COPY . .
-WORKDIR "/src/SimplyFund.ApiGateWay"
-RUN dotnet build "./SimplyFund.ApiGateWay.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+COPY "SimplyFund.ApiGateWay/" "SimplyFund.ApiGateWay/"
+RUN dotnet restore "./SimplyFund.ApiGateWay/SimplyFund.ApiGateWay.csproj"
+RUN dotnet publish "SimplyFund.ApiGateWay/SimplyFund.ApiGateWay.csproj" -c Release -o out
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./SimplyFund.ApiGateWay.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /src
+COPY --from=build-env /src/out .
 ENTRYPOINT ["dotnet", "SimplyFund.ApiGateWay.dll"]
