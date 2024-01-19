@@ -18,7 +18,7 @@ namespace SimplyFund.Domain.Models.Common
 
         //[ForeignKey("Document")]
         public int? DocumentId { get; set; }
-        //public virtual Document? Document { get; set; }
+        public virtual Document? Documents { get; set; }
 
         //[ForeignKey("EntityType")]
         public int? EntityTypeId { get; set; }

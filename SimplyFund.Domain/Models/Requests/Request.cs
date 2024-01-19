@@ -55,9 +55,11 @@ namespace SimplyFund.Domain.Models.Requests
         public string? DestinationBankAccount { get; set; }
         public bool? IsScrowAccountDefault { get; set; }
         public bool? escrow { get; set; }
+        public string? trustName { get; set; }
 
 
         public virtual Customers? Customer { get; set; }
+        public virtual AmortizationTable? AmortizationTables { get; set; }
         public virtual Period? Period { get; set; }
         public virtual Badge? Badge { get; set; }
         public virtual RequestStatus? RequestStatus { get; set; }

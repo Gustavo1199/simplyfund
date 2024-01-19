@@ -81,6 +81,7 @@ namespace Simplyfund.Dal.DataBase
 
         public DbSet<OffersRequestsComment> OffersRequestsComments { get; set; }
         public DbSet<RequestExpenseRelation> RequestExpenseRelation { get; set; }
+        public DbSet<AmortizationTable> AmortizationTables { get; set; }
 
 
 

@@ -4,6 +4,7 @@ using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Customer;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Warrantys;
+using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Warrantys;
 using System;
@@ -39,7 +40,12 @@ namespace SimplyFund.Domain.Dto.Request
         public string? DestinationBankAccount { get; set; }
         public bool? IsScrowAccountDefault { get; set; }
 
+        public string? trustName { get; set; }
+
         //public virtual CustomerDto? Customer { get; set; }
+
+        public virtual AmortizationTable? AmortizationTables { get; set; }
+
         public virtual PeriodDto? Period { get; set; }
         public virtual BadgeDto? Badge { get; set; }
         public virtual RequestStatusDto? RequestStatus { get; set; }

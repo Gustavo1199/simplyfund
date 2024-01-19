@@ -330,7 +330,6 @@ namespace Simplyfund.Bll.Services.Request.Offers
             }
         }
 
-
         public async Task<bool> Rejectoffer(ValidateOffer validateOffer)
         {
             try
@@ -414,6 +413,21 @@ namespace Simplyfund.Bll.Services.Request.Offers
                 throw;
             }
         }
+
+
+        //public async Task<object> GetCommonOffers(int RequestId,int userId)
+        //{
+        //    try
+        //    {
+
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
 
     }

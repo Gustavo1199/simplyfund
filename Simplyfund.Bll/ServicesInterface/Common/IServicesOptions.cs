@@ -1,4 +1,5 @@
 ﻿using SimplyFund.Domain.Dto.Common;
+using SimplyFund.Domain.Models.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,12 @@ namespace Simplyfund.Bll.ServicesInterface.Common
         Task<List<OptionsResponses>> GetModality();
 
         Task<List<OptionsResponses>> GetPeriodData();
+
+        Task<List<OptionsResponses>> GetAmortizationTablesData();
+
+        Task<List<OptionsResponses>> GetRequestStatusData();
+
+        Task<IEnumerable<RequestStatus>> GetRequestStatusByMenuData();
     }
 
 }

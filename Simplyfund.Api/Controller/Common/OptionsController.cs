@@ -2,6 +2,7 @@
 using Simplyfund.Bll.ServicesInterface.Common;
 using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Responses;
+using SimplyFund.Domain.Models.Requests;
 
 namespace Simplyfund.Api.Controller.Common
 {
@@ -463,6 +464,84 @@ namespace Simplyfund.Api.Controller.Common
             try
             {
                 return Ok(await servicesOptions.GetPeriodData());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+      
+
+        [HttpGet("GetAmortizationTables", Name = "GetAmortizationTables")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetAmortizationTablesData()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetAmortizationTablesData());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpGet("GetRequestStatus", Name = "GetRequestStatus")]
+        public async Task<ActionResult<List<OptionsResponses>>> GetRequestStatusData()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetRequestStatusData());
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+        
+        
+        [HttpGet("GetRequestStatusByMenuData", Name = "GetRequestStatusByMenuData")]
+        public async Task<ActionResult<List<RequestStatus>>> GetRequestStatusByMenuData()
+        {
+            try
+            {
+                return Ok(await servicesOptions.GetRequestStatusByMenuData());
 
             }
             catch (Exception ex)

@@ -58,7 +58,7 @@ namespace Simplyfund.Bll.Services.Requests
                     {
 
 
-                        var document = await baseDocumento.GetAsync(x=>x.Description == DocumentEnum.Imagene_solicitud);
+                        var document = await baseDocumento.GetAsync(x => x.Description == DocumentEnum.Imagene_solicitud);
 
                         if (document != null)
                         {
@@ -76,6 +76,20 @@ namespace Simplyfund.Bll.Services.Requests
                                 var mapFile = mapper.Map<List<FileDto>>(filesdto);
 
                                 item.WarrantyFiles = mapFile;
+
+                                if (item.WarrantyFiles == null || item.WarrantyFiles.Count() == 0)
+                                {
+                                    List<FileDto> list = new List<FileDto>();
+                                    var filedto = new FileDto();
+
+                                    filedto.FilePath = "https://simplyfundstorage.file.core.windows.net/simplyfund/RequestWarranty/20240109_174245990Exercice 3-1.png?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2117-11-11T22:58:35Z&st=2023-12-17T14:58:35Z&spr=https,http&sig=ULkyiSX9Ds4mkKYtL3EUdFG8utXlNzg6iJxsZzZp8ZA%3D";
+
+                                    list.Add(filedto);
+
+
+
+                                    item.WarrantyFiles = list;
+                                }
 
                                 requestDtos.Add(item);
                             }
@@ -124,7 +138,7 @@ namespace Simplyfund.Bll.Services.Requests
                 if (search != null)
                 {
 
-                  var entityType = await baseEntityType.GetAsync(x=>x.Name == EntityTypesEnum.RequestWarranty);
+                    var entityType = await baseEntityType.GetAsync(x => x.Name == EntityTypesEnum.RequestWarranty);
                     if (entityType != null)
                     {
 
@@ -142,7 +156,7 @@ namespace Simplyfund.Bll.Services.Requests
                         {
                             if (map.CustomerId == userId)
                             {
-                                var expenses = await baseRequestExpenseRelation.GetManyAsync(x=>x.RequestID == map.Id);
+                                var expenses = await baseRequestExpenseRelation.GetManyAsync(x => x.RequestID == map.Id);
                                 if (expenses != null)
                                 {
                                     map.Expenses = expenses.ToList();
@@ -150,7 +164,7 @@ namespace Simplyfund.Bll.Services.Requests
                                 }
                             }
                         }
-                        
+
 
 
 
@@ -203,7 +217,7 @@ namespace Simplyfund.Bll.Services.Requests
                             fileDtos.Add(item);
                         }
 
-                      await servicesFile.UploadFilesAsync(fileDtos);
+                        await servicesFile.UploadFilesAsync(fileDtos);
                         //UploadManyDocument(fileDtos);
 
                         return addRequest;
@@ -230,9 +244,8 @@ namespace Simplyfund.Bll.Services.Requests
 
                 throw;
             }
-           
-        }
 
+        }
 
         public override async Task<request1> UpdateAndReturnAsync(request1 entity)
         {

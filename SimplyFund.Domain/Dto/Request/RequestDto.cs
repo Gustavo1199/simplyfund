@@ -27,6 +27,10 @@ namespace SimplyFund.Domain.Dto.Request
 
         public bool? escrow { get; set; }
 
+        public int AmortizationTableId { get; set; }
+
+
+        public virtual AmortizationTable? AmortizationTables { get; set; }
 
         public List<FileDto>? WarrantyFiles { get; set; }
 

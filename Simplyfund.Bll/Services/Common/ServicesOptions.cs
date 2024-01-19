@@ -34,8 +34,10 @@ namespace Simplyfund.Bll.Services.Common
         IBaseDatas<Commission> CommissionData;
         IBaseDatas<Modality> ModalityData;
         IBaseDatas<Period> PeriodData;
+        IBaseDatas<AmortizationTable> AmortizationTablesData;
+        IBaseDatas<RequestStatus> RequestStatusData;
 
-        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData, IBaseDatas<Document> documentData, IBaseDatas<EntityType> entityTypeData, IBaseDatas<Warranty> warrantyData, IBaseDatas<WarrantyField> warrantyFieldData, IBaseDatas<Badge> badgedData, IBaseDatas<Commission> commissionData, IBaseDatas<Modality> modalityData, IBaseDatas<Period> periodData)
+        public ServicesOptions(IBaseDatas<Country> countryData, IBaseDatas<Province> proviceData, IBaseDatas<CustomerType> customerTypeseData, IBaseDatas<IdentityType> identityTypeData, IBaseDatas<RequestCategory> requestCategoryData, IBaseDatas<BankAccount> bankAccountData, IBaseDatas<BankAccountType> bankAccountTypeData, IBaseDatas<OfferRequestPeriod> offersRequestsPeriodData, IBaseDatas<OfferType> offerTypeData, IBaseDatas<OfferStatus> offerStatusData, IBaseDatas<Document> documentData, IBaseDatas<EntityType> entityTypeData, IBaseDatas<Warranty> warrantyData, IBaseDatas<WarrantyField> warrantyFieldData, IBaseDatas<Badge> badgedData, IBaseDatas<Commission> commissionData, IBaseDatas<Modality> modalityData, IBaseDatas<Period> periodData, IBaseDatas<AmortizationTable> amortizationTablesData, IBaseDatas<RequestStatus> requestStatusData)
         {
             this.countryData = countryData;
             this.proviceData = proviceData;
@@ -55,6 +57,8 @@ namespace Simplyfund.Bll.Services.Common
             CommissionData = commissionData;
             ModalityData = modalityData;
             PeriodData = periodData;
+            AmortizationTablesData = amortizationTablesData;
+            RequestStatusData = requestStatusData;
         }
 
         public async Task<List<OptionsResponses>> GetCountry()
@@ -580,6 +584,84 @@ namespace Simplyfund.Bll.Services.Common
                 throw;
             }
         }
+        
+        public async Task<List<OptionsResponses>> GetAmortizationTablesData()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await AmortizationTablesData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        
+        public async Task<IEnumerable<RequestStatus>> GetRequestStatusByMenuData()
+        {
+            try
+            {
+                
+                var data = await RequestStatusData.GetAsync();
+
+                return data;
+
+               
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        
+        public async Task<List<OptionsResponses>> GetRequestStatusData()
+        {
+            try
+            {
+                List<OptionsResponses> optionsResponses = new List<OptionsResponses>();
+                var data = await RequestStatusData.GetAsync();
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        optionsResponses.Add(new OptionsResponses()
+                        {
+                            displayname = item.Name,
+                            value = item.Id
+                        });
+                    }
+                }
+
+                return optionsResponses;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
 
 

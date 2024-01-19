@@ -35,5 +35,8 @@ namespace SimplyFund.Domain.Dto.File
         public string? ContentDisposition { get; set; }
         public string? Relation { get; set; }
         public long? Length { get; set; }
+
+        public virtual EntityType? EntityTypes { get; set; }
+        public virtual Document? Documents { get; set; }
     }
 }
