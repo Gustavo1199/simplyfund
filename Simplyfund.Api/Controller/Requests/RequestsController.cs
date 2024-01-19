@@ -99,7 +99,37 @@ namespace Simplyfund.Api.Controller.Requests
         [HttpPost("AddRequest")]
         public async Task<ActionResult<Request>> AddRequest([FromForm] Request entity)
         {
-            return await base.AddAndReturnAsync(entity);
+
+            
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return await base.AddAndReturnAsync(entity);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
         }
 
     }
