@@ -9,9 +9,6 @@ COPY "SimplyFund.Domain/" "SimplyFund.Domain/"
 COPY "Simplyfund.Library/" "Simplyfund.Library/"
 COPY "Simplyfund.GeneralConfiguration/" "Simplyfund.GeneralConfiguration/"
 RUN dotnet restore "./Simplyfund.Api/Simplyfund.Api.csproj"
-# RUN dotnet restore
-# Build and publish a release
-# RUN dotnet publish -c Release -o out
 RUN dotnet publish "Simplyfund.Api/Simplyfund.Api.csproj" -c Release -o out
 
 

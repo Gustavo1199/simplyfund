@@ -2,14 +2,13 @@ version: '3.8'
 
 services:
   simplyfund-api:
-    image: simplyfund-api:latest
     container_name: simplyfund-api
     build:
       context: .
       dockerfile: Simplyfund.Api/Dockerfile
     ports:
       - "8082:8080"
-      - "4443:4443"
+      # - "4443:4443"
     # networks:
     #   - simplyfund-net
     # volumes:
@@ -23,28 +22,44 @@ services:
     #   - hostdb=simplyfunddb
     #   - ENVIROMENT=
 
-  # simplyfund-auth:
-  #   image: simplyfund-auth:latest
-  #   build:
-  #     context: .
-  #     dockerfile: SimplyFund.Auth/Dockerfile
-  #   ports:
-  #     - "8081:81"
-  #     - "4440:444"
+  simplyfund-auth:
+    container_name: simplyfund-auth
+    build:
+      context: .
+      dockerfile: SimplyFund.Auth/Dockerfile
+    ports:
+      - "8083:8080"
+      # - "4443:4443"
   #   networks:
   #     - simplyfund-net
 
-
-  # simplyfund-api-gateway:
-  #   image: simplyfund-ApiGateWay:latest
-  #   build:
-  #     context: .
-  #     dockerfile: SimplyFund.ApiGateWay/Dockerfile
-  #   ports:
-  #     - "8080:80"
-  #     - "4430:443"
+  simplyfund-api-gateway:
+    container_name: simplyfund-api-gateway
+    build:
+      context: .
+      dockerfile: SimplyFund.ApiGateWay/Dockerfile
+    ports:
+      - "8084:8080"
+      # - "4443:4443"
   #   networks:
   #     - simplyfund-net
+
+  
+  simplyfund-file:
+    container_name: simplyfund-file
+    build:
+      context: .
+      dockerfile: SimplyFund.File/Dockerfile
+    ports:
+      - "8085:8080"
+      
+  simplyfund-mail:
+    container_name: simplyfund-mail
+    build:
+      context: .
+      dockerfile: SimplyFund.Mail/Dockerfile
+    ports:
+      - "8086:8080"
 
 # volumes:
 #   simplyfund-api-data:
