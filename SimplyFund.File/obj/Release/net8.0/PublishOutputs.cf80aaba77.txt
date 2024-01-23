@@ -9,6 +9,7 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Core.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Identity.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Storage.Blobs.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Storage.Common.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Azure.Storage.Files.Shares.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\obj\Release\net8.0\PubTmp\Out\Castle.Core.dll
