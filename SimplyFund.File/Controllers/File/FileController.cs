@@ -322,7 +322,7 @@ namespace SimplyFund.File.Controllers.File
                 if (ModelState.IsValid)
                 {
                     List<FileDto> list = new List<FileDto> { files };
-                    await servicesFile.UploadFilesAsync(list);
+                    await servicesFile.UploadFilesAsyncConteiner(list);
 
                     return Ok(files);
                 }
