@@ -12,17 +12,20 @@ namespace SimplyFund.Domain.Models.Common
     {
         public int CustomerId { get; set; } // added
 
-        [Required, MaxLength(20)]
+        [Required,MaxLength(20)]
         public string? AccountNumber { get; set; }
-        public int BankId { get; set; }
-        public int BankAccountTypeId { get; set; }
-        public int BadgeId { get; set; }
-        public int CountryId { get; set; }
-        [Required, MaxLength(100)]
+        [Required]
+        public int? BankId { get; set; }
+        [Required]
+        public int? BankAccountTypeId { get; set; }
+        [Required]
+        public int? BadgeId { get; set; }
+        public int? CountryId { get; set; }
+        [ MaxLength(100)]
 
         public string? BeneficiaryName { get; set; }
-        public int BeneficiaryIdentityTypeId { get; set; }
-        [Required, MaxLength(11)]
+        public int? BeneficiaryIdentityTypeId { get; set; }
+        [ MaxLength(11)]
         public string? BeneficiaryIdentityNumber { get; set; }
 
 

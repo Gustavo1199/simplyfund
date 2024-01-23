@@ -106,7 +106,7 @@ namespace Simplyfund.Api.Controller.Requests
             {
                 if (ModelState.IsValid)
                 {
-                    return await base.AddAndReturnAsync(entity);
+                    return await baseServices.AddAndReturnAsync(entity);
                 }
                 else
                 {

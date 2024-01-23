@@ -109,6 +109,15 @@ namespace Simplyfund.Bll.Services.Customers
                 {
                     throw new Exception("Ya tenemos una cuenta registrada con este correo electronico.");
                 }
+
+
+                var  rnc = await baseModel.GetAsync(x=>x.IdentityNumber == entity.IdentityNumber);
+                
+                if (rnc != null)
+                {
+                    throw new Exception("Ya tenemos un cliente registrado con este numero de documento.");
+                }
+
             }
             else
             {

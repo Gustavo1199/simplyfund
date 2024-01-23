@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Azure.Storage.Sas;
 using Azure.Storage;
+using Azure.Storage.Blobs;
 
 namespace Simplyfund.Bll.Services.Files
 {
@@ -130,6 +131,65 @@ namespace Simplyfund.Bll.Services.Files
 
             }
         }
+
+
+        public async Task UploadFilesAsyncConteiner(List<FileDto> files)
+        {
+            foreach (var item in files)
+            {
+                var FileType = await dataEntityType.GetAsync(x => x.Name == item.EntityType);
+                if (FileType != null)
+                {
+                    var Document = await dataDocument.GetAsync(x => x.Description == item.Document);
+                    if (Document != null)
+                    {
+                        item.DocumentId = Document.Id;
+                        item.EntityTypeId = FileType.Id;
+
+                        if (item.File != null)
+                        {
+                            item.FileName = DateTime.Now.ToString("yyyyMMdd_HHmmssfff") + item.File.FileName;
+                        }
+
+                        string? blobContainerName = Configuration.GetSection("AzureBlobStorage:ContainerName").Value;
+                        BlobServiceClient blobServiceClient = new BlobServiceClient(Configuration.GetSection("AzureBlobStorage:ConnectionString").Value);
+                        BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+
+                        if (!await containerClient.ExistsAsync())
+                        {
+                            await containerClient.CreateAsync();
+                        }
+
+                        BlobClient blobClient = containerClient.GetBlobClient(item.FileName);
+
+                        if (item != null)
+                        {
+                            if (item.File != null)
+                            {
+
+                                using (var stream = item.File.OpenReadStream())
+                                {
+                                    await blobClient.UploadAsync(stream, true);
+                                }
+
+                                item.FileType = item.File.ContentType;
+                                item.Length = item.File.Length;
+
+                                // You can generate a SAS token if needed
+                                // var sasToken = GenerateSasToken(blobClient.Uri);
+
+                                item.FilePath = blobClient.Uri.ToString();
+
+                                await saveFile(item);
+                            }
+
+                            Console.WriteLine($"Archivo '{item.FileName}' cargado con éxito.");
+                        }
+                    }
+                }
+            }
+        }
+
 
         public async Task<DownloadResponses> DownloadFileAsync(int FileId)
         {
@@ -326,6 +386,52 @@ namespace Simplyfund.Bll.Services.Files
                 throw;
             }
         }
+
+
+
+        public async Task<DownloadResponses> DeleteFileConteinerAsync(int fileId)
+        {
+            try
+            {
+                DownloadResponses downloadResponses = new DownloadResponses();
+
+                var file = await dataFile.GetAsync(x => x.Id == fileId);
+
+                if (file != null)
+                {
+                    string? blobContainerName = Configuration.GetSection("AzureBlobStorage:ContainerName").Value;
+                    BlobServiceClient blobServiceClient = new BlobServiceClient(Configuration.GetSection("AzureBlobStorage:ConnectionString").Value);
+                    BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+                    BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
+
+                    if (await blobClient.ExistsAsync())
+                    {
+                        await blobClient.DeleteIfExistsAsync();
+
+                        downloadResponses.File = "Archivo eliminado con éxito de forma asíncrona.";
+
+                        var delete = await dataFile.DeleteAsync(file);
+                    }
+                    else
+                    {
+                        downloadResponses.Error = "El archivo no existe en Azure Blob Storage.";
+                    }
+                }
+                else
+                {
+                    downloadResponses.Error = "No existe este archivo.";
+                }
+
+                return downloadResponses;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
 
         public string GenerateSignature(ShareFileClient file)
         {

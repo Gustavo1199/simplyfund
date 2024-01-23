@@ -204,6 +204,7 @@ namespace Simplyfund.Bll.Services.Requests
                     {
                         entity.RequestStatusId = statusRequest.Id;
                     }
+
                     if (entity.Files != null)
                     {
                         var file = entity.Files;
@@ -217,8 +218,7 @@ namespace Simplyfund.Bll.Services.Requests
                             fileDtos.Add(item);
                         }
 
-                        await servicesFile.UploadFilesAsync(fileDtos);
-                        //UploadManyDocument(fileDtos);
+                        await servicesFile.UploadFilesAsyncConteiner(fileDtos);
 
                         return addRequest;
 

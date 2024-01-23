@@ -24,11 +24,9 @@ namespace SimplyFund.Domain.Models.Common
         public int? EntityTypeId { get; set; }
         public virtual EntityType? EntityTypes { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string? ShareName { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string? DirName { get; set; }
 

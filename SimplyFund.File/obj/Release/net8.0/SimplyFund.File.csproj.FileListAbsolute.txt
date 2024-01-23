@@ -98,3 +98,4 @@ C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Release\net8.0\RabbitMQ.Client.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Release\net8.0\Microsoft.WindowsAzure.Storage.dll
 C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Release\net8.0\NCalc.dll
+C:\Users\gustavo.sanchez\source\repos\Simplyfund_Backend_Client\SimplyFund.File\bin\Release\net8.0\Azure.Storage.Blobs.dll

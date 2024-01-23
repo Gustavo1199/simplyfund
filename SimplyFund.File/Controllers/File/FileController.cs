@@ -93,6 +93,7 @@ namespace SimplyFund.File.Controllers.File
                 return StatusCode(500, errorResponses);
             }
         }
+        
 
         [HttpPut("UpdateFileAsync")]
         public async Task<ActionResult> UpdateFileAsync([FromForm] FileDto files)
@@ -310,6 +311,116 @@ namespace SimplyFund.File.Controllers.File
 
             return file;
         }
+
+        //Conteiner Services
+
+        [HttpPost("UploadFilesConteinerAsync")]
+        public async Task<ActionResult> UploadFilesConteinerAsync([FromForm] FileDto files)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<FileDto> list = new List<FileDto> { files };
+                    await servicesFile.UploadFilesAsync(list);
+
+                    return Ok(files);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpPost("UploadFilesConteinerListAsync")]
+        public async Task<ActionResult> UploadFilesConteinerListAsync([FromForm] List<FileDto> files)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    await servicesFile.UploadFilesAsyncConteiner(files);
+
+                    return Ok(files);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+        [HttpDelete("DeleteFileConteinerAsync")]
+        public async Task<ActionResult<DownloadResponses>> DeleteFileConteinerAsync(int FileId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var responses = await servicesFile.DeleteFileConteinerAsync(FileId);
+
+                    return Ok(responses);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+
+
 
     }
 }

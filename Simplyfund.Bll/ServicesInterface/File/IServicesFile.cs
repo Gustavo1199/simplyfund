@@ -9,6 +9,7 @@ namespace Simplyfund.Bll.ServicesInterface.File
 {
     public interface IServicesFile
     {
+        Task UploadFilesAsyncConteiner(List<FileDto> files);
         Task UploadFilesAsync(List<FileDto> files);
         Task<DownloadResponses> DownloadFileAsync(int FileId);
 
@@ -17,5 +18,8 @@ namespace Simplyfund.Bll.ServicesInterface.File
         Task<List<DownloadResponses>> UpdateFileAsync(List<FileDto> files);
 
         Task<DownloadResponses> DeleteFileAsync(int FileId);
+
+
+        Task<DownloadResponses> DeleteFileConteinerAsync(int fileId);
     }
 }

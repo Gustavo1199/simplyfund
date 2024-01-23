@@ -28,7 +28,7 @@ namespace SimplyFund.Domain.Models.Requests
         public int BadgeId { get; set; }
         [Required, Range(1, double.MaxValue)]
         public double Amount { get; set; }
-
+        [Required]
         public int PeriodId { get; set; }
         [Required, Range(1, int.MaxValue)]
         public int Installments { get; set; }
@@ -36,6 +36,7 @@ namespace SimplyFund.Domain.Models.Requests
         public double AnnualInterest { get; set; }
         [Required, Range(1, 100)]
         public int Commission { get; set; }
+        [Required]
         public int AmortizationTableId { get; set; }
         [Required]
         public bool IsNegotiable { get; set; }

@@ -29,6 +29,15 @@ namespace SimplyFund.Mail.Controllers.Email
 
         }
 
+
+
+        [HttpPost("EmailSender")]
+        public async Task<ActionResult> Email()
+        {
+            ListenToRabbitMQ();
+               return Ok("OK");
+        }
+
         [NonAction]
         private void ListenToRabbitMQ()
         {
