@@ -83,6 +83,9 @@ namespace Simplyfund.Dal.DataBase
         public DbSet<RequestExpenseRelation> RequestExpenseRelation { get; set; }
         public DbSet<AmortizationTable> AmortizationTables { get; set; }
         public DbSet<CustomerWorkingInfo> CustomerWorkingInfo { get; set; }
+        public DbSet<FundIncreaseRequest> IncreasedFundsRequests { get; set; }
+        public DbSet<FundIncreaseRequestStatus> FundIncreaseRequestStatus { get; set; }
+        public DbSet<FundIncreaseRequestComments> FundIncreaseRequestComments { get; set; }
 
 
 

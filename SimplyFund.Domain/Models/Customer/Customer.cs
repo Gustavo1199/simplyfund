@@ -101,7 +101,7 @@ namespace SimplyFund.Domain.Models.Client
 
         //public virtual LaborData? LaborData { get; set; }
 
-        public bool? PasswordChange { get; set; }
+        public bool? PasswordChange { get; set; } = true;
 
 
 

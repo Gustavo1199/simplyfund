@@ -1,6 +1,16 @@
-﻿namespace Simplyfund.Api.Controller.Customer
+﻿using Microsoft.AspNetCore.Mvc;
+using Simplyfund.Api.Controller.BaseController;
+using Simplyfund.Bll.ServicesInterface.IBaseServices;
+using SimplyFund.Domain.Models.Customer;
+
+namespace Simplyfund.Api.Controller.Customer
 {
-    public class FundIncreaseRequestController
+    [Route("api/[controller]")]
+    public class FundIncreaseRequestController : BaseController<FundIncreaseRequest>
     {
+        public FundIncreaseRequestController(IBaseServices<FundIncreaseRequest> baseServices) : base(baseServices)
+        {
+
+        }
     }
 }

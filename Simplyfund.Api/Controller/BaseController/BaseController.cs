@@ -39,7 +39,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -63,7 +71,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -86,7 +102,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -108,9 +132,17 @@ namespace Simplyfund.Api.Controller.BaseController
             }
             catch (Exception ex)
             {
-
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+
                 return StatusCode(500, errorResponses);
             }
         }
@@ -135,7 +167,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -160,7 +200,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
 
@@ -187,7 +235,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
 
@@ -211,9 +267,16 @@ namespace Simplyfund.Api.Controller.BaseController
             }
             catch (Exception ex)
             {
-
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -238,7 +301,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
 
@@ -265,7 +336,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -291,7 +370,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -316,7 +403,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -343,7 +438,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -368,7 +471,15 @@ namespace Simplyfund.Api.Controller.BaseController
             catch (Exception ex)
             {
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
@@ -393,7 +504,15 @@ namespace Simplyfund.Api.Controller.BaseController
             {
 
                 ErrorResponses errorResponses = new ErrorResponses();
-                errorResponses.Message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorResponses.Message = ex.InnerException.Message;
+
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
                 return StatusCode(500, errorResponses);
             }
         }
