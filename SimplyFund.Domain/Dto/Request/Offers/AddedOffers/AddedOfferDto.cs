@@ -8,5 +8,7 @@ namespace SimplyFund.Domain.Dto.Request.Offers.AddedOffers
 {
     public class AddedOfferDto
     {
+        public decimal Amount { get; set; }
+        public int InvestorId { get; set; }
     }
 }

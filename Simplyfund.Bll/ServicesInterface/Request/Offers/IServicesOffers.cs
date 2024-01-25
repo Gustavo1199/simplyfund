@@ -21,5 +21,7 @@ namespace Simplyfund.Bll.ServicesInterface.Request.Offers
         Task<bool> Acceptoffer(ValidateOffer validateOffer);
 
         Task<bool> Rejectoffer(ValidateOffer validateOffer);
+
+        Task<List<GroupOffersDto>> GetCommonOffers(int RequestId, int userId);
     }
 }

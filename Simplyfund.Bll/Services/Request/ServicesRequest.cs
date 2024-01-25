@@ -14,6 +14,7 @@ using SimplyFund.Domain.Dto.Request;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.RabbitMQ;
 using SimplyFund.Domain.Models.Requests;
+using SimplyFund.Domain.Models.Requests.Offers;
 using System.Collections.Generic;
 using Document = SimplyFund.Domain.Models.Common.Document;
 using File = SimplyFund.Domain.Models.Common.File;
@@ -29,11 +30,12 @@ namespace Simplyfund.Bll.Services.Requests
         IBaseDatas<EntityType> baseEntityType;
         IBaseDatas<RequestStatus> baseRequestStatus;
         IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation;
+        IBaseDatas<OfferRequest> baseOfferRequest;
         IMapper mapper;
         IRabitMQProducer rabitMQProducer;
         IServicesFile servicesFile;
 
-        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer, IBaseDatas<RequestStatus> baseRequestStatus, IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation, IServicesFile servicesFile) : base(baseModel)
+        public ServicesRequest(IBaseDatas<request1> baseModel, IMapper mapper, IBaseDatas<File> baseFile, IBaseDatas<Document> baseDocumento, IBaseDatas<EntityType> baseEntityType, IRabitMQProducer rabitMQProducer, IBaseDatas<RequestStatus> baseRequestStatus, IBaseDatas<RequestExpenseRelation> baseRequestExpenseRelation, IServicesFile servicesFile, IBaseDatas<OfferRequest> baseOfferRequest) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
@@ -44,6 +46,7 @@ namespace Simplyfund.Bll.Services.Requests
             this.baseRequestStatus = baseRequestStatus;
             this.baseRequestExpenseRelation = baseRequestExpenseRelation;
             this.servicesFile = servicesFile;
+            this.baseOfferRequest = baseOfferRequest;
         }
 
         public async Task<PaginatedList<RequestDto>?> RequestLists(FilterAndPaginateRequestModel? filters)
@@ -289,7 +292,6 @@ namespace Simplyfund.Bll.Services.Requests
 
         }
 
-
         public byte[] ConvertIFormFileToByteArray(IFormFile file)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -299,5 +301,82 @@ namespace Simplyfund.Bll.Services.Requests
             }
         }
 
+        public async Task<PaginatedList<RequestDto>?> GetMyInvestment(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+
+                int usertId = 0;
+                int StatusId = 0;
+
+                if (filters != null)
+                {
+                    if (filters.Filters != null)
+                    {
+                        foreach (var item in filters.Filters)
+                        {
+                            if (item.PropertyName == "CustomerId")
+                            {
+                                if (item.Value != null)
+                                {
+                                    usertId = Convert.ToInt32(item.Value);
+                                }
+                                
+                            }
+
+                            if (item.PropertyName == "RequestStatusId")
+                            {
+                                if (item.Value != null)
+                                {
+                                    StatusId = Convert.ToInt32(item.Value);
+                                }
+                            }                  
+
+                        }
+                    }
+                    
+                }
+
+               
+                
+
+                var offers = await baseOfferRequest.GetManyAsync(x => x.InvestorId == usertId && x.OffersStatusId != 5 && x.OffersStatusId != 4 && x.OffersStatusId != 3);
+
+                PaginatedList<RequestDto>? paginatedList = null;
+
+                if (offers != null)
+                {
+                    List<request1> requestList = new List<request1>();
+
+                    foreach (var item in offers)
+                    {
+                        var request = await baseModel.GetAsync(x => x.Id == item.RequestId && x.RequestStatusId == StatusId);
+                       
+                        if (request != null)
+                        {
+                            requestList.Add(request);
+                        }
+                    }
+
+                    List<RequestDto> requestDtos = new List<RequestDto>();
+                    
+                    var mapRequestDto = mapper.Map<List<RequestDto>>(requestList);
+
+                    if (filters != null)
+                    {
+                        paginatedList = new PaginatedList<RequestDto>(mapRequestDto, mapRequestDto.Count(), filters.PageIndex,filters.PageSize);
+
+                    }
+                }
+               
+
+                return paginatedList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

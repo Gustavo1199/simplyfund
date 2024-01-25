@@ -1,6 +1,7 @@
 ﻿using SimplyFund.Domain.Base;
 using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
+using SimplyFund.Domain.Models.Requests.Offers.AddedOffers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +32,9 @@ namespace SimplyFund.Domain.Models.Requests.Offers
         public int BankAccountId { get; set; }
         public virtual BankAccount? BankAccount { get; set; }
         public bool? FundsSent { get; set; }
+
+
+
+        public virtual ICollection<AddedOffer>? AddedOffers { get; set; }
     }
 }

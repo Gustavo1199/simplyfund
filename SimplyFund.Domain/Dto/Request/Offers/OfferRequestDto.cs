@@ -1,8 +1,10 @@
 ﻿using SimplyFund.Domain.Dto.Base;
 using SimplyFund.Domain.Dto.Common;
+using SimplyFund.Domain.Dto.Request.Offers.AddedOffers;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Requests.Offers;
+using SimplyFund.Domain.Models.Requests.Offers.AddedOffers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +36,8 @@ namespace SimplyFund.Domain.Dto.Request.Offers
         public virtual OfferStatus? OffersStatus { get; set; }
         public int BankAccountId { get; set; }
         public bool? FundsSent { get; set; }
+
+        public virtual IEnumerable<AddedOfferDto>? AddedOffers { get; set; }
 
         [NotMapped]
         public IEnumerable<OffersRequestsComment>? OfferComments { get; set; }

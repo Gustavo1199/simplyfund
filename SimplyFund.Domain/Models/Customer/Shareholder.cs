@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ namespace SimplyFund.Domain.Models.Customer
         [Required, Range(0, 100)]
         public int PercentageOfShares { get; set; }
 
-        public virtual ICollection<ShareholderFile>? ShareholderFiles { get; set; }
+       // public virtual ICollection<ShareholderFile>? ShareholderFiles { get; set; }
 
+        [NotMapped]
+        public virtual List<Common.File>? File { get; set; }
     }
 }

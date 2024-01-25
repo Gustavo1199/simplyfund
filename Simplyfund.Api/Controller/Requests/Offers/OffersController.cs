@@ -121,8 +121,8 @@ namespace Simplyfund.Api.Controller.Requests.Offers
                 }
                 return StatusCode(500, errorResponses);
             }
-        } 
-        
+        }
+
         [HttpPost("Acceptoffer")]
         public async Task<ActionResult<bool>> Acceptoffer(ValidateOffer validateOffer)
         {
@@ -162,6 +162,37 @@ namespace Simplyfund.Api.Controller.Requests.Offers
                 if (ModelState.IsValid)
                 {
                     return Ok(await baseServices.Rejectoffer(validateOffer));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+
+        [HttpGet("GetCommonOffers/{RequestId}/{userId}")]
+        public async Task<ActionResult<List<GroupOffersDto>>> GetCommonOffers(int RequestId, int userId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await baseServices.GetCommonOffers(RequestId, userId));
                 }
                 else
                 {

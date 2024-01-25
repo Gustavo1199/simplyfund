@@ -4,11 +4,13 @@ using SimplyFund.Domain.Dto.Customer;
 using SimplyFund.Domain.Dto.File;
 using SimplyFund.Domain.Dto.Request;
 using SimplyFund.Domain.Dto.Request.Offers;
+using SimplyFund.Domain.Dto.Request.Offers.AddedOffers;
 using SimplyFund.Domain.Dto.Warrantys;
 using SimplyFund.Domain.Models.Client;
 using SimplyFund.Domain.Models.Common;
 using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Requests.Offers;
+using SimplyFund.Domain.Models.Requests.Offers.AddedOffers;
 using SimplyFund.Domain.Models.Warrantys;
 using System;
 using System.Collections.Generic;
@@ -39,6 +41,7 @@ namespace Simplyfund.GeneralConfiguration.AutoMaper
             CreateMap<Warranty, WarrantyDto>();
             CreateMap<ExpenseDto, Expense>().ReverseMap();
             CreateMap<OffersRequestsCommentDto, OffersRequestsComment>().ReverseMap();
+            CreateMap<AddedOfferDto, AddedOffer>().ReverseMap();
 
 
 

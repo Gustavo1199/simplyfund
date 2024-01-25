@@ -5,12 +5,14 @@ using Simplyfund.Dal.DataInterface.IBaseDatas;
 using SimplyFund.Domain.Dto.Common;
 using SimplyFund.Domain.Dto.Enums;
 using SimplyFund.Domain.Dto.Request.Offers;
+using SimplyFund.Domain.Models.Requests;
 using SimplyFund.Domain.Models.Requests.Offers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Requestss = SimplyFund.Domain.Models.Requests.Request;
 
 namespace Simplyfund.Bll.Services.Request.Offers
 {
@@ -19,48 +21,64 @@ namespace Simplyfund.Bll.Services.Request.Offers
         IBaseDatas<OfferRequest> baseModel;
         IBaseDatas<OfferStatus> dataOfferStatus;
         IBaseDatas<OffersRequestsComment> dataOfferRequestComment;
+        IBaseDatas<Requestss> dataRequestss;
+        IBaseDatas<RequestStatus> dataRequestStatus;
         IMapper mapper;
-        public ServicesOffers(IBaseDatas<OfferRequest> baseModel, IMapper mapper, IBaseDatas<OfferStatus> dataOfferStatus, IBaseDatas<OffersRequestsComment> dataOfferRequestCommentDto) : base(baseModel)
+        public ServicesOffers(IBaseDatas<OfferRequest> baseModel, IMapper mapper, IBaseDatas<OfferStatus> dataOfferStatus, IBaseDatas<OffersRequestsComment> dataOfferRequestCommentDto, IBaseDatas<Requestss> dataRequestss, IBaseDatas<RequestStatus> dataRequestStatus) : base(baseModel)
         {
             this.baseModel = baseModel;
             this.mapper = mapper;
             this.dataOfferStatus = dataOfferStatus;
             this.dataOfferRequestComment = dataOfferRequestCommentDto;
+            this.dataRequestss = dataRequestss;
+            this.dataRequestStatus = dataRequestStatus;
         }
 
         public async Task<List<OfferRequestDto>> GetOffersByRequestId(int requestId)
         {
             try
             {
-                var offers = await baseModel.GetManyAsync(x => x.RequestId == requestId);
 
-                var map = mapper.Map<List<OfferRequestDto>>(offers);
-
-
-                var offersList = new List<OfferRequestDto>();
-
-                foreach (var item in map)
+                var offerstatusDelete = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Eliminada);
+                if (offerstatusDelete != null)
                 {
-                    if (item != null)
+
+
+                    var offers = await baseModel.GetManyAsync(x => x.RequestId == requestId && x.OffersStatusId != offerstatusDelete.Id);
+
+                    var map = mapper.Map<List<OfferRequestDto>>(offers);
+
+
+                    var offersList = new List<OfferRequestDto>();
+
+                    foreach (var item in map)
                     {
-                        var offerstatus = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Devuelta);
-                        if (offerstatus != null)
+                        if (item != null)
                         {
-                            if (item.OffersStatusId == offerstatus.Id)
+                            var offerstatus = await dataOfferStatus.GetAsync(x => x.Description == offersStatusEnum.Devuelta);
+                            if (offerstatus != null)
                             {
-                                var comment = await dataOfferRequestComment.GetManyAsync(x => x.OfferRequestId == item.Id);
-                                if (comment != null)
+                                if (item.OffersStatusId == offerstatus.Id)
                                 {
-                                    item.OfferComments = comment;
+                                    var comment = await dataOfferRequestComment.GetManyAsync(x => x.OfferRequestId == item.Id);
+                                    if (comment != null)
+                                    {
+                                        item.OfferComments = comment;
+                                    }
                                 }
                             }
+
+                            offersList.Add(item);
                         }
-
-                        offersList.Add(item);
                     }
-                }
 
-                return offersList;
+
+                    return offersList;
+                }
+                else
+                {
+                    throw new Exception("Estatus Eliminado no existe verificar.");
+                }
             }
             catch (Exception)
             {
@@ -298,7 +316,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
                                 {
                                     throw new Exception("Error validando el customer de esta offerta.");
                                 }
-                                
+
                             }
                             else
                             {
@@ -321,7 +339,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
                     throw new Exception("Oferta no existe, enviar una oferta que sea valida.");
                 }
 
-               
+
             }
             catch (Exception)
             {
@@ -353,12 +371,12 @@ namespace Simplyfund.Bll.Services.Request.Offers
                                     if (offer.Requests.CustomerId == validateOffer.UserId)
                                     {
                                         offer.LastUpdate = DateTime.UtcNow;
-                                   
+
                                         offer.OffersStatusId = statusAccept.Id;
                                         await baseModel.UpdateAsync(offer);
 
 
-                                        if(validateOffer.Comment != null)
+                                        if (validateOffer.Comment != null)
                                         {
                                             var offerComment = new OffersRequestsComment()
                                             {
@@ -368,7 +386,7 @@ namespace Simplyfund.Bll.Services.Request.Offers
 
                                             await dataOfferRequestComment.AddAsync(offerComment);
                                         }
-                                       
+
 
                                         return true;
                                     }
@@ -415,20 +433,95 @@ namespace Simplyfund.Bll.Services.Request.Offers
         }
 
 
-        //public async Task<object> GetCommonOffers(int RequestId,int userId)
+        public async Task<List<GroupOffersDto>> GetCommonOffers(int RequestId, int userId)
+        {
+            try
+            {
+                var request = await dataRequestss.GetAsync(x => x.Id == RequestId);
+                if (request != null)
+                {
+                    var requestStatus = await dataRequestStatus.GetAsync(x => x.Id == request.RequestStatusId);
+                    if (requestStatus != null)
+                    {
+                        if (requestStatus.Name != RequestEstatusEnum.marketplace)
+                        {
+
+                            var offerts = await baseModel.GetManyAsync(x => x.RequestId == RequestId && x.OffersStatusId == 2);
+                            if (offerts != null)
+                            {
+
+                                List<GroupOffersDto> groupOffers = new List<GroupOffersDto>();
+
+                                var groupedOffers = offerts.GroupBy(item => new { item.Quotas, item.AnnualInterest, item.OffersRequestsPeriodsId });
+
+                                foreach (var group in groupedOffers)
+                                {
+                                    if (group.Count() > 1)
+                                    {
+
+
+                                        GroupOffersDto groupOffersDto = new GroupOffersDto();
+
+                                        groupOffersDto.Quotas = group.Key.Quotas;
+                                        groupOffersDto.Interest = group.Key.AnnualInterest;
+                                        groupOffersDto.Period = group.Key.OffersRequestsPeriodsId;
+
+                                        List<OfferRequest>? Offers = new List<OfferRequest>();
+                                        foreach (var item in group)
+                                        {
+                                            OfferRequest offerDto = new OfferRequest
+                                            {
+
+                                                Amount = item.Amount,
+                                                Id = item.Id
+                                            };
+                                            Offers.Add(offerDto);
+
+                                        }
+                                        groupOffersDto.Offers = Offers;
+                                        groupOffers.Add(groupOffersDto);
+                                    }
+                                }
+
+
+                                return groupOffers;
+                            }
+                            else
+                            {
+                                throw new Exception("No se encontraron ofertas pendientes para esta solicitud.");
+                            }
+
+
+                        }
+                        else
+                        {
+                            throw new Exception("Solicitud no se encuentra en marketplace, no se puede completar accion.");
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception("El estatus de esta oferta no existe es invalido.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("No existe esta solicitud");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+
+        //public async Task<object> GroupOffersAccept(List<int> offers)
         //{
-        //    try
-        //    {
 
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
         //}
-
 
     }
 }

@@ -11,5 +11,7 @@ namespace SimplyFund.Domain.Dto.Common
         public static string Customer => "Customer";
         public static string RequestInvestor => "RequestInvestor";
         public static string RequestWarranty => "RequestWarranty";
+        public static string? Shareholder => "Shareholder";
+
     }
 }

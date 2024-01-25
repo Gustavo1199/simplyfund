@@ -94,6 +94,44 @@ namespace Simplyfund.Api.Controller.Requests
         }
 
 
+        [HttpPost("MyInvestment")]
+        public async Task<ActionResult<PaginatedList<RequestDto>>> MyInvestment(FilterAndPaginateRequestModel? filters)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //var userId = GetUserByToken();
+                    return Ok(await baseServices.GetMyInvestment(filters));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == null)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        errorResponses.Message = ex.InnerException.Message;
+                    }
+                }
+                else
+                {
+                    errorResponses.Message = ex.Message;
+                }
+                return StatusCode(500, errorResponses);
+            }
+        }
+    
+
+
+
+
         [Consumes("multipart/form-data")]
         [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
         [HttpPost("AddRequest")]

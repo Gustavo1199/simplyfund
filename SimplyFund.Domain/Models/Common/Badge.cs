@@ -15,7 +15,7 @@ namespace SimplyFund.Domain.Models.Common
 
         public double Rate { get; set; }
 
-        public virtual ICollection<Commission>? Commissions { get; set; }
+       // public virtual ICollection<Commission>? Commissions { get; set; }
 
     }
 }

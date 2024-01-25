@@ -11,6 +11,7 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = SimplyFund.Domain.Models.Common.File;
 
 namespace SimplyFund.Domain.Models.Client
 {
@@ -82,17 +83,22 @@ namespace SimplyFund.Domain.Models.Client
         //add for edit
         public virtual List<BankAccount>? BankAccounts { get; set; }
         public virtual List<Shareholder>? Shareholders { get; set; }
-        public virtual List<CustomerFile>? Files { get; set; }
+
+        [NotMapped]
+        public virtual List<File>? Files { get; set; }
         public virtual List<CustomerRequiredDocument>? RequiredDocuments { get; set; }
-        //public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
+        public virtual CustomerWorkingInfo? WorkingInfo { get; set; }
+
         //public virtual CompanyAdditionalInfo? CompanyAdditionalInfo { get; set; }
         public virtual List<SeniorityBalance>? SeniorityBalances { get; set; }
         public virtual List<Fund>? Funds { get; set; }
 
         [NotMapped]
         public string? Password { get; set; }
-        //public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
-        //public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
+        public virtual CustomerFinancialSummary? FinancialSummary { get; set; }
+
+        public virtual List<FinancialSummary>? LegalFinancialSumaries { get; set; }
+
         //public virtual LaborData? LaborData { get; set; }
 
         public bool? PasswordChange { get; set; }
